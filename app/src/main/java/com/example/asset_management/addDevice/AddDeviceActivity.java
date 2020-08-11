@@ -59,8 +59,8 @@ public class AddDeviceActivity extends AppCompatActivity {
             }
         });
     }
-
 }
+
 //    public void addDevice() throws IOException {
 //
 //        EditText editInventoryNumber = (EditText) findViewById(R.id.editInventoryNumber);

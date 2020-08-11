@@ -5,9 +5,16 @@ import android.content.Context;
 import com.example.asset_management.recycleView.Device;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 
 import static android.content.Context.MODE_PRIVATE;
@@ -54,45 +61,50 @@ public class JsonHandler {
         }
     }
 
+    public static String createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
+        String json = convertIntoString(list);
 
-//    public static ArrayList<Device> jsonParse(String url){
-//
-//      final ArrayList<Device> list = new ArrayList<>();
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("device");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//
-//                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
-//                                Device device = new Device();
-//
-//                                device.setInventoryNumber(jsonDevice.getString
-//                                        ("inventoryNumber"));
-//                                device.setManufacturer(jsonDevice.getString("manufacturer"));
-//                                device.setModel(jsonDevice.getString("model"));
-//                                device.setStatus(jsonDevice.getString("status"));
-//                                device.setDeviceCategorie(jsonDevice.getString
-//                                        ("deviceCategorie"));
-//                                list.add(device);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//
-////        mQueue = Volley.newRequestQueue(RecycleActivity.this);
-////        mQueue.add(request);
-//        return list;
-//    }
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
+    public static String getDeviceListString(Context context, String fileName)
+            throws IOException {
+
+        File file = new File(context.getFilesDir(),fileName);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String line = bufferedReader.readLine();
+        while (line != null){
+            stringBuilder.append(line).append("\n");
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+// This responce will have Json Format String
+        String response = stringBuilder.toString();
+
+        return response;
+    }
+
+    public static ArrayList<Device> getDeviceList(Context context, String fileName)
+            throws IOException {
+
+        String jsonString = getDeviceListString(context, fileName);
+
+        Gson gson = new Gson();
+        ArrayList<Device> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Device>>() {}.getType());
+
+        return list;
+    };
 
 }

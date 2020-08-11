@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".scanDevice.ScanDeviceActivity"></activity>
+        <activity
+            android:name="com.example.asset_management.deviceCard.DeviceCardActivity"
+            android:label="@string/title_activity_device_card"></activity>
+        <activity android:name=".scanDevice.ScanDeviceActivity" />
         <activity android:name=".addDevice.AddDeviceActivity" />
         <activity
             android:name=".recycleView.RecycleActivity"

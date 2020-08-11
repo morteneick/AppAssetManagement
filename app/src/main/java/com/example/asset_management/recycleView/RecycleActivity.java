@@ -1,6 +1,9 @@
 package com.example.asset_management.recycleView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -10,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
+import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +39,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
     private RecyclerView.Adapter adapter;
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
+    private String jsonName = "DeviceList.json";
     String url = "https://gist.githubusercontent.com/Dziersan/1766cd6c4ab4d61555e63cb34478d888/" +
             "raw/bddf90ce241a4632cd84d0046866f2cd91367c8b/0device.json";
 
@@ -51,7 +58,21 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
         this.deviceRecycleView = findViewById(R.id.devices);
 
-        jsonParse(url);
+        jsonParse(url, this);
+
+
+        TextView textViewInfo = findViewById(R.id.textViewInfo);
+
+        if (list.size() == 0){
+            try {
+                list = JsonHandler.getDeviceList(this,"DeviceList.json");
+
+                textViewInfo.setText("Keine Verbindung zum Server gefunden. " +
+                        "Sie Arbeiten mit alten Informationen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         this.deviceRecycleView.setLayoutManager(mLayoutManager);
@@ -63,7 +84,8 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
     /**
      * initialize RecyclerView with DeviceAdapter
      */
-    private void setupRecyclerView(){
+    private void setupRecyclerView() {
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         this.deviceRecycleView.setLayoutManager(mLayoutManager);
@@ -71,14 +93,20 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
 
+        JsonHandler.createJsonFromDeviceList(list, jsonName, this);
+
         String show = list.size() + " Geräte wurden gefunden";
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
+
+        TextView textViewInfo = findViewById(R.id.textViewInfo);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        textViewInfo.setText("Letzte Aktualisierung: " + timestamp);
 }
 
     /**
      * Opens JSON-formatted URL, creates Device objectives and saves them into a list.
      */
-    public void jsonParse(String url) {
+    public void jsonParse(String url, final Context context) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -110,12 +138,13 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),"Keine Verbindung gefunden",
                         Toast.LENGTH_SHORT).show();
+
                 error.printStackTrace();
             }
         });
         mQueue = Volley.newRequestQueue(RecycleActivity.this);
         mQueue.add(request);
-    }
+    };
 
     /**
      * Starts Activity if Item is clicked
