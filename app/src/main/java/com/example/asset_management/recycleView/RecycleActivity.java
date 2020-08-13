@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
-import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,13 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 /**
  * RecycleActivity
@@ -142,7 +135,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
                                 device.setManufacturer(jsonDevice.getString("manufacturer"));
                                 device.setModel(jsonDevice.getString("model"));
                                 device.setStatus(jsonDevice.getString("status"));
-                                device.setDeviceCategorie(jsonDevice.getString
+                                device.setCategory(jsonDevice.getString
                                         ("deviceCategorie"));
                                 list.add(device);
                             }

@@ -1,12 +1,8 @@
 package com.example.asset_management.jsonhandler;
 
-import android.content.Context;
-
-import com.example.asset_management.addDevice.AddDeviceActivity;
 import com.example.asset_management.recycleView.Device;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
@@ -34,7 +30,7 @@ public class JsonHandlerTest {
     @Test
     public void testIfFileCreated() {
 
-        JsonHandler.createJsonFromDevice(device, jsonName, getApplicationContext());
+        JsonHandler.createJsonFromObject(device, jsonName, getApplicationContext());
 
     File file = new File(String.valueOf(getApplicationContext().getFilesDir())
             +"/DeviceTest.json");
@@ -56,7 +52,7 @@ public class JsonHandlerTest {
     @Test
     public void testIfFileDataEqualsInsertedData() {
 
-        JsonHandler.createJsonFromDevice(device, jsonName, getApplicationContext());
+        JsonHandler.createJsonFromObject(device, jsonName, getApplicationContext());
 
         String jsonActual = "{\"deviceCategorie\":\"5\",\"inventoryNumber\":\"1\"," +
                 "\"manufacturer\":\"3\",\"model\":\"4\",\"serialnumber\":\"2\",\"status\":\"6\"}\n";

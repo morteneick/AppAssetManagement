@@ -47,7 +47,7 @@ public class JsonHandler {
      * @param context
      * @return
      */
-    public static String createJsonFromDevice(Object object, String path, Context context){
+    public static String createJsonFromObject(Object object, String path, Context context){
         String json = convertIntoString(object);
 
         try {
@@ -61,6 +61,7 @@ public class JsonHandler {
             return "Failed";
         }
     }
+
 
     /**
      *

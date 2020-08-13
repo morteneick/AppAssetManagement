@@ -2,21 +2,16 @@ package com.example.asset_management.addDevice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 
 import com.example.asset_management.R;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
-
-import java.io.IOException;
-
 
 
 /**
@@ -50,7 +45,7 @@ public class AddDeviceActivity extends AppCompatActivity {
                 String test = device.toString();
 //                Device device = Device.addDevice(editInventoryNumber, editSerialNumber, editModel, editManufacturer, editCategorie, editStatus);
 
-                    String createDeviceMessage = JsonHandler.createJsonFromDevice(device,
+                    String createDeviceMessage = JsonHandler.createJsonFromObject(device,
                             jsonName, getApplicationContext());
 
                     Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)

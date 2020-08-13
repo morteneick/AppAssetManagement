@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +17,8 @@ import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.recycleView.Device;
 
+import java.io.IOException;
+
 public class CardFragment extends Fragment {
 
     private CardViewModel cardViewModel;
@@ -25,23 +27,59 @@ public class CardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         cardViewModel =
                 ViewModelProviders.of(this).get(CardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_device_card, container, false);
+        final View root = inflater.inflate(R.layout.fragment_device_card, container, false);
+
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
+        final EditText editStatus = root.findViewById(R.id.editStatus);
+        final EditText editLocation = root.findViewById(R.id.editLocation);
+        final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
+        final EditText editModel = root.findViewById(R.id.editModel);
+        final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
+        final EditText editCategory = root.findViewById(R.id.editCategory);
+
         cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
-                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-                Device device = activity.getDevice();
-                editInventoryNumber.setText(device.getInventoryNumber());
+            DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+            Device device = activity.getDevice();
 
-                blockInput(editInventoryNumber);
+            editInventoryNumber.setText(device.getInventoryNumber());
+            editStatus.setText(device.getStatus());
+            editLocation.setText(device.getLocation());
+            editManufacturer.setText(device.getManufacturer());
+            editModel.setText(device.getModel());
+            editSerialnumber.setText(device.getSerialnumber());
+            editCategory.setText(device.getCategory());
 
+
+                if (!activity.isClicked()){
+                    blockInput(editInventoryNumber);
+                    blockInput(editStatus);
+                    blockInput(editLocation);
+                    blockInput(editManufacturer);
+                    blockInput(editModel);
+                    blockInput(editSerialnumber);
+                    blockInput(editCategory);
+
+                } else {
+                    unblockInput(editInventoryNumber);
+                    unblockInput(editStatus);
+                    unblockInput(editLocation);
+                    unblockInput(editManufacturer);
+                    unblockInput(editModel);
+                    unblockInput(editSerialnumber);
+                    unblockInput(editCategory);
+                }
             }
         });
         return root;
     }
 
+    /**
+     *
+     * @param editText
+     */
     private void blockInput(EditText editText){
         editText.setFocusable(false);
         editText.setEnabled(false);
@@ -49,11 +87,14 @@ public class CardFragment extends Fragment {
 //        editText.setKeyListener(null);
     }
 
+    /**
+     *
+     * @param editText
+     */
     private void unblockInput(EditText editText){
         editText.setFocusableInTouchMode(true);
         editText.setEnabled(true);
         editText.setCursorVisible(true);
 //        editText.setKeyListener();
     }
-
 }

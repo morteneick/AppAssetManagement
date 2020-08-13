@@ -3,8 +3,6 @@ package com.example.asset_management.recycleView;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.asset_management.R;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,7 +20,7 @@ public class Device implements Serializable {
     private String manufacturer;
     private String model;
     private String status;
-    private String deviceCategorie;
+    private String category;
     private String guarantee;
     private String location;
     private Date lastRepair;
@@ -31,12 +29,12 @@ public class Device implements Serializable {
     public Device(){
     }
 
-    public Device(String inventoryNumber,String serialNumber, String manufacturer, String model, String deviceCategorie,  String status) {
+    public Device(String inventoryNumber, String serialNumber, String manufacturer, String model, String category, String status) {
         this.inventoryNumber = inventoryNumber;
         this.serialnumber = serialNumber;
         this.manufacturer = manufacturer;
         this.model = model;
-        this.deviceCategorie = deviceCategorie;
+        this.category = category;
         this.status = status;
     }
 
@@ -57,7 +55,7 @@ public class Device implements Serializable {
         this.serialnumber = editSerialNumber.getText().toString();
         this.model = editModel.getText().toString();
         this.manufacturer = editManufacturer.getText().toString();
-        this.deviceCategorie = editCategorie.getText().toString();
+        this.category = editCategorie.getText().toString();
         this.status = editStatus.getText().toString();
 //
 //        Device device = new Device(stringInventoryNumber,stringSerialNumber, stringEditModel, stringManufacturer,
@@ -114,12 +112,12 @@ public class Device implements Serializable {
     }
 
 
-    public String getDeviceCategorie() {
-        return deviceCategorie;
+    public String getCategory() {
+        return category;
     }
 
-    public void setDeviceCategorie(String deviceCategorie) {
-        this.deviceCategorie = deviceCategorie;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getSerialnumber() {
@@ -130,6 +128,30 @@ public class Device implements Serializable {
         this.serialnumber = serialnumber;
     }
 
+    public String getGuarantee() {
+        return guarantee;
+    }
+
+    public void setGuarantee(String guarantee) {
+        this.guarantee = guarantee;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Date getLastRepair() {
+        return lastRepair;
+    }
+
+    public void setLastRepair(Date lastRepair) {
+        this.lastRepair = lastRepair;
+    }
+
     @Override
     public String toString() {
         return "Device{" +
@@ -137,7 +159,7 @@ public class Device implements Serializable {
                 ", serialNumber='" + serialnumber + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +
-                ", deviceCategorie='" + deviceCategorie + '\'' +
+                ", deviceCategorie='" + category + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

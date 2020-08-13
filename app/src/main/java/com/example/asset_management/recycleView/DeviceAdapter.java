@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.asset_management.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 /**
  * DeviceAdapter
@@ -47,7 +46,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.inventoryNumber.setText(device.getInventoryNumber());
         holder.manufacturer.setText(device.getManufacturer());
         holder.model.setText(device.getModel());
-        holder.deviceCategorie.setText(device.getDeviceCategorie());
+        holder.category.setText(device.getCategory());
         holder.status.setText(device.getStatus());
 
     }
@@ -75,7 +74,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         public final TextView manufacturer;
         public final TextView model;
         public final TextView status;
-        public final TextView deviceCategorie;
+        public final TextView category;
         public final ImageView image;
         OnNoteListener onNoteListener;
 
@@ -86,7 +85,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             manufacturer = view.findViewById(R.id.manufacturer);
             model = view.findViewById(R.id.model);
             status = view.findViewById(R.id.status);
-            deviceCategorie = view.findViewById(R.id.deviceCategorie);
+            category = view.findViewById(R.id.deviceCategorie);
             image = view.findViewById(R.id.image);
             itemView.setOnClickListener(this);
             this.onNoteListener = onNoteListener;
