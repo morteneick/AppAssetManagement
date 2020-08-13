@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
@@ -50,7 +51,7 @@ public class JsonHandler {
         String json = convertIntoString(object);
 
         try {
-            FileOutputStream fOut = context.openFileOutput(path, MODE_PRIVATE);
+            FileOutputStream fOut = context.openFileOutput(path, 0);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.append(json);
             osw.flush();
@@ -61,11 +62,18 @@ public class JsonHandler {
         }
     }
 
+    /**
+     *
+     * @param list
+     * @param path
+     * @param context
+     * @return
+     */
     public static String createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
-            FileOutputStream fOut = context.openFileOutput(path, MODE_PRIVATE);
+            FileOutputStream fOut = context.openFileOutput(path, 0);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.append(json);
             osw.flush();
@@ -93,7 +101,7 @@ public class JsonHandler {
         String response = stringBuilder.toString();
 
         return response;
-    }
+    };
 
     public static ArrayList<Device> getDeviceList(Context context, String fileName)
             throws IOException {
@@ -105,6 +113,11 @@ public class JsonHandler {
                 new TypeToken<ArrayList<Device>>() {}.getType());
 
         return list;
+    };
+
+    public static void clearJson(String path) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(path);
+        pw.close();
     };
 
 }

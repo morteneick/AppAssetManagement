@@ -6,6 +6,8 @@ import android.widget.EditText;
 import com.example.asset_management.R;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Device
@@ -14,13 +16,17 @@ import java.io.IOException;
  * </p>
  * 11.05.2020
  */
-public class Device {
+public class Device implements Serializable {
     private String inventoryNumber;
     private String serialnumber;
     private String manufacturer;
     private String model;
     private String status;
     private String deviceCategorie;
+    private String guarantee;
+    private String location;
+    private Date lastRepair;
+
 
     public Device(){
     }

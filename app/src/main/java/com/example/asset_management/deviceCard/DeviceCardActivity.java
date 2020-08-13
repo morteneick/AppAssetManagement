@@ -1,7 +1,11 @@
 package com.example.asset_management.deviceCard;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.EditText;
 
+import com.example.asset_management.recycleView.Device;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +31,25 @@ public class DeviceCardActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        Intent intent = getIntent();
+        Device device = (Device)intent.getSerializableExtra("Device");
+
+        EditText editInventoryNumber = findViewById(R.id.editInventoryNumber);
+//        editInventoryNumber.setFocusable(false);
+//        editInventoryNumber.setEnabled(false);
+//        editInventoryNumber.setCursorVisible(false);
+//        editInventoryNumber.setKeyListener(null);
+
+
+//        editInventoryNumber.setText("device.getInventoryNumber()");
+
+
+    }
+
+    public Device getDevice(){
+        Intent intent = getIntent();
+        return (Device)intent.getSerializableExtra("Device");
     }
 
 }
