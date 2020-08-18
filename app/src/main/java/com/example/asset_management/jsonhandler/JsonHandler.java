@@ -63,13 +63,6 @@ public class JsonHandler {
     }
 
 
-    /**
-     *
-     * @param list
-     * @param path
-     * @param context
-     * @return
-     */
     public static String createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
         String json = convertIntoString(list);
 
@@ -104,10 +97,10 @@ public class JsonHandler {
         return response;
     };
 
-    public static ArrayList<Device> getDeviceList(Context context, String fileName)
+    public static ArrayList<Device> getDeviceList(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, fileName);
+        String jsonString = getDeviceListString(context, filename);
 
         Gson gson = new Gson();
         ArrayList<Device> list = gson.fromJson(jsonString,

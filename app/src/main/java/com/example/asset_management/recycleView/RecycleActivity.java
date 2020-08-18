@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -75,24 +77,19 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 //            }
 //        }
 
-
-            Boolean test1 = checkConnection();
             Boolean test = Connection.isConnectedToServer("https://www.google.com/",5000);
-            jsonParse(url, this);
+
+            Connection.jsonParse(url, this);
+        try {
+            list = JsonHandler.getDeviceList(jsonName, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setupRecyclerView();
+//            jsonParse(url, this);
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    }
-
-    public boolean checkConnection(){
-
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -155,7 +152,6 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         });
         mQueue = Volley.newRequestQueue(RecycleActivity.this);
         mQueue.add(request);
-
     };
 
     /**

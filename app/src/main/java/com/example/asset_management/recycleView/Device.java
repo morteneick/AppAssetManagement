@@ -29,7 +29,8 @@ public class Device implements Serializable {
     public Device(){
     }
 
-    public Device(String inventoryNumber, String serialNumber, String manufacturer, String model, String category, String status) {
+    public Device(String inventoryNumber, String serialNumber, String manufacturer, String model,
+                  String category, String status) {
         this.inventoryNumber = inventoryNumber;
         this.serialnumber = serialNumber;
         this.manufacturer = manufacturer;
@@ -61,23 +62,6 @@ public class Device implements Serializable {
 //        Device device = new Device(stringInventoryNumber,stringSerialNumber, stringEditModel, stringManufacturer,
 //                stringCategorie, stringStatus);
     }
-//
-//    public static Device addDevice(EditText editInventoryNumber, EditText editSerialNumber, EditText editManufacturer, EditText editModel
-//            , EditText editCategorie, EditText editStatus) {
-//
-//        String stringInventoryNumber = editInventoryNumber.getText().toString();
-//        String stringSerialNumber = editSerialNumber.getText().toString();
-//        String stringEditModel = editModel.getText().toString();
-//        String stringManufacturer = editManufacturer.getText().toString();
-//        String stringCategorie = editCategorie.getText().toString();
-//        String stringStatus = editStatus.getText().toString();
-//
-//        Device device = new Device(stringInventoryNumber,stringSerialNumber, stringEditModel, stringManufacturer,
-//                stringCategorie, stringStatus);
-//
-//        return device;
-//    }
-
 
     public String getInventoryNumber() {
         return inventoryNumber;

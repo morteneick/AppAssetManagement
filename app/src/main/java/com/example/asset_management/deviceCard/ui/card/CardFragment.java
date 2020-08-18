@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,12 +17,22 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+/**
+ * CardFragment
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 17.08.2020
+ */
 public class CardFragment extends Fragment {
 
+    String saveMessage = "Informationen wurden geändert.";
     private CardViewModel cardViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -36,6 +48,8 @@ public class CardFragment extends Fragment {
         final EditText editModel = root.findViewById(R.id.editModel);
         final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
         final EditText editCategory = root.findViewById(R.id.editCategory);
+        final View viewSave = root.findViewById(R.id.btnSave);
+        final Button btnSave = root.findViewById(R.id.btnSave);
 
         cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -54,6 +68,7 @@ public class CardFragment extends Fragment {
 
 
                 if (!activity.isClicked()){
+                    viewSave.setVisibility(View.GONE);
                     blockInput(editInventoryNumber);
                     blockInput(editStatus);
                     blockInput(editLocation);
@@ -63,6 +78,7 @@ public class CardFragment extends Fragment {
                     blockInput(editCategory);
 
                 } else {
+                    viewSave.setVisibility(View.VISIBLE);
                     unblockInput(editInventoryNumber);
                     unblockInput(editStatus);
                     unblockInput(editLocation);
@@ -73,6 +89,50 @@ public class CardFragment extends Fragment {
                 }
             }
         });
+
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String jsonName = "DeviceList.json";
+
+                String inventoryNumber = editInventoryNumber.getText().toString();
+                String serialnumber = editSerialnumber.getText().toString();
+                String manufacturer = editManufacturer.getText().toString();
+                String model = editModel.getText().toString();
+                String status = editStatus.getText().toString();
+                String category = editCategory.getText().toString();
+
+                Device device = new Device(inventoryNumber, serialnumber, manufacturer, model,
+                        category, status);
+
+                JsonHandler.createJsonFromObject(device,"ChangedDevice.json", getActivity());
+
+                ArrayList<Device> deviceList = new ArrayList<>();
+
+                try {
+                    deviceList = JsonHandler.getDeviceList(jsonName,
+                            getContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                for(Device i : deviceList){
+                    if(i.getInventoryNumber().equals(device.getInventoryNumber())){
+                        i.setCategory(device.getCategory());
+                        i.setManufacturer(device.getManufacturer());
+                        i.setStatus(device.getStatus());
+                        i.setModel(device.getModel());
+                        i.setSerialnumber(device.getSerialnumber());
+                    }
+                }
+                JsonHandler.createJsonFromDeviceList(deviceList,jsonName,getActivity());
+                Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
+                
+            }
+        });
+
+
         return root;
     }
 

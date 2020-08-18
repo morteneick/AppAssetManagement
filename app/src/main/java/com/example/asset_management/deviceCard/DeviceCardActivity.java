@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import com.example.asset_management.jsonhandler.JsonHandler;
@@ -38,10 +44,7 @@ public class DeviceCardActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        Intent intent = new Intent(DeviceCardActivity.this, DeviceCardActivity.class);
-
         Switch onOffEditSwitch = (Switch) findViewById(R.id.onOffEditSwitch);
-//        final SwitchEditable switchEditable = new SwitchEditable(false);
 
         String test = "";
         try {
@@ -49,7 +52,6 @@ public class DeviceCardActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         Gson gson = new Gson();
         final SwitchEditable switchEditable = gson.fromJson(test, SwitchEditable.class);
@@ -77,7 +79,6 @@ public class DeviceCardActivity extends AppCompatActivity {
             }
         }
     });
-
     }
 
     public Device getDevice(){

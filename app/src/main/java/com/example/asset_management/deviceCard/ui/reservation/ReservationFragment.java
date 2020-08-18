@@ -1,10 +1,9 @@
-package com.example.asset_management.deviceCard.ui.history;
+package com.example.asset_management.deviceCard.ui.reservation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,20 +13,20 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
 
-public class HistoryFragment extends Fragment {
+public class ReservationFragment extends Fragment {
 
-    private HistoryViewModel historyViewModel;
+    private ReservationViewModel reservationViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        historyViewModel =
-                ViewModelProviders.of(this).get(HistoryViewModel.class);
+        reservationViewModel =
+                ViewModelProviders.of(this).get(ReservationViewModel.class);
         View root = inflater.inflate(R.layout.fragment_device_card_map, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        historyViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//        final TextView textView = root.findViewById(R.id.text_notifications);
+        reservationViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+//                textView.setText(s);
             }
         });
         return root;

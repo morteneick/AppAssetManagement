@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.asset_management.deviceCard.ui.card.CardFragment"
-        android:label="@string/title_home"
+        android:label="Gerät"
         tools:layout="@layout/fragment_device_card" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.asset_management.deviceCard.ui.map.MapFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_device_card_history" />
+        android:label="Map"
+        tools:layout="@layout/fragment_device_card_reservation" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.asset_management.deviceCard.ui.history.HistoryFragment"
-        android:label="@string/title_notifications"
+        android:name="com.example.asset_management.deviceCard.ui.reservation.ReservationFragment"
+        android:label="Reservieren"
         tools:layout="@layout/fragment_device_card_map" />
 </navigation>
