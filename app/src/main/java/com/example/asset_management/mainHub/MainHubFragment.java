@@ -61,13 +61,6 @@ public class MainHubFragment extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_DeviceHistoryActivity);
             }
         });
-        view.findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(MainHubFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_login);
-            }
-        });
 
     }
 }
