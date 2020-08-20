@@ -58,9 +58,8 @@ public class MainHubFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(MainHubFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_DeviceHistoryActivity);
+                        .navigate(R.id.action_FirstFragment_to_deviceHistoryActivity);
             }
         });
-
     }
 }

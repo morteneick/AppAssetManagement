@@ -57,7 +57,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_device_history);
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
 
@@ -127,8 +127,6 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         String show = list.size() + " Geräte wurden gefunden";
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
 
-//        JsonHandler.createJsonFromDeviceList(list, jsonName, this);
-//        TextView textViewInfo = findViewById(R.id.textViewInfo);
     }
 
 

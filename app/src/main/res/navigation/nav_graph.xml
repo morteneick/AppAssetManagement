@@ -24,11 +24,11 @@
             android:id="@+id/action_FirstFragment_to_placeholder2"
             app:destination="@id/Settings" />
         <action
-            android:id="@+id/action_FirstFragment_to_DeviceHistoryActivity"
-            app:destination="@id/deviceHistoryActivity" />
-        <action
             android:id="@+id/action_FirstFragment_to_Search"
             app:destination="@id/Search" />
+        <action
+            android:id="@+id/action_FirstFragment_to_deviceHistoryActivity"
+            app:destination="@id/deviceHistoryActivity2" />
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
@@ -56,9 +56,9 @@
             android:id="@+id/action_Search_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
-    <fragment android:id="@+id/deviceHistoryActivity" >
-        <action
-            android:id="@+id/action_placeholder4_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <activity
+        android:id="@+id/deviceHistoryActivity2"
+        android:name="com.example.asset_management.recycleView.DeviceHistoryActivity"
+        android:label="activity_device_history"
+        tools:layout="@layout/activity_device_history" />
 </navigation>

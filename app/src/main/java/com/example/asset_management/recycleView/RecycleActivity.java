@@ -156,7 +156,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
             JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
         } else {
             historyDeviceList = JsonHandler.getDeviceList(fileName, this);
-            if(historyDeviceList.contains(list.get(position))){
+            if(!historyDeviceList.contains(list.get(position))){
                 historyDeviceList.add(list.get(position));
                 JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
             } else {
