@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.asset_management.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 /**
  * DeviceAdapter
@@ -23,6 +24,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     private OnNoteListener mOnNoteListener;
     private ArrayList<Device> devices;
 
+    public void filterList(ArrayList<Device> filteredList){
+        devices = filteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -30,10 +36,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
                 parent,false);
         return new ViewHolder(v, mOnNoteListener);
     }
+
     public DeviceAdapter(ArrayList<Device>devices, OnNoteListener onNoteListener){
         this.devices = devices;
         this.mOnNoteListener = onNoteListener;
-}
+    }
+
+
 
     /**
      * Which informations should be displayed on the view
@@ -93,10 +102,14 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
         @Override
         public void onClick(View v) {
-        onNoteListener.onNoteClick(getAdapterPosition());
+            try {
+                onNoteListener.onNoteClick(getAdapterPosition());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     public interface OnNoteListener{
-        void onNoteClick(int position);
+        void onNoteClick(int position) throws IOException;
     }
 }

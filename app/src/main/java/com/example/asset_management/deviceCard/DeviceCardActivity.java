@@ -73,9 +73,10 @@ public class DeviceCardActivity extends AppCompatActivity {
                 switchEditable.setEnabled(false);
                 createSwitch(switchEditable);
                 finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
+                finish();
+//                overridePendingTransition(0, 0);
+//                startActivity(getIntent());
+//                overridePendingTransition(0, 0);
             }
         }
     });
@@ -98,4 +99,6 @@ public class DeviceCardActivity extends AppCompatActivity {
     public boolean isClicked(){
         return onOffSwitch;
     }
+
+
 }

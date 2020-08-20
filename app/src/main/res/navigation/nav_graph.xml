@@ -24,8 +24,8 @@
             android:id="@+id/action_FirstFragment_to_placeholder2"
             app:destination="@id/Settings" />
         <action
-            android:id="@+id/action_FirstFragment_to_placeholder4"
-            app:destination="@id/History" />
+            android:id="@+id/action_FirstFragment_to_DeviceHistoryActivity"
+            app:destination="@id/deviceHistoryActivity" />
         <action
             android:id="@+id/action_FirstFragment_to_Search"
             app:destination="@id/Search" />
@@ -56,7 +56,7 @@
             android:id="@+id/action_Search_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
-    <fragment android:id="@+id/History" >
+    <fragment android:id="@+id/deviceHistoryActivity" >
         <action
             android:id="@+id/action_placeholder4_to_FirstFragment"
             app:destination="@id/FirstFragment" />

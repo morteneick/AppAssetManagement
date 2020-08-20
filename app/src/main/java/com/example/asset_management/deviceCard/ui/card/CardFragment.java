@@ -127,6 +127,7 @@ public class CardFragment extends Fragment {
                     }
                 }
                 JsonHandler.createJsonFromDeviceList(deviceList,jsonName,getActivity());
+
                 Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
                 
             }

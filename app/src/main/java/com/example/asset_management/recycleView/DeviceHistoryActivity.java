@@ -42,16 +42,13 @@ import java.util.ArrayList;
  * </p>
  * 11.05.2020
  */
-public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
+public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
 
-    private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
 
-    private String jsonName = "DeviceList.json";
-    String url = "https://gist.githubusercontent.com/Dziersan/1766cd6c4ab4d61555e63cb34478d888/" +
-            "raw/bddf90ce241a4632cd84d0046866f2cd91367c8b/0device.json";
+    private String jsonName = "HistoryDeviceList.json";
 
     /**
      *  Executes code after open Activity.
@@ -63,10 +60,6 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         setContentView(R.layout.activity_main2);
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
-        mQueue = Volley.newRequestQueue(this);
-
-
-        Connection.jsonParse(url, this);
 
         try {
             list = JsonHandler.getDeviceList(jsonName, this);
@@ -94,7 +87,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         });
     }
 
-//TODO Add improtant filters
+    //TODO Add improtant filters
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
         for (Device item : list) {
@@ -145,25 +138,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
      */
     @Override
     public void onNoteClick(int position) throws IOException {
-        String fileName = "HistoryDeviceList.json";
-        ArrayList<Device> historyDeviceList = new ArrayList<>();
-
-        File file = this.getFileStreamPath(fileName);
-
-        if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(),fileName);
-            historyDeviceList.add(list.get(position));
-            JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
-        } else {
-            historyDeviceList = JsonHandler.getDeviceList(fileName, this);
-            if(historyDeviceList.contains(list.get(position))){
-                historyDeviceList.add(list.get(position));
-                JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
-            } else {
-                //todo delete device and add again for better sorting in deviceHistory
-            }
-        }
-        Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
+        Intent intent = new Intent(DeviceHistoryActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
 
         startActivity(intent);
@@ -177,48 +152,4 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         overridePendingTransition(0, 0);
         super.onRestart();
     }
-
-
-//    /**
-//     * Opens JSON-formatted URL, creates Device objectives and saves them into a list.
-//     */
-//    public void jsonParse(String url, final Context context) {
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("device");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//
-//                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
-//                                Device device = new Device();
-//
-//                                device.setInventoryNumber(jsonDevice.getString
-//                                        ("inventoryNumber"));
-//                                device.setManufacturer(jsonDevice.getString("manufacturer"));
-//                                device.setModel(jsonDevice.getString("model"));
-//                                device.setStatus(jsonDevice.getString("status"));
-//                                device.setCategory(jsonDevice.getString
-//                                        ("deviceCategorie"));
-//                                list.add(device);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        setupRecyclerView();
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getApplicationContext(),"Keine Verbindung gefunden",
-//                        Toast.LENGTH_SHORT).show();
-//
-//                error.printStackTrace();
-//            }
-//        });
-//        mQueue = Volley.newRequestQueue(RecycleActivity.this);
-//        mQueue.add(request);
-//    };
 }
