@@ -29,6 +29,10 @@
         <action
             android:id="@+id/action_FirstFragment_to_Search"
             app:destination="@id/Search" />
+        <action
+            android:id="@+id/action_FirstFragment_to_login"
+            app:destination="@id/loginActivity" />
+
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
@@ -45,20 +49,32 @@
         android:name="com.example.asset_management.scanDevice.ScanDeviceActivity"
         android:label="activity_scan_device"
         tools:layout="@layout/activity_scan_device" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.asset_management.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login"
+        />
+
 
     <fragment android:id="@+id/Settings" >
         <action
             android:id="@+id/action_placeholder2_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            app:destination="@id/FirstFragment" /></fragment>
+
     <fragment android:id="@+id/Search" >
         <action
             android:id="@+id/action_Search_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+            app:destination="@id/FirstFragment" /></fragment>
+
     <fragment android:id="@+id/deviceHistoryActivity" >
-        <action
-            android:id="@+id/action_placeholder4_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
+    <action
+        android:id="@+id/action_placeholder4_to_FirstFragment"
+        app:destination="@id/FirstFragment" /></fragment>
+
+
+
+
+
+
 </navigation>
