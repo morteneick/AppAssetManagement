@@ -1,7 +1,5 @@
 package com.example.asset_management.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.asset_management.R;
 import com.example.asset_management.mainHub.MainHubActivity;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import static com.example.asset_management.R.id.login;
 
@@ -49,9 +51,12 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void validate(String userName, String userPassword){
         String ucorrect = "Admin";
-        String pcorrect = "1234";
+        String hashPassword = "1234";
+        String bcyrptHashString = BCrypt.withDefaults().hashToString(12,hashPassword.toCharArray());
 
-        if (userName.equals(ucorrect) && userPassword.equals(pcorrect)){
+        BCrypt.Result result = BCrypt.verifyer().verify(bcyrptHashString.toCharArray(),bcyrptHashString);
+
+        if (userName.equals(ucorrect) && result.verified){
 
             Intent intent = new Intent(LoginActivity.this, MainHubActivity.class);
             startActivity(intent);
