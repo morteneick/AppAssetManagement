@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * RecycleActivity
@@ -63,6 +64,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
 
         try {
             list = JsonHandler.getDeviceList(jsonName, this);
+            Collections.reverse(list);
         } catch (IOException e) {
             e.printStackTrace();
         }
