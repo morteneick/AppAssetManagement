@@ -45,6 +45,11 @@
         android:name="com.example.asset_management.scanDevice.ScanDeviceActivity"
         android:label="activity_scan_device"
         tools:layout="@layout/activity_scan_device" />
+    <activity
+        android:id="@+id/login"
+        android:name="com.example.asset_management.login.LoginActivity"
+        android:label="activity_Login"
+        tools:layout="@layout/activity_login" />
 
     <fragment android:id="@+id/Settings" >
         <action
