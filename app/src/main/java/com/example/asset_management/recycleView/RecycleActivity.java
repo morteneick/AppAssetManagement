@@ -148,6 +148,10 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         String fileName = "HistoryDeviceList.json";
         ArrayList<Device> historyDeviceList = new ArrayList<>();
 
+        Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
+        intent.putExtra("Device", list.get(position));
+        startActivity(intent);
+
         File file = this.getFileStreamPath(fileName);
 
         if(file == null || !file.exists()){
@@ -155,18 +159,12 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
             historyDeviceList.add(list.get(position));
             JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
         } else {
+            int counter = 0;
             historyDeviceList = JsonHandler.getDeviceList(fileName, this);
-            if(!historyDeviceList.contains(list.get(position))){
-                historyDeviceList.add(list.get(position));
-                JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
-            } else {
-                //todo delete device and add again for better sorting in deviceHistory
-            }
+            historyDeviceList.add(list.get(position));
+            JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
         }
-        Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
-        intent.putExtra("Device", list.get(position));
 
-        startActivity(intent);
     }
 
     @Override
@@ -177,48 +175,4 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         overridePendingTransition(0, 0);
         super.onRestart();
     }
-
-
-//    /**
-//     * Opens JSON-formatted URL, creates Device objectives and saves them into a list.
-//     */
-//    public void jsonParse(String url, final Context context) {
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("device");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//
-//                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
-//                                Device device = new Device();
-//
-//                                device.setInventoryNumber(jsonDevice.getString
-//                                        ("inventoryNumber"));
-//                                device.setManufacturer(jsonDevice.getString("manufacturer"));
-//                                device.setModel(jsonDevice.getString("model"));
-//                                device.setStatus(jsonDevice.getString("status"));
-//                                device.setCategory(jsonDevice.getString
-//                                        ("deviceCategorie"));
-//                                list.add(device);
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                        setupRecyclerView();
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getApplicationContext(),"Keine Verbindung gefunden",
-//                        Toast.LENGTH_SHORT).show();
-//
-//                error.printStackTrace();
-//            }
-//        });
-//        mQueue = Volley.newRequestQueue(RecycleActivity.this);
-//        mQueue.add(request);
-//    };
 }

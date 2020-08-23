@@ -7,9 +7,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +24,7 @@ import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,9 +49,7 @@ import java.util.Collections;
 public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
-
     private ArrayList<Device> list = new ArrayList<>();
-
     private String jsonName = "HistoryDeviceList.json";
 
     /**
@@ -61,6 +62,8 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         setContentView(R.layout.activity_device_history);
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         try {
             list = JsonHandler.getDeviceList(jsonName, this);

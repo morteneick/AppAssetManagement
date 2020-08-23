@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_device">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_device"
         android:name="com.example.asset_management.deviceCard.ui.card.CardFragment"
         android:label="Gerät"
         tools:layout="@layout/fragment_device_card" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_map"
         android:name="com.example.asset_management.deviceCard.ui.map.MapFragment"
         android:label="Map"
-        tools:layout="@layout/fragment_device_card_reservation" />
+        tools:layout="@layout/fragment_device_card_map" />
+
+    <activity
+        android:id="@+id/navigation_reservation1"
+        android:name="com.example.asset_management.deviceCard.ui.reservation.ReservationTest"
+        android:label="Reservieren"
+        tools:layout="@layout/activity_reservation_test" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_reservation"
         android:name="com.example.asset_management.deviceCard.ui.reservation.ReservationFragment"
-        android:label="Reservieren"
-        tools:layout="@layout/fragment_device_card_map" />
+        android:label="fragment_device_card_reservation"
+        tools:layout="@layout/fragment_device_card_reservation" />
 </navigation>

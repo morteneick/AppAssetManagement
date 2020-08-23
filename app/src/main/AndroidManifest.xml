@@ -19,12 +19,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDTdSr1rEJABsXB-Q__NtFPhx7eqYiNfaA"/>
 
         <activity
-            android:name="com.example.asset_management.deviceCard.DeviceCardActivity"
+            android:name=".deviceCard.ui.reservation.ReservationTest"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDTdSr1rEJABsXB-Q__NtFPhx7eqYiNfaA" />
+
+        <activity
+            android:name=".deviceCard.DeviceCardActivity"
             android:label="@string/title_activity_device_card" />
         <activity android:name=".scanDevice.ScanDeviceActivity" />
         <activity android:name=".addDevice.AddDeviceActivity" />

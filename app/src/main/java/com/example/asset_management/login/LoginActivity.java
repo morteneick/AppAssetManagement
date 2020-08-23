@@ -55,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent intent = new Intent(LoginActivity.this, MainHubActivity.class);
             startActivity(intent);
-
         }
         else {
             Toast.makeText(getApplication(),"Falsche Eingabe.", Toast.LENGTH_SHORT).show();
