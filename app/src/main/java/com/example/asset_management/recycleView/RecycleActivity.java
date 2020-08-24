@@ -145,8 +145,8 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
      */
     @Override
     public void onNoteClick(int position) throws IOException {
+        ArrayList<Integer> listHistory = new ArrayList<>();
         String fileName = "HistoryDeviceList.json";
-        ArrayList<Device> historyDeviceList = new ArrayList<>();
 
         Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
@@ -156,15 +156,34 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
         if(file == null || !file.exists()){
             file = new File(this.getFilesDir(),fileName);
-            historyDeviceList.add(list.get(position));
-            JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
+            listHistory.add(position);
+            JsonHandler.createJsonFromInteger(listHistory, fileName, this);
         } else {
+            listHistory = JsonHandler.getIntegerList(fileName, this);
             int counter = 0;
-            historyDeviceList = JsonHandler.getDeviceList(fileName, this);
-            historyDeviceList.add(list.get(position));
-            JsonHandler.createJsonFromDeviceList(historyDeviceList,fileName,this);
+            Integer remover = null;
+            for(Integer i : listHistory){
+                if(i == position){
+                    remover = i;
+                    counter++;
+                }
+            }
+            if(counter == 0){
+                listHistory.add(position);
+            } else {
+                listHistory.remove(remover);
+                listHistory.add(position);
+            }
+            JsonHandler.createJsonFromInteger(listHistory,fileName,this);
+//            if(listHistory.contains(position)){
+//                listHistory.remove(position);
+//                listHistory.add(position);
+//                JsonHandler.createJsonFromInteger(listHistory,fileName,this);
+//            } else {
+//                listHistory.add(position);
+//                JsonHandler.createJsonFromInteger(listHistory,fileName,this);
+//            }
         }
-
     }
 
     @Override

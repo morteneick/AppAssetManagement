@@ -50,8 +50,10 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
     private ArrayList<Device> list = new ArrayList<>();
-    private String jsonName = "HistoryDeviceList.json";
-
+    private ArrayList<Device> copyList = new ArrayList<>();
+    private ArrayList<Integer> positionList = new ArrayList<>();
+    private String jsonName = "DeviceList.json";
+    private String jsonNamePosition = "HistoryDeviceList.json";
     /**
      *  Executes code after open Activity.
      * @param savedInstanceState
@@ -66,7 +68,11 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         try {
-            list = JsonHandler.getDeviceList(jsonName, this);
+            positionList = JsonHandler.getIntegerList(jsonNamePosition, this);
+            copyList = JsonHandler.getDeviceList(jsonName, this);
+            for(Integer i : positionList){
+                list.add(copyList.get(i));
+            }
             Collections.reverse(list);
         } catch (IOException e) {
             e.printStackTrace();

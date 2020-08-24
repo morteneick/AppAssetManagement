@@ -16,8 +16,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
-import com.example.asset_management.recycleView.RecycleActivity;
 
 import java.util.ArrayList;
 
@@ -45,7 +43,7 @@ public class ReservationFragment extends Fragment {
         btnStartReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReservationTest.class);
+                Intent intent = new Intent(getActivity(), ReservationActivity.class);
                 startActivity(intent);
             }
         });

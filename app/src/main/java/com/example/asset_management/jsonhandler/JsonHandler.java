@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 import static android.content.Context.MODE_PRIVATE;
@@ -62,8 +63,37 @@ public class JsonHandler {
         }
     }
 
-
     public static String createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
+        String json = convertIntoString(list);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
+    public static String createJsonFromInteger(ArrayList<Integer> list, String path, Context context){
+        String json = convertIntoString(list);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
+    public static String createJsonFromCalendarList(ArrayList<Calendar> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -105,6 +135,29 @@ public class JsonHandler {
         Gson gson = new Gson();
         ArrayList<Device> list = gson.fromJson(jsonString,
                 new TypeToken<ArrayList<Device>>() {}.getType());
+
+        return list;
+    };
+    public static ArrayList<Integer> getIntegerList(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getDeviceListString(context, filename);
+
+        Gson gson = new Gson();
+        ArrayList<Integer> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Integer>>() {}.getType());
+
+        return list;
+    };
+
+    public static ArrayList<Calendar> getCalendarList(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getDeviceListString(context, filename);
+
+        Gson gson = new Gson();
+        ArrayList<Calendar> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Calendar>>() {}.getType());
 
         return list;
     };
