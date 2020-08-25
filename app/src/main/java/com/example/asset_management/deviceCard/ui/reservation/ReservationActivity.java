@@ -96,7 +96,6 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
                 overridePendingTransition(0, 0);
                 Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
@@ -114,5 +113,4 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
             return true;
         }
     }
-
 }
