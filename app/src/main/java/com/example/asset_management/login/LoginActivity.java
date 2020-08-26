@@ -58,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
                 String createDeviceMessage = JsonHandler.createJsonFromObject(login,
                         jsonName, getApplicationContext());
 
+                Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
+                        .show();
+
                 validate(Name.getText().toString(), Password.getText().toString());
             }
         });
