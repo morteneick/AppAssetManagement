@@ -15,12 +15,20 @@ import com.example.asset_management.R;
 import com.example.asset_management.mainHub.MainHubActivity;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.example.asset_management.jsonhandler.JsonHandler;
+import com.google.gson.JsonObject;
+
+
+import org.json.JSONObject;
+
+import com.example.asset_management.login.Login;
 
 import static com.example.asset_management.R.id.login;
 
 
 public class LoginActivity extends AppCompatActivity {
-
+    String jsonName = "Login.json";
+    //JSONObject jsonLogin = new JSONObject();
     private EditText Name;
     private EditText Password;
     private Button Login;
@@ -44,6 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Login login = new Login(Name.getText().toString(),Password.getText().toString());
+
+                String createDeviceMessage = JsonHandler.createJsonFromObject(login,
+                        jsonName, getApplicationContext());
+
                 validate(Name.getText().toString(), Password.getText().toString());
             }
         });
