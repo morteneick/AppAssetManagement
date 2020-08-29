@@ -7,6 +7,10 @@
     tools:context=".addDevice.AddDeviceActivity"
     android:id="@+id/addDevice">
 
+    <include
+        android:id ="@+id/toolbarMain"
+        layout ="@layout/toolbarmain" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">

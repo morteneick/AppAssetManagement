@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 
@@ -128,11 +129,15 @@ public class CardFragment extends Fragment {
                 }
                 JsonHandler.createJsonFromDeviceList(deviceList,jsonName,getActivity());
 
+                SwitchEditable switchEditable = new SwitchEditable(false);
+                DeviceCardActivity activityCard = new DeviceCardActivity();
+                ((DeviceCardActivity)getActivity()).createSwitch(switchEditable);
+
+                ((DeviceCardActivity)getActivity()).refreshUI();
+
                 Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
-                
             }
         });
-
 
         return root;
     }

@@ -7,6 +7,10 @@
     tools:context=".recycleView.RecycleActivity"
     android:id="@+id/deviceList">
 
+    <include
+        android:id ="@+id/toolbarMain"
+        layout ="@layout/toolbarmain" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,9 +20,11 @@
             android:layout_width="349dp"
             android:layout_height="544dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
+            android:layout_marginBottom="60dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

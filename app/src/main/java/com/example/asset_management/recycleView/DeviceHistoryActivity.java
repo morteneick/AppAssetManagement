@@ -65,7 +65,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbardevicecard = (Toolbar) findViewById(R.id.toolbardevicecard);
 
         try {
             positionList = JsonHandler.getIntegerList(jsonNamePosition, this);

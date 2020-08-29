@@ -2,6 +2,8 @@ package com.example.asset_management.deviceCard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -18,6 +20,7 @@ import com.example.asset_management.recycleView.Device;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,10 +28,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.asset_management.R;
 
+import java.io.File;
 import java.io.IOException;
 
 public class DeviceCardActivity extends AppCompatActivity {
     public boolean onOffSwitch = false;
+    public String fileName = "Switch.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,9 @@ public class DeviceCardActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        Toolbar toolbar = findViewById(R.id.toolbardevicecard);
+        setSupportActionBar(toolbar);
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
                 .build();
@@ -44,42 +52,41 @@ public class DeviceCardActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        Switch onOffEditSwitch = (Switch) findViewById(R.id.onOffEditSwitch);
+        File file = this.getFileStreamPath(fileName);
 
-        String test = "";
-        try {
-            test = getSwitch();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(file == null || !file.exists()){
+            file = new File(this.getFilesDir(),fileName);
+            SwitchEditable switchEditable = new SwitchEditable(onOffSwitch);
+            createSwitch(switchEditable);
         }
+    }
 
-        Gson gson = new Gson();
-        final SwitchEditable switchEditable = gson.fromJson(test, SwitchEditable.class);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_devicecard, menu);
+        return true;
+    }
 
-        onOffSwitch = switchEditable.isEnabled();
-        onOffEditSwitch.setChecked(onOffSwitch);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        onOffEditSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked){
-                switchEditable.setEnabled(true);
-                createSwitch(switchEditable);
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
-            } else {
-                switchEditable.setEnabled(false);
-                createSwitch(switchEditable);
-                finish();
-                finish();
-//                overridePendingTransition(0, 0);
-//                startActivity(getIntent());
-//                overridePendingTransition(0, 0);
-            }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            onOffSwitch = true;
+            SwitchEditable switchEditable = new SwitchEditable(onOffSwitch);
+            createSwitch(switchEditable);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+            return true;
         }
-    });
+        return super.onOptionsItemSelected(item);
     }
 
     public Device getDevice(){
@@ -97,7 +104,16 @@ public class DeviceCardActivity extends AppCompatActivity {
     };
 
     public boolean isClicked(){
-        return onOffSwitch;
+        String test = "";
+        try {
+            test = getSwitch();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Gson gson = new Gson();
+        final SwitchEditable switchEditable = gson.fromJson(test, SwitchEditable.class);
+        return switchEditable.isEnabled();
     }
 
     @Override
@@ -113,5 +129,12 @@ public class DeviceCardActivity extends AppCompatActivity {
         startActivity(getIntent());
         overridePendingTransition(0, 0);
         super.onRestart();
+    }
+
+    public void refreshUI() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 }

@@ -20,9 +20,11 @@ import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,6 +63,9 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Toolbar toolbar = findViewById(R.id.toolbarMain);
+        setSupportActionBar(toolbar);
+
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
@@ -75,7 +80,9 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         }
 
         setupRecyclerView();
-
+/**
+ * Filters the List by every char typed into the textfield
+ */
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -94,6 +101,11 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         });
     }
 
+    /**
+     * Checks each object in the list for each variable to see if it matches the input from the
+     * textfield
+     * @param text Text from the Textfield
+     */
 //TODO Add improtant filters
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
@@ -133,9 +145,6 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
         String show = list.size() + " Geräte wurden gefunden";
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
-
-//        JsonHandler.createJsonFromDeviceList(list, jsonName, this);
-//        TextView textViewInfo = findViewById(R.id.textViewInfo);
     }
 
 
@@ -154,6 +163,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
         File file = this.getFileStreamPath(fileName);
 
+        //Checks if File exists
         if(file == null || !file.exists()){
             file = new File(this.getFilesDir(),fileName);
             listHistory.add(position);
@@ -175,14 +185,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
                 listHistory.add(position);
             }
             JsonHandler.createJsonFromInteger(listHistory,fileName,this);
-//            if(listHistory.contains(position)){
-//                listHistory.remove(position);
-//                listHistory.add(position);
-//                JsonHandler.createJsonFromInteger(listHistory,fileName,this);
-//            } else {
-//                listHistory.add(position);
-//                JsonHandler.createJsonFromInteger(listHistory,fileName,this);
-//            }
+
         }
     }
 
@@ -193,5 +196,11 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         startActivity(getIntent());
         overridePendingTransition(0, 0);
         super.onRestart();
+    }
+    //Sets the editability to false after closing the activity
+    public void onStop () {
+        SwitchEditable switchEditable = new SwitchEditable(false);
+        JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
+        super.onStop();
     }
 }
