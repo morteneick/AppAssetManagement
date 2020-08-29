@@ -19,6 +19,14 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+/**
+ * ReservationActivity
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 11.05.2020
+ * AUTHOR: Dominik Dziersan
+ */
 
 public class ReservationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private boolean isStart;
@@ -29,9 +37,9 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservation_test);
 
-        Button buttonStart = (Button) findViewById(R.id.btnStartDate);
-        Button buttonReserve = (Button) findViewById(R.id.btnReserve);
-        Button buttonEnd = (Button) findViewById(R.id.btnEndDate);
+        Button buttonStart = findViewById(R.id.btnStartDate);
+        Button buttonReserve = findViewById(R.id.btnReserve);
+        Button buttonEnd = findViewById(R.id.btnEndDate);
 
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +54,8 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         buttonReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView textStart = (TextView) findViewById(R.id.textReservationStart);
-                TextView textEnd = (TextView) findViewById(R.id.textReservationEnd);
+                TextView textStart = findViewById(R.id.textReservationStart);
+                TextView textEnd = findViewById(R.id.textReservationEnd);
             isCorrectFilled(textStart, textEnd);
             finish();
             }
@@ -70,8 +78,8 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        TextView textStart = (TextView) findViewById(R.id.textReservationStart);
-        TextView textEnd = (TextView) findViewById(R.id.textReservationEnd);
+        TextView textStart = findViewById(R.id.textReservationStart);
+        TextView textEnd = findViewById(R.id.textReservationEnd);
         if(isStart){
             textStart.setText(currentDateString);
             list.add(c);

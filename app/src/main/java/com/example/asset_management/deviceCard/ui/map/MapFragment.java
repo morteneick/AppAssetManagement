@@ -21,7 +21,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+/**
+ * MapFragment
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 30.08.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class MapFragment extends Fragment {
 
     private MapViewModel mapViewModel;
@@ -34,7 +41,7 @@ public class MapFragment extends Fragment {
                 ViewModelProviders.of(this).get(MapViewModel.class);
         View root = inflater.inflate(R.layout.fragment_device_card_map, container, false);
 
-        mapView = (MapView) root.findViewById(R.id.mapView);
+        mapView =root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(new OnMapReadyCallback() {
@@ -50,28 +57,4 @@ public class MapFragment extends Fragment {
 
         return root;
     }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        mMapView.onResume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        mMapView.onPause();
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        mMapView.onDestroy();
-//    }
-//
-//    @Override
-//    public void onLowMemory() {
-//        super.onLowMemory();
-//        mMapView.onLowMemory();
-//    }
 }

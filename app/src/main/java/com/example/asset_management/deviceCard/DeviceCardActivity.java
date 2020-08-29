@@ -4,15 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
 import com.example.asset_management.jsonhandler.JsonHandler;
@@ -30,7 +22,14 @@ import com.example.asset_management.R;
 
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * DeviceCardActivity
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 30.08.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class DeviceCardActivity extends AppCompatActivity {
     public boolean onOffSwitch = false;
     public String fileName = "Switch.json";
@@ -77,8 +76,7 @@ public class DeviceCardActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            onOffSwitch = true;
-            SwitchEditable switchEditable = new SwitchEditable(onOffSwitch);
+            SwitchEditable switchEditable = new SwitchEditable(true);
             createSwitch(switchEditable);
             finish();
             overridePendingTransition(0, 0);
@@ -92,33 +90,37 @@ public class DeviceCardActivity extends AppCompatActivity {
     public Device getDevice(){
         Intent intent = getIntent();
         return (Device)intent.getSerializableExtra("Device");
-    };
+    }
 
+    /**
+     * creates an json from the given object
+     * @param object SwitchEditable button true or false, if the card is editable
+     * @return returns the onOffSwitch variable
+     */
     public boolean createSwitch(Object object){
         JsonHandler.createJsonFromObject(object,"Switch.json",this);
         return onOffSwitch;
-    };
+    }
 
     public String getSwitch() throws IOException {
         return JsonHandler.getDeviceListString(this, "Switch.json");
-    };
+    }
 
     public boolean isClicked(){
-        String test = "";
+        String isEditable = "";
         try {
-            test = getSwitch();
+            isEditable = getSwitch();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Gson gson = new Gson();
-        final SwitchEditable switchEditable = gson.fromJson(test, SwitchEditable.class);
+        final SwitchEditable switchEditable = gson.fromJson(isEditable, SwitchEditable.class);
         return switchEditable.isEnabled();
     }
 
     @Override
     protected void onResume() {
-
         super.onResume();
     }
 
@@ -131,6 +133,9 @@ public class DeviceCardActivity extends AppCompatActivity {
         super.onRestart();
     }
 
+    /**
+     * restarts the activity with the saved intent
+     */
     public void refreshUI() {
         finish();
         overridePendingTransition(0, 0);

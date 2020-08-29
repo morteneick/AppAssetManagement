@@ -24,7 +24,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 import static androidx.core.content.ContextCompat.getSystemService;
-
+/**
+ * Connection
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 30.08.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class Connection {
 
     public static boolean isConnectedToServer(String url, int timeout) {
@@ -38,9 +45,9 @@ public class Connection {
             // Handle your exceptions
             return false;
         }
-    };
+    }
 
-    public static void jsonParse(String url, final Context context) {
+    public static void getDeviceList(String url, final Context context) {
         RequestQueue mQueue = Volley.newRequestQueue(context);
         final ArrayList<Device> list = new ArrayList<>();
 
@@ -77,6 +84,5 @@ public class Connection {
         });
         mQueue = Volley.newRequestQueue(context);
         mQueue.add(request);
-    };
-
+    }
 }

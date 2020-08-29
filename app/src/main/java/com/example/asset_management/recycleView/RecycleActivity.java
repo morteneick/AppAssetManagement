@@ -1,21 +1,13 @@
 package com.example.asset_management.recycleView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
@@ -28,13 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -71,7 +58,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
 
-        Connection.jsonParse(url, this);
+        Connection.getDeviceList(url, this);
 
         try {
             list = JsonHandler.getDeviceList(jsonName, this);
@@ -80,9 +67,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         }
 
         setupRecyclerView();
-/**
- * Filters the List by every char typed into the textfield
- */
+
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -149,7 +134,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
     /**
      * Starts Activity if Item is clicked
-     * @param position
+     * @param position Integer from the clicked List
      */
     @Override
     public void onNoteClick(int position) throws IOException {

@@ -10,7 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
-
+/**
+ * DatePickerFragment
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 11.05.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class DatePickerFragment extends DialogFragment {
     @NonNull
     @Override
