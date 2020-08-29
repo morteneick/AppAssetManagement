@@ -21,6 +21,7 @@ import com.example.asset_management.recycleView.Device;
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  * TODO(DZIERSAN) add all device features the customer wants
  */
 

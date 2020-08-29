@@ -43,11 +43,12 @@ import java.util.ArrayList;
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
-
+    private String fileName = "HistoryDeviceList.json";
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
 
@@ -69,7 +70,6 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
-
 
         Connection.jsonParse(url, this);
 
@@ -147,23 +147,53 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
-
     /**
      * Starts Activity if Item is clicked
      * @param position
      */
     @Override
     public void onNoteClick(int position) throws IOException {
-        ArrayList<Integer> listHistory = new ArrayList<>();
-        String fileName = "HistoryDeviceList.json";
 
         Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
         startActivity(intent);
 
+        setHistoryDeviceList(position);
+    }
+
+    /**
+     * To edit the devicecard the activity need to restart so with this the user doesnt see a
+     * restart.
+     */
+    @Override
+    protected void onRestart() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        super.onRestart();
+    }
+
+    /**
+     * Sets the editability of the device card to false after closing the activity
+     */
+    public void onStop () {
+        SwitchEditable switchEditable = new SwitchEditable(false);
+        JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
+        super.onStop();
+    }
+
+    /**
+     * Adds the position from the onNoteClick to an array and saves it into an json file. So there
+     * is an history of the clicked devices.
+     * @param position position from the onNoteClick
+     * @throws IOException
+     */
+    public void setHistoryDeviceList(int position) throws IOException {
+
+        ArrayList<Integer> listHistory = new ArrayList<>();
         File file = this.getFileStreamPath(fileName);
 
-        //Checks if File exists
         if(file == null || !file.exists()){
             file = new File(this.getFilesDir(),fileName);
             listHistory.add(position);
@@ -185,22 +215,6 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
                 listHistory.add(position);
             }
             JsonHandler.createJsonFromInteger(listHistory,fileName,this);
-
         }
-    }
-
-    @Override
-    protected void onRestart() {
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-        super.onRestart();
-    }
-    //Sets the editability to false after closing the activity
-    public void onStop () {
-        SwitchEditable switchEditable = new SwitchEditable(false);
-        JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
-        super.onStop();
     }
 }

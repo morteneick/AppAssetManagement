@@ -91,7 +91,9 @@ public class CardFragment extends Fragment {
             }
         });
 
-
+/**
+ * Takes the input from als editTexts and saves it into an json file
+ */
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +145,7 @@ public class CardFragment extends Fragment {
     }
 
     /**
-     *
+     * Blocks the input from all editTexts
      * @param editText
      */
     private void blockInput(EditText editText){
@@ -154,7 +156,7 @@ public class CardFragment extends Fragment {
     }
 
     /**
-     *
+     * unlock Blocks the input from all editTexts
      * @param editText
      */
     private void unblockInput(EditText editText){
