@@ -3,7 +3,7 @@ package com.example.asset_management.recycleView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.google.gson.annotations.SerializedName;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
 import java.io.IOException;

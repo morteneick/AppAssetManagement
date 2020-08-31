@@ -12,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.recycleView.Device;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -31,7 +33,7 @@ import java.util.Calendar;
 public class ReservationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private boolean isStart;
     private String fileName = "Reservation.json";
-    ArrayList<Calendar> list = new ArrayList<>();
+    ArrayList<Reservation> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,24 +82,35 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         TextView textStart = findViewById(R.id.textReservationStart);
         TextView textEnd = findViewById(R.id.textReservationEnd);
+        String inventoryNumber = null;
+        Reservation reservation = new Reservation();
+        try {
+            ArrayList<Device> devices = JsonHandler.getDeviceList
+                    ("ReservationDevice.json",this);
+            inventoryNumber = devices.get(0).getInventoryNumber();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        reservation.setInventoryNumber(inventoryNumber);
         if(isStart){
             textStart.setText(currentDateString);
-            list.add(c);
-            JsonHandler.createJsonFromCalendarList(list,fileName, this);
+
+            reservation.setStart(c);
+
+            list.add(reservation);
+//            JsonHandler.createJsonFromCalendarList(list,fileName, this);
         } else {
             textEnd.setText(currentDateString);
-            try {
-                list = JsonHandler.getCalendarList(fileName, this);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(list.get(0).compareTo(c) <= 0){
+            if(list.get(0).getStart().compareTo(c) <= 0){
                 if(list.size() >= 2){
                     list.remove(1);
                 }
-                list.add(c);
+                reservation.setEnd(c);
+                list.add(reservation);
                 JsonHandler.createJsonFromCalendarList(list,fileName, this);
             } else {
+
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());

@@ -22,6 +22,12 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 /**
@@ -33,6 +39,14 @@ import static androidx.core.content.ContextCompat.getSystemService;
  * AUTHOR: Dominik Dziersan
  */
 public class Connection {
+
+    private String baseURL = "http://localhost:3000/";
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(baseURL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
 
     public static boolean isConnectedToServer(String url, int timeout) {
         try{
@@ -71,7 +85,8 @@ public class Connection {
                                         ("deviceCategorie"));
                                 list.add(device);
                             }
-                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json", context);
+                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json",
+                                    context);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -85,4 +100,66 @@ public class Connection {
         mQueue = Volley.newRequestQueue(context);
         mQueue.add(request);
     }
+
+    public void createDeviceList(final Context context){
+        Call<List<Device>> call = getPostConnection.getDevices();
+
+        call.enqueue(new Callback<List<Device>>() {
+            @Override
+            public void onResponse(Call<List<Device>> call, retrofit2.Response<List<Device>> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                ArrayList<Device> posts = (ArrayList<Device>) response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
+            }
+
+            @Override
+            public void onFailure(Call<List<Device>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public
+    void getDeviceHistory(Device device) {
+    Call<List<Device>> call = getPostConnection.getDeviceHistory(device);
+
+    call.enqueue(new Callback<List<Device>>() {
+        @Override
+        public void onResponse(Call call, retrofit2.Response response) {
+            if (!response.isSuccessful()) {
+
+                return;
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call call, Throwable t) {
+
+        }
+    });
+    }
+
+    public void postNewDevice(Device device) {
+        Call<String> call = getPostConnection.postDevice(device);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+
+                    return;
+                }
+            String responseText = (String) response.body();
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
 }

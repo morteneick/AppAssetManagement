@@ -16,9 +16,19 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
+import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.recycleView.Device;
 
 import java.util.ArrayList;
-
+/**
+ * ReservationFragment
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 11.05.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class ReservationFragment extends Fragment {
 
     private ArrayList<String> arrayList = new ArrayList<String>();
@@ -45,11 +55,16 @@ public class ReservationFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ReservationActivity.class);
                 startActivity(intent);
+                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+                Device device = activity.getDevice();
+                ArrayList<Device> list = new ArrayList<>();
+                list.add(device);
+                JsonHandler.createJsonFromDeviceList(list, "ReservationDevice.json", getContext());
             }
         });
 
 
-        ListView listView = (ListView) root.findViewById(R.id.listView);
+        ListView listView = root.findViewById(R.id.listView);
         arrayList.add("18. September 2020 - 1, Oktober 2020");
         arrayList.add("18. September 2020 - 1, Oktober 2020");
         arrayList.add("18. September 2020 - 1, Oktober 2020");
@@ -68,7 +83,8 @@ public class ReservationFragment extends Fragment {
         arrayList.add("18. September 2020 - 1, Oktober 2020");
 
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, arrayList);
 
         listView.setAdapter(itemsAdapter);
         return root;

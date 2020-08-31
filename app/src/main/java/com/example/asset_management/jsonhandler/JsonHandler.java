@@ -2,6 +2,7 @@ package com.example.asset_management.jsonhandler;
 
 import android.content.Context;
 
+import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.recycleView.Device;
 
 import com.google.gson.Gson;
@@ -93,7 +94,7 @@ public class JsonHandler {
         }
     }
 
-    public static String createJsonFromCalendarList(ArrayList<Calendar> list, String path, Context context){
+    public static String createJsonFromCalendarList(ArrayList<Reservation> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
