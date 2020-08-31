@@ -19,11 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name=".deviceCard.ui.reservation.ReservationActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert">
-        </activity>
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
+            android:name=".deviceCard.ui.reservation.ReservationTest"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -31,21 +32,21 @@
 
         <activity
             android:name=".deviceCard.DeviceCardActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="@string/title_activity_device_card" />
         <activity android:name=".scanDevice.ScanDeviceActivity" />
         <activity android:name=".addDevice.AddDeviceActivity" />
         <activity
             android:name=".recycleView.RecycleActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".recycleView.DeviceHistoryActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mainHub.MainHubActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
