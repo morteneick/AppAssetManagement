@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_deviceHistoryActivity"
             app:destination="@id/deviceHistoryActivity2" />
+        <action
+            android:id="@+id/action_FirstFragment_to_settingsActivity"
+            app:destination="@+id/settings"/>
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
@@ -50,6 +53,11 @@
         android:name="com.example.asset_management.login.LoginActivity"
         android:label="activity_Login"
         tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/settings"
+        android:name="com.example.asset_management.settings.SettingsActivity"
+        android:label="activity_Settings"
+        tools:layout="@layout/activity_settings" />
 
     <fragment android:id="@+id/Settings" >
         <action

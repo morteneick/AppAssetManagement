@@ -24,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
+import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -103,6 +104,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
                             detectedCode = qrCodes.valueAt(0).displayValue;
 
                             textView.setText(detectedCode);
+
+                           // if (detectedCode.equals())
 
                         }
                     });

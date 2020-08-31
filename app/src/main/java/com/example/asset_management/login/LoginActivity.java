@@ -53,7 +53,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Login login = new Login(Name.getText().toString(),Password.getText().toString());
+                //Login login = new Login(Name.getText().toString(),Password.getText().toString());
+                Login login = new Login(Name.getText().toString(),BCrypt.withDefaults().hashToString(12,Password.getText().toString().toCharArray()));
 
                 String createDeviceMessage = JsonHandler.createJsonFromObject(login,
                         jsonName, getApplicationContext());
