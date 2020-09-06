@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
+import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.recycleView.Device;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -40,14 +42,15 @@ public class MapFragment extends Fragment {
         mapViewModel =
                 ViewModelProviders.of(this).get(MapViewModel.class);
         View root = inflater.inflate(R.layout.fragment_device_card_map, container, false);
-
+        DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+        final Device device = activity.getDevice();
         mapView =root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
-                LatLng hs = new LatLng(52.520808, 7.324461);
+                LatLng hs = new LatLng(device.getLongitude(),device.getLatitude());
                 googleMap.addMarker(new MarkerOptions().position(hs));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(hs));
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(hs).zoom(15).build();

@@ -58,8 +58,10 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
 
-        Connection.getDeviceList(url, this);
-
+        Connection connection = new Connection();
+//        connection.get2(this);
+        connection.createDeviceList(this);
+//        Connection.getDeviceList(url, this);
         try {
             list = JsonHandler.getDeviceList(jsonName, this);
         } catch (IOException e) {

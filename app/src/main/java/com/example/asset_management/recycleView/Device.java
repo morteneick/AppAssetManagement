@@ -3,13 +3,18 @@ package com.example.asset_management.recycleView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static java.lang.String.valueOf;
 
 /**
  * Device
@@ -19,14 +24,33 @@ import java.util.Date;
  * 11.05.2020
  */
 public class Device implements Serializable {
+
+    private int inventory_number;
     private String inventoryNumber;
-    private String serialnumber;
-    private String manufacturer;
     private String model;
-    private String status;
+    private String manufacturer;
+    @SerializedName("serial_number")
+    private String serialnumber;
+    @SerializedName("gurantee")
+    private Date guarantee;
+    private String note;
+    @SerializedName("device_status")
+    private int deviceStatus;
+    private String description;
     private String category;
-    private String guarantee;
-    private String location;
+    private Double longitude;
+    private Double latitude;
+    @SerializedName("Max(Timesstamp")
+    private Timestamp timestamp;
+    private Date LAST_TUEV;
+    private Date LAST_UVV;
+    @SerializedName("project_id")
+    private int projectID;
+    private String name;
+    private String street;
+    private String postcode;
+    private String city;
+    private String status;
     private Date lastRepair;
 
 
@@ -68,6 +92,7 @@ public class Device implements Serializable {
     }
 
     public String getInventoryNumber() {
+        inventoryNumber = valueOf(inventory_number);
         return inventoryNumber;
     }
 
@@ -92,6 +117,7 @@ public class Device implements Serializable {
     }
 
     public String getStatus() {
+        status = description;
         return status;
     }
 
@@ -116,20 +142,12 @@ public class Device implements Serializable {
         this.serialnumber = serialnumber;
     }
 
-    public String getGuarantee() {
+    public Date getGuarantee() {
         return guarantee;
     }
 
-    public void setGuarantee(String guarantee) {
+    public void setGuarantee(Date guarantee) {
         this.guarantee = guarantee;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public Date getLastRepair() {
@@ -138,6 +156,59 @@ public class Device implements Serializable {
 
     public void setLastRepair(Date lastRepair) {
         this.lastRepair = lastRepair;
+    }
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public int getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public Date getLAST_TUEV() {
+        return LAST_TUEV;
+    }
+
+    public Date getLAST_UVV() {
+        return LAST_UVV;
+    }
+
+    public int getProjectID() {
+        return projectID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     @Override

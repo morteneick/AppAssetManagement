@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,14 +77,19 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
+
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         TextView textStart = findViewById(R.id.textReservationStart);
         TextView textEnd = findViewById(R.id.textReservationEnd);
+        EditText editConstruction = findViewById(R.id.editConstruction);
         String inventoryNumber = null;
+
         Reservation reservation = new Reservation();
+        reservation.setBaustelle(editConstruction.getText().toString());
         try {
             ArrayList<Device> devices = JsonHandler.getDeviceList
                     ("ReservationDevice.json",this);

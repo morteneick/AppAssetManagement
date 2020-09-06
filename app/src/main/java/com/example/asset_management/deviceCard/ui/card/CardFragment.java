@@ -61,7 +61,6 @@ public class CardFragment extends Fragment {
 
             editInventoryNumber.setText(device.getInventoryNumber());
             editStatus.setText(device.getStatus());
-            editLocation.setText(device.getLocation());
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());

@@ -46,6 +46,7 @@ import java.util.Collections;
  * </p>
  * 11.05.2020
  */
+//TODO after deleting one device, delete it in the history too
 public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;

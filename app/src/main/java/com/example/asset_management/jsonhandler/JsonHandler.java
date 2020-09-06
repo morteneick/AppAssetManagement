@@ -109,6 +109,8 @@ public class JsonHandler {
         }
     }
 
+
+
     public static String getDeviceListString(Context context, String fileName)
             throws IOException {
 
