@@ -25,27 +25,21 @@ import static java.lang.String.valueOf;
  */
 public class Device implements Serializable {
 
-    private int inventory_number;
     private String inventoryNumber;
     private String model;
     private String manufacturer;
-    @SerializedName("serial_number")
-    private String serialnumber;
-    @SerializedName("gurantee")
+    private String serialNumber;
     private Date guarantee;
     private String note;
-    @SerializedName("device_status")
     private int deviceStatus;
     private String description;
     private String category;
     private Double longitude;
     private Double latitude;
-    @SerializedName("Max(Timesstamp")
-    private Timestamp timestamp;
-    private Date LAST_TUEV;
-    private Date LAST_UVV;
-    @SerializedName("project_id")
-    private int projectID;
+    private Timestamp lastLocationUpdate;
+    private Date lastTuev;
+    private Date lastUvv;
+    private int projectId;
     private String name;
     private String street;
     private String postcode;
@@ -60,7 +54,7 @@ public class Device implements Serializable {
     public Device(String inventoryNumber, String serialNumber, String manufacturer, String model,
                   String category, String status) {
         this.inventoryNumber = inventoryNumber;
-        this.serialnumber = serialNumber;
+        this.serialNumber = serialNumber;
         this.manufacturer = manufacturer;
         this.model = model;
         this.category = category;
@@ -81,7 +75,7 @@ public class Device implements Serializable {
         EditText editStatus = (EditText) viewById5;
 
         this.inventoryNumber = editInventoryNumber.getText().toString();
-        this.serialnumber = editSerialNumber.getText().toString();
+        this.serialNumber = editSerialNumber.getText().toString();
         this.model = editModel.getText().toString();
         this.manufacturer = editManufacturer.getText().toString();
         this.category = editCategorie.getText().toString();
@@ -92,7 +86,6 @@ public class Device implements Serializable {
     }
 
     public String getInventoryNumber() {
-        inventoryNumber = valueOf(inventory_number);
         return inventoryNumber;
     }
 
@@ -135,11 +128,11 @@ public class Device implements Serializable {
     }
 
     public String getSerialnumber() {
-        return serialnumber;
+        return serialNumber;
     }
 
     public void setSerialnumber(String serialnumber) {
-        this.serialnumber = serialnumber;
+        this.serialNumber = serialnumber;
     }
 
     public Date getGuarantee() {
@@ -179,20 +172,20 @@ public class Device implements Serializable {
         return latitude;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Timestamp getLastLocationUpdate() {
+        return lastLocationUpdate;
     }
 
-    public Date getLAST_TUEV() {
-        return LAST_TUEV;
+    public Date getLastTuev() {
+        return lastTuev;
     }
 
-    public Date getLAST_UVV() {
-        return LAST_UVV;
+    public Date getLastUvv() {
+        return lastUvv;
     }
 
-    public int getProjectID() {
-        return projectID;
+    public int getProjectId() {
+        return projectId;
     }
 
     public String getName() {
@@ -215,7 +208,7 @@ public class Device implements Serializable {
     public String toString() {
         return "Device{" +
                 "inventoryNumber='" + inventoryNumber + '\'' +
-                ", serialNumber='" + serialnumber + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +
                 ", deviceCategorie='" + category + '\'' +

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -23,6 +25,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.sql.Timestamp;
+
 /**
  * MapFragment
  * <p>
@@ -57,6 +62,11 @@ public class MapFragment extends Fragment {
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
+        final TextView textMapDate = root.findViewById(R.id.textMapDate);
+        Timestamp timestamp = device.getLastLocationUpdate();
+
+        textMapDate.setText("Letzte Aktualisierung: " + timestamp.toString());
 
         return root;
     }

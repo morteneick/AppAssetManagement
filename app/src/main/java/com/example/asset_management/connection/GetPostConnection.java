@@ -15,18 +15,22 @@ import retrofit2.http.Path;
 public interface GetPostConnection {
 
     @Headers("Accept: application/json")
-    @GET("get")
+    @GET("/api/device/getAllDevices1")
     Call<ArrayList<Device>> getDevices();
 
     @GET("test")
     Call<test> get2();
 
-    @GET("getReservation")
+    @GET("api/borrow/getReservations1")
     Call<ArrayList<Reservation>> getReservation();
 
     @Headers("Accept: application/json")
     @POST("api/history/getHistoryForSpecificDevice/:{inventoryNumber}")
     Call<Device> getDeviceOldVersion(@Path("inventoryNumber") int inventoryNumber);
+
+    @Headers("Accept: application/json")
+    @POST("/api/borrow/createReservation")
+    Call<String> postNewReservation(@Body Reservation reservation);
 
     @POST("newDevice")
     Call<String> postDevice(@Body Device device);

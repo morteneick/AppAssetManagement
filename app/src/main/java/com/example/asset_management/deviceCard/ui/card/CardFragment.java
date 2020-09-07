@@ -44,11 +44,14 @@ public class CardFragment extends Fragment {
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
         final EditText editStatus = root.findViewById(R.id.editStatus);
-        final EditText editLocation = root.findViewById(R.id.editLocation);
         final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
         final EditText editModel = root.findViewById(R.id.editModel);
         final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
         final EditText editCategory = root.findViewById(R.id.editCategory);
+        final EditText editName = root.findViewById(R.id.editName);
+        final EditText editCity = root.findViewById(R.id.editCity);
+        final EditText editPostcode = root.findViewById(R.id.editPostcode);
+        final EditText editStreet = root.findViewById(R.id.editStreet);
         final View viewSave = root.findViewById(R.id.btnSave);
         final Button btnSave = root.findViewById(R.id.btnSave);
 
@@ -65,27 +68,37 @@ public class CardFragment extends Fragment {
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());
             editCategory.setText(device.getCategory());
+            editPostcode.setText(device.getPostcode());
+            editCity.setText(device.getCity());
+            editStreet.setText(device.getStreet());
+            editName.setText(device.getName());
 
 
                 if (!activity.isClicked()){
                     viewSave.setVisibility(View.GONE);
                     blockInput(editInventoryNumber);
                     blockInput(editStatus);
-                    blockInput(editLocation);
                     blockInput(editManufacturer);
                     blockInput(editModel);
                     blockInput(editSerialnumber);
                     blockInput(editCategory);
+                    blockInput(editName);
+                    blockInput(editCity);
+                    blockInput(editStreet);
+                    blockInput(editPostcode);
 
                 } else {
                     viewSave.setVisibility(View.VISIBLE);
                     unblockInput(editInventoryNumber);
                     unblockInput(editStatus);
-                    unblockInput(editLocation);
                     unblockInput(editManufacturer);
                     unblockInput(editModel);
                     unblockInput(editSerialnumber);
                     unblockInput(editCategory);
+                    unblockInput(editPostcode);
+                    unblockInput(editStreet);
+                    unblockInput(editCity);
+                    unblockInput(editName);
                 }
             }
         });

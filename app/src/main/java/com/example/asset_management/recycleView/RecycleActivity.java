@@ -61,6 +61,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         Connection connection = new Connection();
 //        connection.get2(this);
         connection.createDeviceList(this);
+        connection.createReservationList(this);
 //        Connection.getDeviceList(url, this);
         try {
             list = JsonHandler.getDeviceList(jsonName, this);

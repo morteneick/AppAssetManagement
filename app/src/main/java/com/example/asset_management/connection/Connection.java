@@ -79,7 +79,8 @@ public class Connection {
 
         call.enqueue(new Callback<ArrayList<Device>>() {
             @Override
-            public void onResponse(Call<ArrayList<Device>> call, retrofit2.Response<ArrayList<Device>> response) {
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,"test",Toast.LENGTH_SHORT).show();
                     return;
@@ -101,13 +102,14 @@ public class Connection {
 
         call.enqueue(new Callback<ArrayList<Reservation>>() {
             @Override
-            public void onResponse(Call<ArrayList<Reservation>> call, retrofit2.Response<ArrayList<Reservation>> response) {
+            public void onResponse(Call<ArrayList<Reservation>> call,
+                                   retrofit2.Response<ArrayList<Reservation>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,"test",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Reservation> posts = response.body();
-                JsonHandler.createJsonFromCalendarList(posts, "DeviceList.json", context);
+                JsonHandler.createJsonFromCalendarList(posts, "ReservationList.json", context);
             }
 
             @Override
@@ -125,11 +127,14 @@ public class Connection {
         @Override
         public void onResponse(Call call, retrofit2.Response response) {
             if (!response.isSuccessful()) {
-                Toast.makeText(context,"test",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
+                        .show();
                 return;
             }
             //TODO Old version != deviceCard
-            JsonHandler.createJsonFromObject(response.body(), "DeviceOldVersion.json", context);
+
+            JsonHandler.createJsonFromObject(response.body(), "DeviceOldVersion.json",
+                    context);
 
         }
 
@@ -138,6 +143,29 @@ public class Connection {
 
         }
     });
+    }
+
+    public void postNewReservation(Reservation reservation, final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<String> call = getPostConnection.postNewReservation(reservation);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+
+                Toast.makeText(context,response.body(),Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
     }
 
     public void postNewDevice(Device device) {

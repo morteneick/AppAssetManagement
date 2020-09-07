@@ -153,14 +153,14 @@ public class JsonHandler {
         return list;
     };
 
-    public static ArrayList<Calendar> getCalendarList(String filename, Context context)
+    public static ArrayList<Reservation> getCalendarList(String filename, Context context)
             throws IOException {
 
         String jsonString = getDeviceListString(context, filename);
 
         Gson gson = new Gson();
-        ArrayList<Calendar> list = gson.fromJson(jsonString,
-                new TypeToken<ArrayList<Calendar>>() {}.getType());
+        ArrayList<Reservation> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Reservation>>() {}.getType());
 
         return list;
     };

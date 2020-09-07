@@ -12,10 +12,10 @@
 
 
         <androidx.core.widget.NestedScrollView
-            android:layout_width="353dp"
-            android:layout_height="584dp"
+            android:layout_width="355dp"
+            android:layout_height="537dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="120dp"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="60dp"
             android:fillViewport="true"
@@ -33,7 +33,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/devices"
                     android:layout_width="match_parent"
-                    android:layout_height="499dp"
+                    android:layout_height="500dp"
                     tools:itemCount="17"
                     tools:listitem="@layout/recycler_view_item" />
 

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/layout1"
+                android:id="@+id/layoutInventoryNumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -49,7 +49,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout2"
+                android:id="@+id/layoutStatus"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="70dp"
@@ -76,7 +76,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout3"
+                android:id="@+id/layoutName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="140dp"
@@ -86,14 +86,14 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/text"
+                    android:id="@+id/textName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ort"
+                    android:text="Name"
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/editLocation"
+                    android:id="@+id/editName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -101,10 +101,85 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout4"
+                android:id="@+id/layoutStreet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="250dp"
+                android:layout_marginTop="210dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Straße"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editStreet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutPostcode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="280dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textPostcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Postleitzahl"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editPostcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutCity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="350dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Stadt"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/editCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutManufacturer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="460dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -127,10 +202,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout5"
+                android:id="@+id/layoutModel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="320dp"
+                android:layout_marginTop="530dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -153,10 +228,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout6"
+                android:id="@+id/layoutCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="460dp"
+                android:layout_marginTop="600dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,10 +255,10 @@
 
 
             <LinearLayout
-                android:id="@+id/layout7"
+                android:id="@+id/layoutSerialNumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="390dp"
+                android:layout_marginTop="670dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -209,7 +284,7 @@
                 android:id="@+id/layout8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="580dp"
+                android:layout_marginTop="740dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

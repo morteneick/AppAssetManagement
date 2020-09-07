@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 
@@ -59,8 +58,12 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
             public void onClick(View v) {
                 TextView textStart = findViewById(R.id.textReservationStart);
                 TextView textEnd = findViewById(R.id.textReservationEnd);
-            isCorrectFilled(textStart, textEnd);
-            finish();
+                try {
+                    isCorrectFilled(textStart, textEnd);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finish();
             }
         });
 
@@ -89,7 +92,7 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         String inventoryNumber = null;
 
         Reservation reservation = new Reservation();
-        reservation.setBaustelle(editConstruction.getText().toString());
+        reservation.setBuildingSite(editConstruction.getText().toString());
         try {
             ArrayList<Device> devices = JsonHandler.getDeviceList
                     ("ReservationDevice.json",this);
@@ -97,7 +100,7 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+//TODO add name surname
         reservation.setInventoryNumber(inventoryNumber);
         if(isStart){
             textStart.setText(currentDateString);
@@ -105,7 +108,6 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
             reservation.setStart(c);
 
             list.add(reservation);
-//            JsonHandler.createJsonFromCalendarList(list,fileName, this);
         } else {
             textEnd.setText(currentDateString);
             if(list.get(0).getStart().compareTo(c) <= 0){
@@ -116,7 +118,6 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
                 list.add(reservation);
                 JsonHandler.createJsonFromCalendarList(list,fileName, this);
             } else {
-
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());
@@ -126,7 +127,7 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         }
     }
 
-    public boolean isCorrectFilled (TextView textStart, TextView textEnd){
+    public boolean isCorrectFilled (TextView textStart, TextView textEnd) throws IOException {
 
         String start = textStart.getText().toString();
         String end = textEnd.getText().toString();
@@ -136,7 +137,10 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
             Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
             return false;
         } else {
-            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+            ArrayList<Reservation> reservation = JsonHandler.getCalendarList("Reservation.json",this);
+            Connection connection = new Connection();
+            connection.postNewReservation(reservation.get(0), this);
             return true;
         }
     }

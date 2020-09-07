@@ -18,10 +18,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 
+import java.io.IOException;
 import java.util.ArrayList;
 /**
  * ReservationFragment
@@ -64,26 +66,41 @@ public class ReservationFragment extends Fragment {
                 JsonHandler.createJsonFromDeviceList(list, "ReservationDevice.json", getContext());
             }
         });
-
-
         ListView listView = root.findViewById(R.id.listView);
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
-        arrayList.add("18. September 2020 - 1, Oktober 2020");
+        ArrayList<Reservation> list = new ArrayList<>();
+        try {
+            list = JsonHandler.getCalendarList("ReservationList.json", getContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+        Device device = activity.getDevice();
 
+
+        for(Reservation r : list){
+            if(r.getInventoryNumber().toString().equals(device.getInventoryNumber()) )
+            arrayList.add(r.getLoanDay() + " - " + r.getLoanEnd());
+        }
+
+        if(arrayList.size() == 0){
+            arrayList.add("Keine Reservierungen gefunden");
+        }
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
+//        arrayList.add("18. September 2020 - 1, Oktober 2020");
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, arrayList);
