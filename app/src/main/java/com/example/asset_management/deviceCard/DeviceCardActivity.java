@@ -1,10 +1,13 @@
 package com.example.asset_management.deviceCard;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.asset_management.connection.Connection;
 import com.google.gson.Gson;
 
 import com.example.asset_management.jsonhandler.JsonHandler;
@@ -84,6 +87,26 @@ public class DeviceCardActivity extends AppCompatActivity {
         Intent intent = new Intent (this, DeviceCardOldVersionsActivity.class);
         startActivity(intent);
             return true;
+        }
+
+        if(id == R.id.action_delete){
+            new AlertDialog.Builder(this)
+                    .setTitle("Gerät löschen")
+                    .setMessage("Sind Sie sich sicher, dass Sie das Gerät löschen möchten?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Connection connection = new Connection();
+                            connection.deleteDevice(getDevice());
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
         return super.onOptionsItemSelected(item);
     }

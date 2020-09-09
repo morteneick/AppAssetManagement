@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 
@@ -26,7 +27,7 @@ import com.example.asset_management.recycleView.Device;
  */
 
 public class AddDeviceActivity extends AppCompatActivity {
-    String jsonName = "Device.json";
+    String jsonName = "NewDevice.json";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,9 @@ public class AddDeviceActivity extends AppCompatActivity {
 
                     String createDeviceMessage = JsonHandler.createJsonFromObject(device,
                             jsonName, getApplicationContext());
+
+                Connection connection = new Connection();
+                connection.postNewDevice(device);
 
                     Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
                             .show();

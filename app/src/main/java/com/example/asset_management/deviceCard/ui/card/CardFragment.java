@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
@@ -40,7 +41,8 @@ public class CardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         cardViewModel =
                 ViewModelProviders.of(this).get(CardViewModel.class);
-        final View root = inflater.inflate(R.layout.fragment_device_card, container, false);
+        final View root = inflater.inflate(R.layout.fragment_device_card, container,
+                false);
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
         final EditText editStatus = root.findViewById(R.id.editStatus);
@@ -54,8 +56,13 @@ public class CardFragment extends Fragment {
         final EditText editStreet = root.findViewById(R.id.editStreet);
         final EditText editTuev = root.findViewById(R.id.editTuev);
         final EditText editUvv = root.findViewById(R.id.editUvv);
+        final EditText editRepair = root.findViewById(R.id.editRepair);
+        final EditText editNotes = root.findViewById(R.id.editNotes);
+        final EditText editProject = root.findViewById(R.id.editProject);
+
         final View viewSave = root.findViewById(R.id.btnSave);
         final Button btnSave = root.findViewById(R.id.btnSave);
+
 
         cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -74,10 +81,23 @@ public class CardFragment extends Fragment {
             editCity.setText(device.getCity());
             editStreet.setText(device.getStreet());
             editName.setText(device.getName());
-            editTuev.setText(device.getLastTuev().toString());
-            editUvv.setText(device.getLastUvv().toString());
-
-
+            editNotes.setText(device.getNote());
+//            editProject.setText(device.getProjectId());
+            try {
+                editTuev.setText(device.getLastTuev().toString());
+            } catch (Exception e){
+                editTuev.setText("");
+            }
+            try {
+                editUvv.setText(device.getLastUvv().toString());
+            } catch (Exception e){
+                editUvv.setText("");
+            }
+            try {
+                editRepair.setText(device.getLastRepair().toString());
+            } catch (Exception e){
+                editRepair.setText("");
+            }
 
                 if (!activity.isClicked()){
                     viewSave.setVisibility(View.GONE);
@@ -93,6 +113,9 @@ public class CardFragment extends Fragment {
                     blockInput(editPostcode);
                     blockInput(editTuev);
                     blockInput(editUvv);
+                    blockInput(editRepair);
+                    blockInput(editProject);
+                    blockInput(editNotes);
 
                 } else {
                     viewSave.setVisibility(View.VISIBLE);
@@ -108,6 +131,9 @@ public class CardFragment extends Fragment {
                     unblockInput(editName);
                     unblockInput(editTuev);
                     unblockInput(editUvv);
+                    unblockInput(editRepair);
+                    unblockInput(editNotes);
+                    unblockInput(editProject);
                 }
             }
         });
@@ -119,6 +145,7 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String jsonName = "DeviceList.json";
+                String jsonChangedDevice = "ChangedDevice.json";
 
                 String inventoryNumber = editInventoryNumber.getText().toString();
                 String serialnumber = editSerialnumber.getText().toString();
@@ -126,37 +153,47 @@ public class CardFragment extends Fragment {
                 String model = editModel.getText().toString();
                 String status = editStatus.getText().toString();
                 String category = editCategory.getText().toString();
+                String name = editName.getText().toString();
+                String street = editStreet.getText().toString();
+                String city = editCity.getText().toString();
+                String tuev = editTuev.getText().toString();
+                String uvv = editUvv.getText().toString();
+                String notes = editNotes.getText().toString();
+                String project = editProject.getText().toString();
+                String repair = editRepair.getText().toString();
 
-                Device device = new Device(inventoryNumber, serialnumber, manufacturer, model,
-                        category, status);
 
-                JsonHandler.createJsonFromObject(device,"ChangedDevice.json", getActivity());
+//                Device device = new Device(inventoryNumber, serialnumber, manufacturer, model,
+//                        category, status);
 
-                ArrayList<Device> deviceList = new ArrayList<>();
+//                JsonHandler.createJsonFromObject(device,"ChangedDevice.json", getActivity());
+//
+//                ArrayList<Device> deviceList = new ArrayList<>();
 
-                try {
-                    deviceList = JsonHandler.getDeviceList(jsonName,
-                            getContext());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+                Device device = activity.getDevice();
 
-                for(Device i : deviceList){
-                    if(i.getInventoryNumber().equals(device.getInventoryNumber())){
-                        i.setCategory(device.getCategory());
-                        i.setManufacturer(device.getManufacturer());
-                        i.setStatus(device.getStatus());
-                        i.setModel(device.getModel());
-                        i.setSerialnumber(device.getSerialnumber());
-                    }
-                }
-                JsonHandler.createJsonFromDeviceList(deviceList,jsonName,getActivity());
+                device.setInventoryNumber(inventoryNumber);
+                device.setSerialnumber(serialnumber);
+                device.setModel(model);
+                device.setStatus(status);
+                device.setCategory(category);
+                device.setManufacturer(manufacturer);
+                device.setNote(notes);
+                device.setCity(city);
+                device.setStreet(street);
+                device.setName(name);
+
+                JsonHandler.createJsonFromDevice(device, jsonChangedDevice, getContext());
 
                 SwitchEditable switchEditable = new SwitchEditable(false);
                 DeviceCardActivity activityCard = new DeviceCardActivity();
                 ((DeviceCardActivity)getActivity()).createSwitch(switchEditable);
 
                 ((DeviceCardActivity)getActivity()).refreshUI();
+
+                Connection connection = new Connection();
+                connection.putChangeDevice(device);
 
                 Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
             }

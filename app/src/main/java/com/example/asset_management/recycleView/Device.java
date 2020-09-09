@@ -61,6 +61,34 @@ public class Device implements Serializable {
         this.status = status;
     }
 
+    public Device(String inventoryNumber, String model, String manufacturer, String serialNumber,
+                  Date guarantee, String note, int deviceStatus, String description, String category,
+                  Double longitude, Double latitude, Timestamp lastLocationUpdate, Date lastTuev,
+                  Date lastUvv, int projectId, String name, String street, String postcode,
+                  String city, String status, Date lastRepair) {
+        this.inventoryNumber = inventoryNumber;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.serialNumber = serialNumber;
+        this.guarantee = guarantee;
+        this.note = note;
+        this.deviceStatus = deviceStatus;
+        this.description = description;
+        this.category = category;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.lastLocationUpdate = lastLocationUpdate;
+        this.lastTuev = lastTuev;
+        this.lastUvv = lastUvv;
+        this.projectId = projectId;
+        this.name = name;
+        this.street = street;
+        this.postcode = postcode;
+        this.city = city;
+        this.status = status;
+        this.lastRepair = lastRepair;
+    }
+
     /**
      * Takes the input from the AddDeviceActivity fields, creates an Device object.
      * @throws IOException
@@ -118,7 +146,9 @@ public class Device implements Serializable {
         this.status = status;
     }
 
-
+    public int getInventoryNumberInt(){
+        return Integer.parseInt(inventoryNumber);
+    }
     public String getCategory() {
         return category;
     }
@@ -202,6 +232,66 @@ public class Device implements Serializable {
 
     public String getCity() {
         return city;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setDeviceStatus(int deviceStatus) {
+        this.deviceStatus = deviceStatus;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLastLocationUpdate(Timestamp lastLocationUpdate) {
+        this.lastLocationUpdate = lastLocationUpdate;
+    }
+
+    public void setLastTuev(Date lastTuev) {
+        this.lastTuev = lastTuev;
+    }
+
+    public void setLastUvv(Date lastUvv) {
+        this.lastUvv = lastUvv;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

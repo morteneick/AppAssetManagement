@@ -163,8 +163,7 @@ public class JsonHandler {
         String jsonString = getDeviceListString(context, filename);
 
         Gson gson = new Gson();
-        Device device = gson.fromJson(jsonString,
-                new TypeToken<ArrayList<Device>>() {}.getType());
+        Device device = gson.fromJson(jsonString, Device.class);
 
         return device;
     };

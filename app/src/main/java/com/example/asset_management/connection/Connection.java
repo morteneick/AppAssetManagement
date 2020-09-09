@@ -189,6 +189,47 @@ public class Connection {
         });
     }
 
+    public void putChangeDevice(Device device) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<String> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+
+                    return;
+                }
+                String responseText = (String) response.body();
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteDevice(Device device) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<String> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+
+                    return;
+                }
+                String responseText = (String) response.body();
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
 
     public static void getDeviceList(String url, final Context context) {
         RequestQueue mQueue = Volley.newRequestQueue(context);

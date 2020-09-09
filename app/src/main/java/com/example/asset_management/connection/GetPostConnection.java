@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface GetPostConnection {
@@ -29,9 +31,24 @@ public interface GetPostConnection {
     Call<Device> getDeviceOldVersion(@Path("inventoryNumber") int inventoryNumber);
 
     @Headers("Accept: application/json")
-    @POST("/api/borrow/createReservation")
+    @POST("api/borrow/createReservation")
     Call<String> postNewReservation(@Body Reservation reservation);
 
     @POST("newDevice")
     Call<String> postDevice(@Body Device device);
+
+    @Headers("Accept: application/json")
+    @PUT("api/device/updateDevice/:{inventoryNumber}")
+    Call<String> putChangedDevice(@Path("inventoryNumber") int inventoryNumber, @Body Device device);
+
+    @Headers("Accept: application/json")
+    @DELETE("/api/borrow/cancelReservation/:{inventoryNumber}")
+    Call<String> deleteReservation(@Path("inventoryNumber")int inventoryNumber, @Body Reservation reservation);
+
+    @Headers("Accept: application/json")
+    @DELETE("/api/borrow/cancelReservation/:{inventoryNumber}")
+    Call<String> deleteDevice(@Path("inventoryNumber")int inventoryNumber);
+
+
+
 }
