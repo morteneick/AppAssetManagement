@@ -145,7 +145,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
         startActivity(intent);
-
+        JsonHandler.createJsonFromDevice(list.get(position), "Device.json", this);
         setHistoryDeviceList(position);
     }
 

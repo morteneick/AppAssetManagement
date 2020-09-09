@@ -52,6 +52,8 @@ public class CardFragment extends Fragment {
         final EditText editCity = root.findViewById(R.id.editCity);
         final EditText editPostcode = root.findViewById(R.id.editPostcode);
         final EditText editStreet = root.findViewById(R.id.editStreet);
+        final EditText editTuev = root.findViewById(R.id.editTuev);
+        final EditText editUvv = root.findViewById(R.id.editUvv);
         final View viewSave = root.findViewById(R.id.btnSave);
         final Button btnSave = root.findViewById(R.id.btnSave);
 
@@ -72,6 +74,9 @@ public class CardFragment extends Fragment {
             editCity.setText(device.getCity());
             editStreet.setText(device.getStreet());
             editName.setText(device.getName());
+            editTuev.setText(device.getLastTuev().toString());
+            editUvv.setText(device.getLastUvv().toString());
+
 
 
                 if (!activity.isClicked()){
@@ -86,6 +91,8 @@ public class CardFragment extends Fragment {
                     blockInput(editCity);
                     blockInput(editStreet);
                     blockInput(editPostcode);
+                    blockInput(editTuev);
+                    blockInput(editUvv);
 
                 } else {
                     viewSave.setVisibility(View.VISIBLE);
@@ -99,6 +106,8 @@ public class CardFragment extends Fragment {
                     unblockInput(editStreet);
                     unblockInput(editCity);
                     unblockInput(editName);
+                    unblockInput(editTuev);
+                    unblockInput(editUvv);
                 }
             }
         });

@@ -80,6 +80,11 @@ public class DeviceCardActivity extends AppCompatActivity {
             overridePendingTransition(0, 0);
             return true;
         }
+        if (id == R.id.action_history) {
+        Intent intent = new Intent (this, DeviceCardOldVersionsActivity.class);
+        startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

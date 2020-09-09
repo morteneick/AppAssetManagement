@@ -30,7 +30,8 @@ import java.util.Calendar;
  * AUTHOR: Dominik Dziersan
  */
 
-public class ReservationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ReservationActivity extends AppCompatActivity implements
+        DatePickerDialog.OnDateSetListener {
     private boolean isStart;
     private String fileName = "Reservation.json";
     ArrayList<Reservation> list = new ArrayList<>();
@@ -94,9 +95,9 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
         Reservation reservation = new Reservation();
         reservation.setBuildingSite(editConstruction.getText().toString());
         try {
-            ArrayList<Device> devices = JsonHandler.getDeviceList
-                    ("ReservationDevice.json",this);
-            inventoryNumber = devices.get(0).getInventoryNumber();
+            Device device = JsonHandler.getDevice
+                    ("Device.json",this);
+            inventoryNumber = device.getInventoryNumber();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -138,7 +139,8 @@ public class ReservationActivity extends AppCompatActivity implements DatePicker
             return false;
         } else {
 //            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
-            ArrayList<Reservation> reservation = JsonHandler.getCalendarList("Reservation.json",this);
+            ArrayList<Reservation> reservation = JsonHandler.getCalendarList
+                    ("Reservation.json",this);
             Connection connection = new Connection();
             connection.postNewReservation(reservation.get(0), this);
             return true;

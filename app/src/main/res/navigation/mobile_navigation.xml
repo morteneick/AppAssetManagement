@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.example.asset_management.deviceCard.ui.map.MapFragment"
-        android:label="Map"
+        android:label="Karte"
         tools:layout="@layout/fragment_device_card_map" />
 
     <activity
@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/navigation_reservation"
         android:name="com.example.asset_management.deviceCard.ui.reservation.ReservationFragment"
-        android:label="fragment_device_card_reservation"
+        android:label="Gerät reservieren"
         tools:layout="@layout/fragment_device_card_reservation" />
 </navigation>

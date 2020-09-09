@@ -79,6 +79,21 @@ public class JsonHandler {
         }
     }
 
+    public static String createJsonFromDevice(Device device, String path, Context context){
+        String json = convertIntoString(device);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
     public static String createJsonFromInteger(ArrayList<Integer> list, String path, Context context){
         String json = convertIntoString(list);
 
@@ -140,6 +155,18 @@ public class JsonHandler {
                 new TypeToken<ArrayList<Device>>() {}.getType());
 
         return list;
+    };
+
+    public static Device getDevice(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getDeviceListString(context, filename);
+
+        Gson gson = new Gson();
+        Device device = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Device>>() {}.getType());
+
+        return device;
     };
     public static ArrayList<Integer> getIntegerList(String filename, Context context)
             throws IOException {
