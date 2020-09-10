@@ -79,7 +79,7 @@ public class Connection {
             public void onResponse(Call<ArrayList<Device>> call,
                                    retrofit2.Response<ArrayList<Device>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,"Keine Verbindung zum Server",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Device> posts = response.body();
@@ -104,7 +104,7 @@ public class Connection {
             public void onResponse(Call<ArrayList<Reservation>> call,
                                    retrofit2.Response<ArrayList<Reservation>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Reservation> posts = response.body();
@@ -152,8 +152,7 @@ public class Connection {
             @Override
             public void onResponse(Call<ArrayList<Errors>> call, retrofit2.Response<ArrayList<Errors>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
@@ -175,7 +174,7 @@ public class Connection {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
-                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
@@ -197,7 +196,7 @@ public class Connection {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
-
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
@@ -219,7 +218,7 @@ public class Connection {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
-
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
@@ -241,7 +240,7 @@ public class Connection {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
-
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
