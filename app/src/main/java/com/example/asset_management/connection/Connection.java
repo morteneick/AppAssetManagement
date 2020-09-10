@@ -1,8 +1,6 @@
 package com.example.asset_management.connection;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,13 +12,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
-import com.example.asset_management.recycleView.RecycleActivity;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -31,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static androidx.core.content.ContextCompat.getSystemService;
 /**
  * Connection
  * <p>
@@ -42,7 +38,8 @@ import static androidx.core.content.ContextCompat.getSystemService;
  */
 public class Connection {
 
-    private String baseURL = "http://10.0.2.2:3001/";
+    private String baseURL = "http://10.0.2.2:3000/";
+    private String msgNoConnectionServer = "Keine Verbindung zum Server.";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(baseURL)
@@ -73,7 +70,7 @@ public class Connection {
         });
     }
 
-    public void createDeviceList(final Context context){
+    public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getDevices();
 
@@ -82,21 +79,23 @@ public class Connection {
             public void onResponse(Call<ArrayList<Device>> call,
                                    retrofit2.Response<ArrayList<Device>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,"test",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"Keine Verbindung zum Server",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ArrayList<Device> posts = response.body();
+                String show = posts.size() + " Geräte wurden gefunden";
+                Toast.makeText(context,show,Toast.LENGTH_SHORT).show();
                 JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
-
+                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void createReservationList(final Context context){
+    public void getReservationList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Reservation>> call = getPostConnection.getReservation();
 
@@ -147,39 +146,62 @@ public class Connection {
 
     public void postNewReservation(Reservation reservation, final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<String> call = getPostConnection.postNewReservation(reservation);
+        Call<ArrayList<Errors>> call = getPostConnection.postNewReservation(reservation);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
-            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+            public void onResponse(Call<ArrayList<Errors>> call, retrofit2.Response<ArrayList<Errors>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
                             .show();
                     return;
                 }
-
-                Toast.makeText(context,response.body(),Toast.LENGTH_SHORT);
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(@NotNull Call<ArrayList<Errors>> call, Throwable t) {
 
             }
         });
     }
 
-    public void postNewDevice(Device device) {
+    public void postNewDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<String> call = getPostConnection.postDevice(device);
+        Call<ArrayList<Errors>> call = getPostConnection.postDevice(device);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ArrayList<Errors>>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(context,call.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void putChangeDevice(Device device, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
+
+        call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
 
                     return;
                 }
-            String responseText = (String) response.body();
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
             }
 
             @Override
@@ -189,18 +211,19 @@ public class Connection {
         });
     }
 
-    public void putChangeDevice(Device device) {
+    public void deleteDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<String> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
+        Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
 
                     return;
                 }
-                String responseText = (String) response.body();
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
             }
 
             @Override
@@ -210,18 +233,19 @@ public class Connection {
         });
     }
 
-    public void deleteDevice(Device device) {
+    public void deleteReservation(Device device, Reservation reservation, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<String> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
+        Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(device.getInventoryNumberInt(), reservation);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
             public void onResponse(Call call, retrofit2.Response response) {
                 if (!response.isSuccessful()) {
 
                     return;
                 }
-                String responseText = (String) response.body();
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
             }
 
             @Override
@@ -283,5 +307,13 @@ public class Connection {
             // Handle your exceptions
             return false;
         }
+    }
+
+    public void showErrors(ArrayList<Errors> errors, Context context){
+        String message = "";
+        for(Errors e: errors){
+            message+= e.getMsg() + " ";
+        }
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
 }

@@ -193,7 +193,7 @@ public class CardFragment extends Fragment {
                 ((DeviceCardActivity)getActivity()).refreshUI();
 
                 Connection connection = new Connection();
-                connection.putChangeDevice(device);
+                connection.putChangeDevice(device, getContext());
 
                 Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
             }

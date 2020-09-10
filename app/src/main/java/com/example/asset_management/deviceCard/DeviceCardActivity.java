@@ -99,7 +99,8 @@ public class DeviceCardActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Connection connection = new Connection();
-                            connection.deleteDevice(getDevice());
+                            connection.deleteDevice(getDevice(),getApplicationContext());
+                            finish();
                         }
                     })
 

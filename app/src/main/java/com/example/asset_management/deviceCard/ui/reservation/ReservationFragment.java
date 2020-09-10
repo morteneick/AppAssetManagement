@@ -68,41 +68,29 @@ public class ReservationFragment extends Fragment {
                 JsonHandler.createJsonFromDeviceList(list, "ReservationDevice.json", getContext());
             }
         });
+
         ListView listView = root.findViewById(R.id.listView);
         ArrayList<Reservation> list = new ArrayList<>();
+        final ArrayList<Reservation> listReservation = new ArrayList<>();
         try {
             list = JsonHandler.getCalendarList("ReservationList.json", getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-        Device device = activity.getDevice();
 
+        DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+
+        final Device device = activity.getDevice();
 
         for(Reservation r : list){
             if(r.getInventoryNumber().toString().equals(device.getInventoryNumber()) )
             arrayList.add(r.getLoanDay() + " - " + r.getLoanEnd());
+            listReservation.add(r);
         }
 
         if(arrayList.size() == 0){
             arrayList.add("Keine Reservierungen gefunden");
         }
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
-//        arrayList.add("18. September 2020 - 1, Oktober 2020");
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, arrayList);
@@ -110,8 +98,7 @@ public class ReservationFragment extends Fragment {
         listView.setAdapter(itemsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 new AlertDialog.Builder(getContext())
                         .setTitle("Reservierung löschen")
@@ -122,7 +109,8 @@ public class ReservationFragment extends Fragment {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Connection connection = new Connection();
-
+                                connection.deleteReservation(device, listReservation.get(position), getContext());
+                                ((DeviceCardActivity)getActivity()).refreshUI();
                             }
                         })
 

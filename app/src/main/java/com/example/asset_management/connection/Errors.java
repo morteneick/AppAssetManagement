@@ -1,6 +1,6 @@
 package com.example.asset_management.connection;
 
-public class Message {
+public class Errors {
 
     String value;
     String msg;

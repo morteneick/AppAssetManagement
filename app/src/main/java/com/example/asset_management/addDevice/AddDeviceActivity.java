@@ -52,10 +52,10 @@ public class AddDeviceActivity extends AppCompatActivity {
                             jsonName, getApplicationContext());
 
                 Connection connection = new Connection();
-                connection.postNewDevice(device);
+                connection.postNewDevice(device, getApplicationContext());
 
-                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
-                            .show();
+//                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
+//                            .show();
 
             }
         });

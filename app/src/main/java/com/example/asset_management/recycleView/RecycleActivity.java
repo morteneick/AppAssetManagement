@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -53,16 +52,14 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         setContentView(R.layout.activity_main2);
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
+        Connection connection = new Connection();
+        connection.getDeviceList(this);
+        connection.getReservationList(this);
 
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
 
-        Connection connection = new Connection();
-//        connection.get2(this);
-        connection.createDeviceList(this);
-        connection.createReservationList(this);
-//        Connection.getDeviceList(url, this);
         try {
             list = JsonHandler.getDeviceList(jsonName, this);
         } catch (IOException e) {
@@ -132,7 +129,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         this.deviceRecycleView.setAdapter(adapter);
 
         String show = list.size() + " Geräte wurden gefunden";
-        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -2,6 +2,7 @@ package com.example.asset_management.jsonhandler;
 
 import android.content.Context;
 
+import com.example.asset_management.connection.Errors;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.recycleView.Device;
 
@@ -17,10 +18,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-
-import static android.content.Context.MODE_PRIVATE;
 /**
  * JsonHandler
  * <p>
@@ -111,6 +109,21 @@ public class JsonHandler {
 
     public static String createJsonFromCalendarList(ArrayList<Reservation> list, String path, Context context){
         String json = convertIntoString(list);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
+    public static String createJsonFromErrors(ArrayList<Errors> errors, String path, Context context){
+        String json = convertIntoString(errors);
 
         try {
             FileOutputStream fOut = context.openFileOutput(path, 0);
