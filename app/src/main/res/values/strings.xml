@@ -32,4 +32,15 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    
+    <string-array name="status">
+        <item>Verfügbar</item>
+        <item>Ausgeliehen</item>
+        <item>In Wartung</item>
+        <item>Außer Betrieb</item>
+        <item>Defekt</item>
+        <item>Verschwunden</item>
+        <item>Gestohlen</item>
+    </string-array>
+    
 </resources>

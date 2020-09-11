@@ -96,10 +96,9 @@ public class ReservationFragment extends Fragment {
                 android.R.layout.simple_list_item_1, arrayList);
 
         listView.setAdapter(itemsAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 new AlertDialog.Builder(getContext())
                         .setTitle("Reservierung löschen")
                         .setMessage("Sind Sie sich sicher, dass Sie die Reservierung löschen möchten?")
@@ -118,9 +117,10 @@ public class ReservationFragment extends Fragment {
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-
+                return false;
             }
         });
+
         return root;
     }
 }

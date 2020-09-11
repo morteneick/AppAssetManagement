@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -45,7 +48,12 @@ public class CardFragment extends Fragment {
                 false);
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
-        final EditText editStatus = root.findViewById(R.id.editStatus);
+//        final EditText editStatus = root.findViewById(R.id.editStatus);
+        final Spinner editStatus = root.findViewById(R.id.editStatus);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.status, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        editStatus.setAdapter(adapter);
+//        editStatus.setOnItemSelectedListener(this);
         final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
         final EditText editModel = root.findViewById(R.id.editModel);
         final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
@@ -60,8 +68,15 @@ public class CardFragment extends Fragment {
         final EditText editNotes = root.findViewById(R.id.editNotes);
         final EditText editProject = root.findViewById(R.id.editProject);
 
+        final Button btnTuev = root.findViewById(R.id.btnTuev);
+        final View viewTuev = root.findViewById(R.id.btnTuev);
         final View viewSave = root.findViewById(R.id.btnSave);
         final Button btnSave = root.findViewById(R.id.btnSave);
+        final Button btnUvv = root.findViewById(R.id.btnUvv);
+        final View viewUvv = root.findViewById(R.id.btnUvv);
+        final Button btnRepair = root.findViewById(R.id.btnRepair);
+        final View viewRepair = root.findViewById(R.id.btnRepair);
+
 
 
         cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -69,10 +84,16 @@ public class CardFragment extends Fragment {
             public void onChanged(@Nullable String s) {
 
             DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-            Device device = activity.getDevice();
+            final Device device = activity.getDevice();
 
             editInventoryNumber.setText(device.getInventoryNumber());
-            editStatus.setText(device.getStatus());
+//            editStatus.setText(device.getStatus());
+                editStatus.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        editStatus.setSelection(getPosition(device));
+                    }
+                });
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());
@@ -100,9 +121,12 @@ public class CardFragment extends Fragment {
             }
 
                 if (!activity.isClicked()){
-                    viewSave.setVisibility(View.GONE);
+                    setInvisibility(editTuev, btnTuev);
+                    setInvisibility(editUvv, btnUvv);
+                    setInvisibility(editRepair, btnRepair);
+                    viewSave.setVisibility(View.INVISIBLE);
                     blockInput(editInventoryNumber);
-                    blockInput(editStatus);
+                    editStatus.setEnabled(false);
                     blockInput(editManufacturer);
                     blockInput(editModel);
                     blockInput(editSerialnumber);
@@ -118,9 +142,13 @@ public class CardFragment extends Fragment {
                     blockInput(editNotes);
 
                 } else {
-                    viewSave.setVisibility(View.VISIBLE);
+
+                    setVisibility(editTuev, btnTuev);
+                    setVisibility(editUvv, btnUvv);
+                    setVisibility(editRepair, btnRepair);
                     unblockInput(editInventoryNumber);
-                    unblockInput(editStatus);
+                    viewSave.setVisibility(View.VISIBLE);
+                    editStatus.setEnabled(true);
                     unblockInput(editManufacturer);
                     unblockInput(editModel);
                     unblockInput(editSerialnumber);
@@ -129,9 +157,9 @@ public class CardFragment extends Fragment {
                     unblockInput(editStreet);
                     unblockInput(editCity);
                     unblockInput(editName);
-                    unblockInput(editTuev);
-                    unblockInput(editUvv);
-                    unblockInput(editRepair);
+//                    unblockInput(editTuev);
+//                    unblockInput(editUvv);
+//                    unblockInput(editRepair);
                     unblockInput(editNotes);
                     unblockInput(editProject);
                 }
@@ -151,14 +179,14 @@ public class CardFragment extends Fragment {
                 String serialnumber = editSerialnumber.getText().toString();
                 String manufacturer = editManufacturer.getText().toString();
                 String model = editModel.getText().toString();
-                String status = editStatus.getText().toString();
+                String status = editStatus.getSelectedItem().toString();
                 String category = editCategory.getText().toString();
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();
                 String city = editCity.getText().toString();
+                String notes = editNotes.getText().toString();
                 String tuev = editTuev.getText().toString();
                 String uvv = editUvv.getText().toString();
-                String notes = editNotes.getText().toString();
                 String project = editProject.getText().toString();
                 String repair = editRepair.getText().toString();
 
@@ -223,4 +251,44 @@ public class CardFragment extends Fragment {
         editText.setCursorVisible(true);
 //        editText.setKeyListener();
     }
+
+    private int getPosition (Device device){
+
+        String status = device.getStatus();
+
+        switch(status) {
+            case "Verfügbar":
+                return 0;
+            case "Ausgeliehen":
+                return 1;
+
+            case "In Wartung":
+                return 2;
+
+            case "Außer Betrieb":
+                return 3;
+
+            case "Defekt":
+                return 4;
+
+            case "Verschollen/Verschwunden":
+                return 5;
+
+            case "Gestohlen":
+                return 6;
+
+            default: return 0;
+        }
+    }
+    private void setVisibility(EditText editText, View view){
+        editText.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        view.setVisibility(View.VISIBLE);
+    }
+    private void setInvisibility(EditText editText, View view){
+        editText.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        view.setVisibility(View.INVISIBLE);
+    }
+
 }
