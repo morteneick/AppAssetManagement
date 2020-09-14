@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,7 +72,7 @@ public class ReservationFragment extends Fragment {
         ArrayList<Reservation> list = new ArrayList<>();
         final ArrayList<Reservation> listReservation = new ArrayList<>();
         try {
-            list = JsonHandler.getCalendarList("ReservationList.json", getContext());
+            list = JsonHandler.getReservationList("ReservationList.json", getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,6 +108,7 @@ public class ReservationFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 Connection connection = new Connection();
                                 connection.deleteReservation(device, listReservation.get(position), getContext());
+                                ArrayList<Reservation> list = new ArrayList<Reservation>();
                                 ((DeviceCardActivity)getActivity()).refreshUI();
                             }
                         })

@@ -1,10 +1,13 @@
 package com.example.asset_management.recycleView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -129,7 +132,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         this.deviceRecycleView.setAdapter(adapter);
 
         String show = list.size() + " Geräte wurden gefunden";
-//        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -141,6 +144,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
 
         Intent intent = new Intent(RecycleActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
+        intent.putExtra("isOldVersion", false);
         startActivity(intent);
         JsonHandler.createJsonFromDevice(list.get(position), "Device.json", this);
         setHistoryDeviceList(position);
@@ -163,10 +167,12 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
      * Sets the editability of the device card to false after closing the activity
      */
     public void onStop () {
+
         SwitchEditable switchEditable = new SwitchEditable(false);
         JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
         super.onStop();
     }
+
 
     /**
      * Adds the position from the onNoteClick to an array and saves it into an json file. So there

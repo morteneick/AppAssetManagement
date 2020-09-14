@@ -32,6 +32,8 @@ public class Device implements Serializable {
     private Date guarantee;
     private String note;
     private int deviceStatus;
+
+    @SerializedName("statusDescription")
     private String description;
     private String category;
     private Double longitude;
@@ -46,7 +48,7 @@ public class Device implements Serializable {
     private String city;
     private String status;
     private Date lastRepair;
-
+    private Date lastChange;
 
     public Device(){
     }
@@ -292,6 +294,14 @@ public class Device implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Date getLastChange() {
+        return lastChange;
+    }
+
+    public void setLastChange(Date lastChange) {
+        this.lastChange = lastChange;
     }
 
     @Override

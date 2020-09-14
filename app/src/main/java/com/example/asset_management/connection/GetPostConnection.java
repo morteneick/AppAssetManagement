@@ -30,15 +30,15 @@ public interface GetPostConnection {
     Call<ArrayList<Reservation>> getReservation();
 
     @Headers("Accept: application/json")
-    @POST("api/history/getHistoryForSpecificDevice/:{inventoryNumber}")
-    Call<Device> getDeviceOldVersion(@Path("inventoryNumber") int inventoryNumber);
+    @GET("api/history/getHistoryForSpecificDevice/{inventoryNumber}")
+    Call<ArrayList<Device>> getDeviceOldVersion(@Path("inventoryNumber") int inventoryNumber);
 
     @Headers("Accept: application/json")
     @POST("api/borrow/createReservation")
     Call<ArrayList<Errors>> postNewReservation(@Body Reservation reservation);
 
     @Headers("Accept: application/json")
-    @POST("/api/device/createDevice")
+    @POST("api/device/createDevice")
     Call<ArrayList<Errors>> postDevice(@Body Device device);
 
     @Headers("Accept: application/json")
@@ -46,7 +46,7 @@ public interface GetPostConnection {
     Call<ArrayList<Errors>> putChangedDevice(@Path("inventoryNumber") int inventoryNumber, @Body Device device);
 
     @Headers("Accept: application/json")
-    @HTTP(method="DELETE", path="/api/borrow/cancelReservation/:{inventoryNumber}", hasBody = true)
+    @HTTP(method="DELETE", path="api/borrow/cancelReservation/:{inventoryNumber}", hasBody = true)
     Call<ArrayList<Errors>> deleteReservation(@Path("inventoryNumber")int inventoryNumber, @Body Reservation reservation);
 
     @Headers("Accept: application/json")

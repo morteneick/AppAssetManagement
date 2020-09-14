@@ -14,10 +14,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleView.Device;
 import com.example.asset_management.recycleView.RecycleActivity;
 
 import java.net.CookieHandler;
+import java.util.Calendar;
 
 /**
  * MainHubFragment
@@ -76,8 +78,8 @@ public class MainHubFragment extends Fragment {
             public void onClick(View view) {
 //
                 Connection connection = new Connection();
-                Device device = new Device("1", "test", "test","test","6test", "test");
-                connection.postNewDevice(device,getContext());
+
+                connection.getDeviceOldVersion(159742, getContext());
 
 //                Toast.makeText(getContext(),"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
 //                Intent intent = new Intent(getContext(),RecycleActivity.class);

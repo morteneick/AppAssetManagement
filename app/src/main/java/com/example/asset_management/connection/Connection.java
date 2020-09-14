@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -83,9 +84,10 @@ public class Connection {
                     return;
                 }
                 ArrayList<Device> posts = response.body();
-                String show = posts.size() + " Geräte wurden gefunden";
-                Toast.makeText(context,show,Toast.LENGTH_SHORT).show();
                 JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
+
+                Calendar calendar = Calendar.getInstance();
+                JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", context);
             }
 
             @Override
@@ -120,9 +122,9 @@ public class Connection {
 
     public void getDeviceOldVersion(int inventoryNumber, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-    Call<Device> call = getPostConnection.getDeviceOldVersion(inventoryNumber);
+    Call<ArrayList<Device>> call = getPostConnection.getDeviceOldVersion(inventoryNumber);
 
-    call.enqueue(new Callback<Device>() {
+    call.enqueue(new Callback<ArrayList<Device>>() {
         @Override
         public void onResponse(Call call, retrofit2.Response response) {
             if (!response.isSuccessful()) {
@@ -130,11 +132,8 @@ public class Connection {
                         .show();
                 return;
             }
-            //TODO Old version != deviceCard
-
-            JsonHandler.createJsonFromObject(response.body(), "DeviceOldVersion.json",
+            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(), "DeviceOldVersion.json",
                     context);
-
         }
 
         @Override

@@ -35,6 +35,8 @@ public class ReservationActivity extends AppCompatActivity implements
     private boolean isStart;
     private String fileName = "Reservation.json";
     ArrayList<Reservation> list = new ArrayList<>();
+    Reservation reservation = new Reservation();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,6 @@ public class ReservationActivity extends AppCompatActivity implements
         EditText editConstruction = findViewById(R.id.editConstruction);
         String inventoryNumber = null;
 
-        Reservation reservation = new Reservation();
         reservation.setBuildingSite(editConstruction.getText().toString());
         try {
             Device device = JsonHandler.getDevice
@@ -105,16 +106,10 @@ public class ReservationActivity extends AppCompatActivity implements
         reservation.setInventoryNumber(inventoryNumber);
         if(isStart){
             textStart.setText(currentDateString);
-
             reservation.setStart(c);
-
-            list.add(reservation);
         } else {
-            textEnd.setText(currentDateString);
-            if(list.get(0).getStart().compareTo(c) <= 0){
-                if(list.size() >= 2){
-                    list.remove(1);
-                }
+            if(reservation.getStart().compareTo(c) <= 0){
+                textEnd.setText(currentDateString);
                 reservation.setEnd(c);
                 list.add(reservation);
                 JsonHandler.createJsonFromCalendarList(list,fileName, this);
@@ -138,11 +133,10 @@ public class ReservationActivity extends AppCompatActivity implements
             Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
             return false;
         } else {
-//            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
-            ArrayList<Reservation> reservation = JsonHandler.getCalendarList
+            ArrayList<Reservation> reservationList = JsonHandler.getReservationList
                     ("Reservation.json",this);
             Connection connection = new Connection();
-            connection.postNewReservation(reservation.get(0), this);
+            connection.postNewReservation(reservation, this);
             return true;
         }
     }

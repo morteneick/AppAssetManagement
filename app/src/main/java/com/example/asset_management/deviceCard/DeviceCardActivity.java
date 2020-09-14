@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.deviceCard.ui.card.CardFragment;
 import com.google.gson.Gson;
 
 import com.example.asset_management.jsonhandler.JsonHandler;
@@ -25,6 +26,7 @@ import com.example.asset_management.R;
 
 import java.io.File;
 import java.io.IOException;
+
 /**
  * DeviceCardActivity
  * <p>
@@ -33,23 +35,55 @@ import java.io.IOException;
  * 30.08.2020
  * AUTHOR: Dominik Dziersan
  */
-public class DeviceCardActivity extends AppCompatActivity {
+public class DeviceCardActivity extends AppCompatActivity implements
+         CardFragment.FragmentDeviceCardListener{
     public boolean onOffSwitch = false;
     public String fileName = "Switch.json";
+    private String clickedCalendar;
+    private String currentDateString;
+    private boolean isOldDevice;
+    @Override
+    public void onInputASent(String input) {
+        clickedCalendar = input;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_card);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        Toolbar toolbar = findViewById(R.id.toolbardevicecard);
-        setSupportActionBar(toolbar);
+        Intent intent = getIntent();
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        isOldDevice = (Boolean)intent.getSerializableExtra("isOldVersion");
+
+        AppBarConfiguration appBarConfiguration;
+        BottomNavigationView navView;
+        NavController navController;
+
+        if(!isOldDevice){
+            setContentView(R.layout.activity_device_card);
+            navView = findViewById(R.id.nav_view);
+            Toolbar toolbar = findViewById(R.id.toolbardevicecard);
+            setSupportActionBar(toolbar);
+
+            appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
+                    .build();
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        } else {
+            setContentView(R.layout.activity_device_card_old_versions);
+            navView = findViewById(R.id.nav_view_oldversion);
+            Toolbar toolbar = findViewById(R.id.toolbardevicecard);
+            setSupportActionBar(toolbar);
+
+            appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
+                    .build();
+            navController = Navigation.findNavController(this, R.id.nav_host_fragment_old_devicecard);
+//            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        }
+
+
+
         NavigationUI.setupWithNavController(navView, navController);
 
         File file = this.getFileStreamPath(fileName);
@@ -59,6 +93,8 @@ public class DeviceCardActivity extends AppCompatActivity {
             SwitchEditable switchEditable = new SwitchEditable(onOffSwitch);
             createSwitch(switchEditable);
         }
+
+
     }
 
     @Override
@@ -84,8 +120,12 @@ public class DeviceCardActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_history) {
-        Intent intent = new Intent (this, DeviceCardOldVersionsActivity.class);
+        Connection connection = new Connection();
+        connection.getDeviceOldVersion(getDevice().getInventoryNumberInt(), this);
+
+        Intent intent = new Intent (this, DeviceCardOldVersionsListActivity.class);
         startActivity(intent);
+
             return true;
         }
 
@@ -115,6 +155,10 @@ public class DeviceCardActivity extends AppCompatActivity {
     public Device getDevice(){
         Intent intent = getIntent();
         return (Device)intent.getSerializableExtra("Device");
+    }
+    public boolean isOldDevice(){
+        Intent intent = getIntent();
+        return (boolean) intent.getSerializableExtra("isOldVersion");
     }
 
     /**
@@ -166,5 +210,36 @@ public class DeviceCardActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        onOffSwitch = isClicked();
+        if(onOffSwitch){
+            new AlertDialog.Builder(this)
+                    .setTitle("Änderungen verwerfen")
+                    .setMessage("Sind Sie sich sicher, dass Sie ddie Änderungen verwerfen möchten?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SwitchEditable switchEditable = new SwitchEditable(false);
+                            createSwitch(switchEditable);
+                            finish();
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            finish();
+        }
+    }
+
+    public String getCurrentDateString(){
+        return currentDateString;
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.asset_management.R;
 
+import com.example.asset_management.connection.Connection;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class MainHubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
+        Connection connection = new Connection();
+        connection.getDeviceList(this);
     }
 
     @Override

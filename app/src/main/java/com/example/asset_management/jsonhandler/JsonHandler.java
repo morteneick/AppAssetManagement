@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * JsonHandler
@@ -122,6 +123,21 @@ public class JsonHandler {
         }
     }
 
+    public static String createJsonFromCalendar(Calendar calendar, String path, Context context){
+        String json = convertIntoString(calendar);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
     public static String createJsonFromErrors(ArrayList<Errors> errors, String path, Context context){
         String json = convertIntoString(errors);
 
@@ -192,7 +208,7 @@ public class JsonHandler {
         return list;
     };
 
-    public static ArrayList<Reservation> getCalendarList(String filename, Context context)
+    public static ArrayList<Reservation> getReservationList(String filename, Context context)
             throws IOException {
 
         String jsonString = getDeviceListString(context, filename);
@@ -203,6 +219,28 @@ public class JsonHandler {
 
         return list;
     };
+
+    public static Calendar getCalendar(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getDeviceListString(context, filename);
+
+        Gson gson = new Gson();
+        Calendar calendar = gson.fromJson(jsonString, Calendar.class);
+
+        return calendar;
+    };
+
+//    public static Calendar getReservation(String filename, Context context)
+//            throws IOException {
+//
+//        String jsonString = getDeviceListString(context, filename);
+//
+//        Gson gson = new Gson();
+//        Calendar calendar = gson.fromJson(jsonString, Calendar.class);
+//
+//        return calendar;
+//    };
 
     public static void clearJson(String path) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(path);

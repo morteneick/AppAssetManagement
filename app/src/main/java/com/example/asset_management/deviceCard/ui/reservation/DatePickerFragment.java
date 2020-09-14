@@ -19,6 +19,9 @@ import java.util.Calendar;
  * AUTHOR: Dominik Dziersan
  */
 public class DatePickerFragment extends DialogFragment {
+    DatePickerDialog.OnDateSetListener ondateSet;
+
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -29,5 +32,10 @@ public class DatePickerFragment extends DialogFragment {
         String tag = getTag();
         return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(),
                 year,month,day);
+    }
+
+
+    public void setCallBack(DatePickerDialog.OnDateSetListener ondate) {
+        ondateSet = ondate;
     }
 }
