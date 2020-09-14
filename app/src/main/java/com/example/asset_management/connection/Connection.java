@@ -47,30 +47,6 @@ public class Connection {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-
-
-    public void get2(final Context context){
-        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<test> call = getPostConnection.get2();
-
-        call.enqueue(new Callback<test>() {
-            @Override
-            public void onResponse(Call<test> call, retrofit2.Response<test> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(context,"failed",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                test posts = response.body();
-                Toast.makeText(context,posts.getTest(),Toast.LENGTH_SHORT).show();
-                JsonHandler.createJsonFromObject(posts,"Test.json", context);
-            }
-
-            @Override
-            public void onFailure(Call<test> call, Throwable t) {
-            }
-        });
-    }
-
     public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getDevices();

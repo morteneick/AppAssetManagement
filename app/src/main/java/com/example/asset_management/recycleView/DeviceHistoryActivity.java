@@ -145,7 +145,6 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
 
     }
 
-
     /**
      * Starts Activity if Item is clicked
      * @param position
@@ -154,7 +153,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     public void onNoteClick(int position) throws IOException {
         Intent intent = new Intent(DeviceHistoryActivity.this, DeviceCardActivity.class);
         intent.putExtra("Device", list.get(position));
-
+        intent.putExtra("isOldVersion", false);
         startActivity(intent);
     }
 

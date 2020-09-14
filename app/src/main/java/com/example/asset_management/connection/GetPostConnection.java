@@ -23,9 +23,6 @@ public interface GetPostConnection {
     @GET("/api/device/getAllDevices")
     Call<ArrayList<Device>> getDevices();
 
-    @GET("test")
-    Call<test> get2();
-
     @GET("api/borrow/getReservations")
     Call<ArrayList<Reservation>> getReservation();
 
