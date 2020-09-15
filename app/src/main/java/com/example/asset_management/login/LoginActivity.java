@@ -15,10 +15,11 @@ import com.example.asset_management.R;
 import com.example.asset_management.mainHub.MainHubActivity;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.google.gson.JsonObject;
 
-
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.asset_management.login.Login;
@@ -41,20 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(login);
 
-        Name = (EditText)findViewById(R.id.editText);
-        Password = (EditText)findViewById(R.id.editText2);
+        Name = (EditText) findViewById(R.id.editText);
+        Password = (EditText) findViewById(R.id.editText2);
         Info = (TextView) findViewById(R.id.textView);
-        Login = (Button)findViewById(R.id.btnLogin);
+        Login = (Button) findViewById(R.id.btnLogin);
 
-        Info.setText("Versuche übrig: 10");
+        //Info.setText("Versuche übrig: 10");
 
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //Login login = new Login(Name.getText().toString(),Password.getText().toString());
-                Login login = new Login(Name.getText().toString(),BCrypt.withDefaults().hashToString(12,Password.getText().toString().toCharArray()));
+                Login login = new Login(Name.getText().toString(), BCrypt.withDefaults().hashToString(12, Password.getText().toString().toCharArray()));
 
                 String createDeviceMessage = JsonHandler.createJsonFromObject(login,
                         jsonName, getApplicationContext());
@@ -62,12 +62,33 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
                         .show();
 
-                validate(Name.getText().toString(), Password.getText().toString());
+                JSONObject jsonResponseLogin = new JSONObject(result);  // in progress TODO recive json
+                try {
+                    userInfo currentUser = new userInfo(jsonResponseLogin.getString("worker_id"), jsonResponseLogin.getString("e_mail"), jsonResponseLogin.getString("name"), jsonResponseLogin.getString("surname"), jsonResponseLogin.getString("role"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    userRights userRights = new userRights(jsonResponseLogin.getBoolean("add_device"), jsonResponseLogin.getBoolean("add_user"),
+                            jsonResponseLogin.getBoolean("booking_device"), jsonResponseLogin.getBoolean("delete_booking"), jsonResponseLogin.getBoolean("delete_device"),
+                            jsonResponseLogin.getBoolean("delete_user"), jsonResponseLogin.getBoolean("edit_booking"), jsonResponseLogin.getBoolean("edit_device"),
+                            jsonResponseLogin.getBoolean("edit_user"), jsonResponseLogin.getBoolean("view_device"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //validate(Name.getText().toString(), Password.getText().toString());
             }
         });
 
+
+        // Benutzer und Rechte - Empfangen JSON
+        //
+
+
     }
-    private void validate(String userName, String userPassword){
+   /* private void validate(String userName, String userPassword){
         String ucorrect = "Admin";
         String hashPassword = "1234";
         String bcyrptHashString = BCrypt.withDefaults().hashToString(12,hashPassword.toCharArray());
@@ -87,6 +108,5 @@ public class LoginActivity extends AppCompatActivity {
                 Login.setEnabled(false);
             }
         }
-    }
-
+    }*/
 }
