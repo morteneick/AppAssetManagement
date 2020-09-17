@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.asset_management.connection.Errors;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

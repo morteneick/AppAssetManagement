@@ -28,6 +28,6 @@ public class userRights {
         this.edit_device = edit_device;
         this.edit_user = edit_user;
         this.view_device = view_device;
-
     }
+
 }

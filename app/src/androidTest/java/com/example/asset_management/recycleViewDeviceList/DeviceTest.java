@@ -1,19 +1,7 @@
-package com.example.asset_management.recycleView;
-
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-
-import com.example.asset_management.R;
-import com.example.asset_management.addDevice.AddDeviceActivity;
+package com.example.asset_management.recycleViewDeviceList;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-
-import kotlin.reflect.KVariance;
-
-import static org.junit.Assert.*;
 
 public class DeviceTest {
 

@@ -1,4 +1,4 @@
-package com.example.asset_management.recycleView;
+package com.example.asset_management.recycleViewDeviceList;
 
 import android.view.LayoutInflater;
 import android.view.View;

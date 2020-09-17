@@ -11,7 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -22,7 +22,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

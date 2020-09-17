@@ -1,6 +1,6 @@
 package com.example.asset_management.jsonhandler;
 
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import org.junit.Assert;
 import org.junit.Rule;

@@ -6,14 +6,14 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 
 /**
@@ -32,7 +32,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_device);
-        Toolbar toolbar = findViewById(R.id.toolbarMain);
+        Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
         Button btnSave = findViewById(R.id.button4);

@@ -1,10 +1,9 @@
 package com.example.asset_management.connection;
 
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

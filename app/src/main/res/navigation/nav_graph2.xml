@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/First2Fragment"
-        android:name="com.example.asset_management.recycleView.RecycleFragment"
+        android:name="com.example.asset_management.recycleViewDeviceList.RecycleFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_recycler">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/Second2Fragment"
-        android:name="com.example.asset_management.recycleView.Second2Fragment"
+        android:name="com.example.asset_management.recycleViewDeviceList.Second2Fragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second2">
 

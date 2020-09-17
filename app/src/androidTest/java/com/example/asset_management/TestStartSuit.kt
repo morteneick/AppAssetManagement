@@ -3,8 +3,8 @@ package com.example.asset_management
 import com.example.asset_management.addDevice.AddDeviceFragmentTest
 import com.example.asset_management.jsonhandler.JsonHandlerTest
 import com.example.asset_management.mainHub.MainHubActivityTest
-import com.example.asset_management.recycleView.DeviceAdapterTest
-import com.example.asset_management.recycleView.RecycleFragmentTest
+import com.example.asset_management.recycleViewDeviceList.DeviceAdapterTest
+import com.example.asset_management.recycleViewDeviceList.RecycleFragmentTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 

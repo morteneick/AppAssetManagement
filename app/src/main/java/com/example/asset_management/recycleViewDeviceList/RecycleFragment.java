@@ -1,4 +1,4 @@
-package com.example.asset_management.recycleView;
+package com.example.asset_management.recycleViewDeviceList;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,14 +29,5 @@ public class RecycleFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-//        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(First2Fragment.this)
-//                        .navigate(R.id.action_first2Fragment_to_second2Fragment);
-//            }
-//        });
     }
 }

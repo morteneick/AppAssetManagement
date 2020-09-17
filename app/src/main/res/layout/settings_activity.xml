@@ -6,22 +6,22 @@
     android:orientation="horizontal">
 
     <include
-        android:id="@+id/toolbardevicecardoldversion"
-        layout="@layout/toolbar_devicecardoldversion"
+        android:id="@+id/toolbardevicecard"
+        layout="@layout/toolbar_devicecard"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="564dp" />
 
     <ListView
-        android:id="@+id/listOldDevice"
-        android:layout_width="358dp"
-        android:layout_height="562dp"
+        android:id="@+id/listOptions"
+        android:layout_width="348dp"
+        android:layout_height="537dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbardevicecardoldversion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

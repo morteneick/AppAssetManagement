@@ -1,4 +1,4 @@
-package com.example.asset_management.recycleView
+package com.example.asset_management.recycleViewDeviceList
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -7,7 +7,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.asset_management.R
-import com.example.asset_management.mainHub.MainHubActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 

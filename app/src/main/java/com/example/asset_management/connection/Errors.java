@@ -1,5 +1,12 @@
 package com.example.asset_management.connection;
-
+/**
+ * Errors
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 11.09.20
+ * AUTHOR: Dominik Dziersan
+ */
 public class Errors {
 
     String value;

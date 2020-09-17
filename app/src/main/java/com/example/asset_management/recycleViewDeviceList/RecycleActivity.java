@@ -1,11 +1,11 @@
-package com.example.asset_management.recycleView;
+package com.example.asset_management.recycleViewDeviceList;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,10 +40,7 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
     private String fileName = "HistoryDeviceList.json";
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
-
     private String jsonName = "DeviceList.json";
-    String url = "https://gist.githubusercontent.com/Dziersan/1766cd6c4ab4d61555e63cb34478d888/" +
-            "raw/bddf90ce241a4632cd84d0046866f2cd91367c8b/0device.json";
 
     /**
      *  Executes code after open Activity.
@@ -53,8 +50,10 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = findViewById(R.id.toolbarMain);
+
+        Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
+
         Connection connection = new Connection();
         connection.getDeviceList(this);
         connection.getReservationList(this);
@@ -62,11 +61,19 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         mQueue = Volley.newRequestQueue(this);
+        Intent intent = getIntent();
 
         try {
-            list = JsonHandler.getDeviceList(jsonName, this);
-        } catch (IOException e) {
+            list = (ArrayList<Device>) intent.getSerializableExtra("filteredList");
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(list == null){
+            try {
+                list = JsonHandler.getDeviceList(jsonName, this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         setupRecyclerView();
@@ -207,5 +214,26 @@ public class RecycleActivity extends AppCompatActivity implements DeviceAdapter.
             }
             JsonHandler.createJsonFromInteger(listHistory,fileName,this);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_recycleview_devicelist, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_filter) {
+            Intent intent = new Intent (this, FilterDeviceListActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -12,8 +12,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,11 +27,9 @@ import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.deviceCard.ui.reservation.DatePickerFragment;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
-import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -232,7 +228,11 @@ public class CardFragment extends Fragment implements
                 String serialnumber = editSerialnumber.getText().toString();
                 String manufacturer = editManufacturer.getText().toString();
                 String model = editModel.getText().toString();
-                String status = editStatus.getSelectedItem().toString();
+                String status;
+                if(editStatus.getSelectedItem().toString().equals("")){
+                    status = "Verfürgbar";
+                }
+                status = editStatus.getSelectedItem().toString();
                 String category = editCategory.getText().toString();
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();

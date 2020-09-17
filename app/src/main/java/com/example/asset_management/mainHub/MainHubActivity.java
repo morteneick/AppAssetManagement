@@ -24,8 +24,6 @@ import android.view.MenuItem;
  */
 public class MainHubActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

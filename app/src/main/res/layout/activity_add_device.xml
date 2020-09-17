@@ -8,8 +8,10 @@
     android:id="@+id/addDevice">
 
     <include
-        android:id ="@+id/toolbarMain"
-        layout ="@layout/toolbarmain" />
+        android:id="@+id/toolbardevicecard"
+        layout="@layout/toolbar_devicecard"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="564dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"

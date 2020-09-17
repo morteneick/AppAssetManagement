@@ -1,11 +1,9 @@
-package com.example.asset_management.recycleView;
+package com.example.asset_management.recycleViewDeviceList;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class DeviceAdapterTest {
 

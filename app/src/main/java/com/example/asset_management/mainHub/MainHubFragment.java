@@ -1,12 +1,9 @@
 package com.example.asset_management.mainHub;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,12 +11,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
-import com.example.asset_management.recycleView.RecycleActivity;
-
-import java.net.CookieHandler;
-import java.util.Calendar;
 
 /**
  * MainHubFragment
@@ -88,6 +79,13 @@ public class MainHubFragment extends Fragment {
 //                        .navigate(R.id.action_FirstFragment_to_deviceHistoryActivity);
             }
         });
+        view.findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MainHubFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_settingsActivity);
 
+            }
+        });
     }
 }

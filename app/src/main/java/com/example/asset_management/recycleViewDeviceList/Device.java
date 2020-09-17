@@ -1,17 +1,13 @@
-package com.example.asset_management.recycleView;
+package com.example.asset_management.recycleViewDeviceList;
 
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.SerializedName;
-import com.example.asset_management.jsonhandler.JsonHandler;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static java.lang.String.valueOf;

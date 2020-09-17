@@ -12,7 +12,7 @@ import com.example.asset_management.deviceCard.ui.card.CardFragment;
 import com.google.gson.Gson;
 
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

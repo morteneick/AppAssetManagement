@@ -33,7 +33,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/devices"
                     android:layout_width="match_parent"
-                    android:layout_height="506dp"
+                    android:layout_height="489dp"
                     tools:itemCount="17"
                     tools:listitem="@layout/recycler_view_item" />
 

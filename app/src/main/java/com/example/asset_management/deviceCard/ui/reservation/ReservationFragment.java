@@ -22,7 +22,7 @@ import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;

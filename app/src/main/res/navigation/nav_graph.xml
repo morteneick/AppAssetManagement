@@ -35,7 +35,7 @@
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
-        android:name="com.example.asset_management.recycleView.RecycleActivity"
+        android:name="com.example.asset_management.recycleViewDeviceList.RecycleActivity"
         android:label="activity_main2"
         tools:layout="@layout/activity_main2" />
     <activity
@@ -71,7 +71,7 @@
     </fragment>
     <activity
         android:id="@+id/deviceHistoryActivity2"
-        android:name="com.example.asset_management.recycleView.DeviceHistoryActivity"
+        android:name="com.example.asset_management.recycleViewDeviceList.DeviceHistoryActivity"
         android:label="activity_device_history"
         tools:layout="@layout/activity_device_history" />
 </navigation>

@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.asset_management.R;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.example.asset_management.recycleView.Device;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,8 +55,6 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
                 intent.putExtra("Device", devices.get(position));
                 intent.putExtra("isOldVersion", true);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(),devices.get(position).getInventoryNumber(),
-                        Toast.LENGTH_SHORT).show();
             }
         });
     }
