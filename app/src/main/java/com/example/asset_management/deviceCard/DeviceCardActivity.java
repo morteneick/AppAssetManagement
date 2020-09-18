@@ -172,7 +172,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
     }
 
     public String getSwitch() throws IOException {
-        return JsonHandler.getDeviceListString(this, "Switch.json");
+        return JsonHandler.getListString(this, "Switch.json");
     }
 
     public boolean isClicked(){

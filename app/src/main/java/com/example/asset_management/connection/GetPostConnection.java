@@ -1,6 +1,7 @@
 package com.example.asset_management.connection;
 
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
+import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public interface GetPostConnection {
     Call<ArrayList<Device>> getDeviceOldVersion(@Path("inventoryNumber") int inventoryNumber);
 
     @Headers("Accept: application/json")
+    @GET("api/user/getSpecificUser/:{workerId}")
+    Call<UserInfo> getUser(@Path("workerId") int workerId);
+
+    @Headers("Accept: application/json")
+    @GET("api/user/getAllUsers")
+    Call<ArrayList<UserInfo>> getAllUsers();
+
+    @Headers("Accept: application/json")
     @POST("api/borrow/createReservation")
     Call<ArrayList<Errors>> postNewReservation(@Body Reservation reservation);
 
@@ -38,8 +47,16 @@ public interface GetPostConnection {
     Call<ArrayList<Errors>> postDevice(@Body Device device);
 
     @Headers("Accept: application/json")
+    @PUT("api/user/updateUser/:{workerId}")
+    Call<ArrayList<Errors>> putChangedUser(@Path("workerId") int workerId, @Body UserInfo userInfo);
+
+    @Headers("Accept: application/json")
     @PUT("api/device/updateDevice/:{inventoryNumber}")
     Call<ArrayList<Errors>> putChangedDevice(@Path("inventoryNumber") int inventoryNumber, @Body Device device);
+
+    @Headers("Accept: application/json")
+    @HTTP(method="DELETE", path="api/user/deleteUser/:{workerId}", hasBody = true)
+    Call<ArrayList<Errors>> deleteUser(@Path("inventoryNumber")int workerId, @Body UserInfo userInfo);
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/borrow/cancelReservation/:{inventoryNumber}", hasBody = true)

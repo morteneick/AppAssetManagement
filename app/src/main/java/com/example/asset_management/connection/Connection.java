@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import org.jetbrains.annotations.NotNull;
@@ -140,6 +141,32 @@ public class Connection {
         });
     }
 
+    public void getAllUsers(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<UserInfo>> call = getPostConnection.getAllUsers();
+
+        call.enqueue(new Callback<ArrayList<UserInfo>>() {
+            @Override
+            public void onResponse(Call<ArrayList<UserInfo>> call,
+                                   retrofit2.Response<ArrayList<UserInfo>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<UserInfo> posts = response.body();
+                JsonHandler.createJsonFromUserInfoList(posts, "DeviceList.json", context);
+
+                Calendar calendar = Calendar.getInstance();
+                JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", context);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void postNewDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postDevice(device);
@@ -184,9 +211,53 @@ public class Connection {
         });
     }
 
+    public void putChangeUser(UserInfo user, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Errors>> call = getPostConnection.putChangedUser(user.getWorkerId(), user);
+
+        call.enqueue(new Callback<ArrayList<Errors>>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
     public void deleteDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
+
+        call.enqueue(new Callback<ArrayList<Errors>>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void deleteUser(UserInfo user, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(user.getWorkerId());
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override

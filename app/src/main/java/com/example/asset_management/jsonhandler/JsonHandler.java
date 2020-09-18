@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.asset_management.connection.Errors;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
+import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import com.google.gson.Gson;
@@ -138,8 +139,23 @@ public class JsonHandler {
         }
     }
 
-    public static String createJsonFromErrors(ArrayList<Errors> errors, String path, Context context){
+    public static String createJsonFromErrorsList(ArrayList<Errors> errors, String path, Context context){
         String json = convertIntoString(errors);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
+    public static String createJsonFromUserInfoList(ArrayList<UserInfo> userInfos, String path, Context context){
+        String json = convertIntoString(userInfos);
 
         try {
             FileOutputStream fOut = context.openFileOutput(path, 0);
@@ -155,7 +171,7 @@ public class JsonHandler {
 
 
 
-    public static String getDeviceListString(Context context, String fileName)
+    public static String getListString(Context context, String fileName)
             throws IOException {
 
         File file = new File(context.getFilesDir(),fileName);
@@ -177,7 +193,7 @@ public class JsonHandler {
     public static ArrayList<Device> getDeviceList(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, filename);
+        String jsonString = getListString(context, filename);
 
         Gson gson = new Gson();
         ArrayList<Device> list = gson.fromJson(jsonString,
@@ -186,20 +202,44 @@ public class JsonHandler {
         return list;
     };
 
+    public static ArrayList<UserInfo> getUserList(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getListString(context, filename);
+
+        Gson gson = new Gson();
+        ArrayList<UserInfo> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<UserInfo>>() {}.getType());
+
+        return list;
+    };
+
     public static Device getDevice(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, filename);
+        String jsonString = getListString(context, filename);
 
         Gson gson = new Gson();
         Device device = gson.fromJson(jsonString, Device.class);
 
         return device;
     };
+
+    public static UserInfo getUser(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getListString(context, filename);
+
+        Gson gson = new Gson();
+        UserInfo user = gson.fromJson(jsonString, UserInfo.class);
+
+        return user;
+    };
+
     public static ArrayList<Integer> getIntegerList(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, filename);
+        String jsonString = getListString(context, filename);
 
         Gson gson = new Gson();
         ArrayList<Integer> list = gson.fromJson(jsonString,
@@ -211,7 +251,7 @@ public class JsonHandler {
     public static ArrayList<Reservation> getReservationList(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, filename);
+        String jsonString = getListString(context, filename);
 
         Gson gson = new Gson();
         ArrayList<Reservation> list = gson.fromJson(jsonString,
@@ -223,7 +263,7 @@ public class JsonHandler {
     public static Calendar getCalendar(String filename, Context context)
             throws IOException {
 
-        String jsonString = getDeviceListString(context, filename);
+        String jsonString = getListString(context, filename);
 
         Gson gson = new Gson();
         Calendar calendar = gson.fromJson(jsonString, Calendar.class);
