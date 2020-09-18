@@ -6,14 +6,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_settings);
         getSupportFragmentManager().beginTransaction().commit();
 
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
@@ -63,5 +61,5 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-        }
+    }
 }

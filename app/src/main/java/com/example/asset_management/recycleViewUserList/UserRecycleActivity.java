@@ -2,6 +2,7 @@ package com.example.asset_management.recycleViewUserList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.FilterDeviceListActivity;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -136,9 +138,11 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
     @Override
     public void onNoteClick(int position) throws IOException {
 
-        Intent intent = new Intent(UserRecycleActivity.this, DeviceCardActivity.class);
-//        intent.putExtra("Device", list.get(position));
+        Intent intent = new Intent(UserRecycleActivity.this, UserCardActivity.class);
+        UserInfo user = list.get(position);
+        intent.putExtra("User", user);
         startActivity(intent);
+
     }
 
     /**
@@ -158,7 +162,6 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
      * Sets the editability of the device card to false after closing the activity
      */
     public void onStop () {
-
         SwitchEditable switchEditable = new SwitchEditable(false);
         JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
         super.onStop();

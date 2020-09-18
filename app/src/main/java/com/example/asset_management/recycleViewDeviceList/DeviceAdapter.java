@@ -42,8 +42,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         this.mOnNoteListener = onNoteListener;
     }
 
-
-
     /**
      * Which informations should be displayed on the view
      * @param holder which informations should be displayed on the view

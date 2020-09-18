@@ -1,6 +1,8 @@
 package com.example.asset_management.login;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable {
     private int workerId;
     private String password;
     private String eMail;

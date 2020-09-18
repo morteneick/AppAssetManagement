@@ -44,8 +44,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         this.mOnNoteListener = onNoteListener;
     }
 
-
-
     /**
      * Which informations should be displayed on the view
      * @param holder which informations should be displayed on the view
@@ -58,12 +56,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.surname.setText(user.getSurname());
         holder.role.setText(user.getRole());
         holder.workerId.setText(user.getWorkerIdString());
-//        holder.inventoryNumber.setText(device.getInventoryNumber());
-//        holder.manufacturer.setText(device.getManufacturer());
-//        holder.model.setText(device.getModel());
-//        holder.category.setText(device.getCategory());
-//        holder.status.setText(device.getStatus());
-
     }
 
     @Override
@@ -89,7 +81,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public final TextView firstname;
         public final TextView surname;
         public final TextView role;
-//        public final ImageView image;
+        public final ImageView image;
         OnNoteListener onNoteListener;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
@@ -99,7 +91,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             firstname = view.findViewById(R.id.firstname);
             surname = view.findViewById(R.id.surname);
             role = view.findViewById(R.id.role);
-//            image = view.findViewById(R.id.image);
+            image = view.findViewById(R.id.image);
             itemView.setOnClickListener(this);
             this.onNoteListener = onNoteListener;
         }

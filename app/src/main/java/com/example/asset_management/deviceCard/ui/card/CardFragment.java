@@ -279,7 +279,7 @@ public class CardFragment extends Fragment implements
      * Blocks the input from all editTexts
      * @param editText
      */
-    private void blockInput(EditText editText){
+    public static void blockInput(EditText editText){
         editText.setFocusable(false);
         editText.setEnabled(false);
         editText.setCursorVisible(false);
@@ -289,7 +289,7 @@ public class CardFragment extends Fragment implements
      * unlock Blocks the input from all editTexts
      * @param editText
      */
-    private void unblockInput(EditText editText){
+    public static void unblockInput(EditText editText){
         editText.setFocusableInTouchMode(true);
         editText.setEnabled(true);
         editText.setCursorVisible(true);
@@ -319,12 +319,13 @@ public class CardFragment extends Fragment implements
             default: return 0;
         }
     }
-    private void setVisibility(EditText editText, View view){
+
+    public static void setVisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setVisibility(View.VISIBLE);
     }
-    private void setInvisibility(EditText editText, View view){
+    public static void setInvisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setVisibility(View.INVISIBLE);
