@@ -30,8 +30,8 @@ public class MainHubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
-        Connection connection = new Connection();
-        connection.getDeviceList(this);
+//        Connection connection = new Connection();
+//        connection.getDeviceList(this);
     }
 
     @Override

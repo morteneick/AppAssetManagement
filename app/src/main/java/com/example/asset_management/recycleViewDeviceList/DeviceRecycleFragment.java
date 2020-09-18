@@ -16,7 +16,7 @@ import com.example.asset_management.R;
  * </p>
  * 11.05.2020
  */
-public class RecycleFragment extends Fragment {
+public class DeviceRecycleFragment extends Fragment {
 
     @Override
     public View onCreateView(
@@ -24,7 +24,7 @@ public class RecycleFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        return inflater.inflate(R.layout.fragment_recycler, container, false);
+        return inflater.inflate(R.layout.fragment_recycler_device, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

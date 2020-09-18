@@ -11,13 +11,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4ClassRunner::class)
-class RecycleActivityTest{
+class DeviceRecycleActivityTest{
 
 
     @Test
     fun testRecycleViewActivityInView() {
 
-        val activityScenario = ActivityScenario.launch(RecycleActivity::class.java)
+        val activityScenario = ActivityScenario.launch(DeviceRecycleActivity::class.java)
 
         onView(withId(R.id.devices))
                 .check(matches(isDisplayed()));

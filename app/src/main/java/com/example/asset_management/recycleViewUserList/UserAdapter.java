@@ -1,4 +1,4 @@
-package com.example.asset_management.recycleViewDeviceList;
+package com.example.asset_management.recycleViewUserList;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.asset_management.R;
+import com.example.asset_management.login.UserInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 /**
  * DeviceAdapter
  * <p>
@@ -20,25 +22,25 @@ import java.util.ArrayList;
  * </p>
  * 11.05.2020
  */
-public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private OnNoteListener mOnNoteListener;
-    private ArrayList<Device> devices;
+    private ArrayList<UserInfo> users;
 
-    public void filterList(ArrayList<Device> filteredList){
-        devices = filteredList;
+    public void filterList(ArrayList<UserInfo> filteredList){
+        users = filteredList;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_device,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item_user,
                 parent,false);
         return new ViewHolder(v, mOnNoteListener);
     }
 
-    public DeviceAdapter(ArrayList<Device>devices, OnNoteListener onNoteListener){
-        this.devices = devices;
+    public UserAdapter(ArrayList<UserInfo>users, OnNoteListener onNoteListener){
+        this.users = users;
         this.mOnNoteListener = onNoteListener;
     }
 
@@ -51,19 +53,23 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Device device = devices.get(position);
-        holder.inventoryNumber.setText(device.getInventoryNumber());
-        holder.manufacturer.setText(device.getManufacturer());
-        holder.model.setText(device.getModel());
-        holder.category.setText(device.getCategory());
-        holder.status.setText(device.getStatus());
+        UserInfo user = users.get(position);
+        holder.firstname.setText(user.getFirstname());
+        holder.surname.setText(user.getSurname());
+        holder.role.setText(user.getRole());
+        holder.workerId.setText(user.getWorkerIdString());
+//        holder.inventoryNumber.setText(device.getInventoryNumber());
+//        holder.manufacturer.setText(device.getManufacturer());
+//        holder.model.setText(device.getModel());
+//        holder.category.setText(device.getCategory());
+//        holder.status.setText(device.getStatus());
 
     }
 
     @Override
     public int getItemCount() {
-        if (devices != null) {
-            return devices.size();
+        if (users != null) {
+            return users.size();
         } else {
             return 0;
         }
@@ -79,23 +85,21 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
      */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final View view;
-        public final TextView inventoryNumber;
-        public final TextView manufacturer;
-        public final TextView model;
-        public final TextView status;
-        public final TextView category;
-        public final ImageView image;
+        public final TextView workerId;
+        public final TextView firstname;
+        public final TextView surname;
+        public final TextView role;
+//        public final ImageView image;
         OnNoteListener onNoteListener;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
             super(view);
             this.view = view;
-            inventoryNumber = view.findViewById(R.id.inventoryNumber);
-            manufacturer = view.findViewById(R.id.manufacturer);
-            model = view.findViewById(R.id.model);
-            status = view.findViewById(R.id.status);
-            category = view.findViewById(R.id.deviceCategorie);
-            image = view.findViewById(R.id.image);
+            workerId = view.findViewById(R.id.workerId);
+            firstname = view.findViewById(R.id.firstname);
+            surname = view.findViewById(R.id.surname);
+            role = view.findViewById(R.id.role);
+//            image = view.findViewById(R.id.image);
             itemView.setOnClickListener(this);
             this.onNoteListener = onNoteListener;
         }

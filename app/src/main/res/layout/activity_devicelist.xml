@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recycleViewDeviceList.RecycleActivity"
+    tools:context=".recycleViewDeviceList.DeviceRecycleActivity"
     android:id="@+id/deviceList">
 
     <include
@@ -51,6 +51,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <include layout="@layout/content_main2" />
+    <include layout="@layout/content_devicelist" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

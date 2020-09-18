@@ -4,7 +4,7 @@ import com.example.asset_management.addDevice.AddDeviceFragmentTest
 import com.example.asset_management.jsonhandler.JsonHandlerTest
 import com.example.asset_management.mainHub.MainHubActivityTest
 import com.example.asset_management.recycleViewDeviceList.DeviceAdapterTest
-import com.example.asset_management.recycleViewDeviceList.RecycleFragmentTest
+import com.example.asset_management.recycleViewDeviceList.DeviceRecycleFragmentTest
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
@@ -12,7 +12,7 @@ import org.junit.runners.Suite
 @Suite.SuiteClasses(
         JsonHandlerTest::class,
         AddDeviceFragmentTest::class,
-        RecycleFragmentTest::class,
+        DeviceRecycleFragmentTest::class,
         DeviceAdapterTest::class,
         MainHubActivityTest::class
 )

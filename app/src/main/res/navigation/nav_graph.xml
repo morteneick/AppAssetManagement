@@ -35,9 +35,9 @@
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
-        android:name="com.example.asset_management.recycleViewDeviceList.RecycleActivity"
+        android:name="com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity"
         android:label="activity_main2"
-        tools:layout="@layout/activity_main2" />
+        tools:layout="@layout/activity_devicelist" />
     <activity
         android:id="@+id/addDeviceActivity"
         android:name="com.example.asset_management.addDevice.AddDeviceActivity"

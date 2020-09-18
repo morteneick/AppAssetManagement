@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recycleViewDeviceList.RecycleActivity">
+    tools:context=".recycleViewDeviceList.DeviceRecycleActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     tools:itemCount="17"
-                    tools:listitem="@layout/recycler_view_item" />
+                    tools:listitem="@layout/recycler_view_item_device" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

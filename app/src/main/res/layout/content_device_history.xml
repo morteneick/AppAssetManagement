@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="508dp"
                     tools:itemCount="17"
-                    tools:listitem="@layout/recycler_view_item" />
+                    tools:listitem="@layout/recycler_view_item_device" />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

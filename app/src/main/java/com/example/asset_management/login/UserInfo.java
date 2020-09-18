@@ -7,19 +7,21 @@ public class UserInfo {
     private String surname;
     private String firstname;
     private String role;
-    boolean bookingDevice;
-    boolean editDevice;
-    boolean addDevice;
-    boolean viewDevice;
-    boolean deleteDevice;
-    boolean editUser;
-    boolean deleteBooking;
-    boolean editBooking;
+    int bookingDevice;
+    int editDevice;
+    int addDevice;
+    int viewDevice;
+    int deleteDevice;
+    int addUser;
+    int deleteUser;
+    int editUser;
+    int deleteBooking;
+    int editBooking;
 
     public UserInfo(int workerId, String password, String eMail, String surname, String firstname,
-                    String role, boolean bookingDevice, boolean editDevice, boolean addDevice,
-                    boolean viewDevice, boolean deleteDevice, boolean editUser, boolean deleteBooking,
-                    boolean editBooking) {
+                    String role, int bookingDevice, int editDevice, int addDevice, int viewDevice,
+                    int deleteDevice, int addUser, int deleteUser, int editUser, int deleteBooking,
+                    int editBooking) {
         this.workerId = workerId;
         this.password = password;
         this.eMail = eMail;
@@ -31,6 +33,8 @@ public class UserInfo {
         this.addDevice = addDevice;
         this.viewDevice = viewDevice;
         this.deleteDevice = deleteDevice;
+        this.addUser = addUser;
+        this.deleteUser = deleteUser;
         this.editUser = editUser;
         this.deleteBooking = deleteBooking;
         this.editBooking = editBooking;
@@ -38,6 +42,10 @@ public class UserInfo {
 
     public int getWorkerId() {
         return workerId;
+    }
+
+    public String getWorkerIdString() {
+        return String.valueOf(workerId);
     }
 
     public void setWorkerId(int workerId) {
@@ -84,67 +92,85 @@ public class UserInfo {
         this.role = role;
     }
 
-    public boolean isBookingDevice() {
+    public int getBookingDevice() {
         return bookingDevice;
     }
 
-    public void setBookingDevice(boolean bookingDevice) {
+    public void setBookingDevice(int bookingDevice) {
         this.bookingDevice = bookingDevice;
     }
 
-    public boolean isEditDevice() {
+    public int getEditDevice() {
         return editDevice;
     }
 
-    public void setEditDevice(boolean editDevice) {
+    public void setEditDevice(int editDevice) {
         this.editDevice = editDevice;
     }
 
-    public boolean isAddDevice() {
+    public int getAddDevice() {
         return addDevice;
     }
 
-    public void setAddDevice(boolean addDevice) {
+    public void setAddDevice(int addDevice) {
         this.addDevice = addDevice;
     }
 
-    public boolean isViewDevice() {
+    public int getViewDevice() {
         return viewDevice;
     }
 
-    public void setViewDevice(boolean viewDevice) {
+    public void setViewDevice(int viewDevice) {
         this.viewDevice = viewDevice;
     }
 
-    public boolean isDeleteDevice() {
+    public int getDeleteDevice() {
         return deleteDevice;
     }
 
-    public void setDeleteDevice(boolean deleteDevice) {
+    public void setDeleteDevice(int deleteDevice) {
         this.deleteDevice = deleteDevice;
     }
 
-    public boolean isEditUser() {
+    public int getAddUser() {
+        return addUser;
+    }
+
+    public void setAddUser(int addUser) {
+        this.addUser = addUser;
+    }
+
+    public int getDeleteUser() {
+        return deleteUser;
+    }
+
+    public void setDeleteUser(int deleteUser) {
+        this.deleteUser = deleteUser;
+    }
+
+    public int getEditUser() {
         return editUser;
     }
 
-    public void setEditUser(boolean editUser) {
+    public void setEditUser(int editUser) {
         this.editUser = editUser;
     }
 
-    public boolean isDeleteBooking() {
+    public int getDeleteBooking() {
         return deleteBooking;
     }
 
-    public void setDeleteBooking(boolean deleteBooking) {
+    public void setDeleteBooking(int deleteBooking) {
         this.deleteBooking = deleteBooking;
     }
 
-    public boolean isEditBooking() {
+    public int getEditBooking() {
         return editBooking;
     }
 
-    public void setEditBooking(boolean editBooking) {
+    public void setEditBooking(int editBooking) {
         this.editBooking = editBooking;
     }
+
+
 }

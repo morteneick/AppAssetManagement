@@ -14,13 +14,13 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 
 
-class RecycleFragmentTest{
+class DeviceRecycleFragmentTest{
 
 
     @Test
     fun testRecycleViewFragmentInView() {
 
-        val activityScenario = ActivityScenario.launch(RecycleActivity::class.java)
+        val activityScenario = ActivityScenario.launch(DeviceRecycleActivity::class.java)
 
         onView(withId(R.id.devices)).check(ViewAssertions.matches(isDisplayed()))
 
@@ -28,7 +28,7 @@ class RecycleFragmentTest{
 
     @Test
     fun testIsListItemVisible() {
-        val activityScenario = ActivityScenario.launch(RecycleActivity::class.java)
+        val activityScenario = ActivityScenario.launch(DeviceRecycleActivity::class.java)
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(23, click()))

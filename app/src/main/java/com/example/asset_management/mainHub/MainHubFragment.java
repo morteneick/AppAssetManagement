@@ -1,5 +1,6 @@
 package com.example.asset_management.mainHub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.recycleViewDeviceList.Device;
+import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity;
+import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
+import com.example.asset_management.settings.SettingsActivity;
 
 /**
  * MainHubFragment
@@ -68,15 +74,10 @@ public class MainHubFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //
-                Connection connection = new Connection();
+                Intent intent = new Intent(getActivity(),
+                        DeviceRecycleActivity.class);
+                startActivity(intent);
 
-                connection.getDeviceOldVersion(159742, getContext());
-
-//                Toast.makeText(getContext(),"Keine Verbindung zum Server.",Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getContext(),RecycleActivity.class);
-//                startActivity(intent);
-//                NavHostFragment.findNavController(MainHubFragment.this)
-//                        .navigate(R.id.action_FirstFragment_to_deviceHistoryActivity);
             }
         });
         view.findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {

@@ -153,11 +153,12 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ArrayList<UserInfo> posts = response.body();
-                JsonHandler.createJsonFromUserInfoList(posts, "DeviceList.json", context);
 
-                Calendar calendar = Calendar.getInstance();
-                JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", context);
+                ArrayList<UserInfo> posts = response.body();
+                JsonHandler.createJsonFromUserInfoList(posts, "UserList.json", context);
+//
+//                Calendar calendar = Calendar.getInstance();
+//                JsonHandler.createJsonFromCalendar(calendar, "lastUpdateUser.json", context);
             }
 
             @Override

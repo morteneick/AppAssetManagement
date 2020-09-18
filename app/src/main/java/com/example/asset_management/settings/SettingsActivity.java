@@ -12,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
 
@@ -42,12 +44,14 @@ public class SettingsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SettingsActivity.this,
-                        DeviceCardActivity.class);
+
                 switch(position){
                     case 0:
-                        Toast.makeText(getApplicationContext(),"Nutzer",
-                                Toast.LENGTH_SHORT).show();
+                        Connection connection = new Connection();
+                        connection.getAllUsers(getApplicationContext());
+                        Intent intent = new Intent(SettingsActivity.this,
+                                UserRecycleActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         break;
