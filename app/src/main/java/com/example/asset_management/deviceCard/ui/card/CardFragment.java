@@ -263,7 +263,7 @@ public class CardFragment extends Fragment implements
                 DeviceCardActivity activityCard = new DeviceCardActivity();
                 ((DeviceCardActivity)getActivity()).createSwitch(switchEditable);
 
-                ((DeviceCardActivity)getActivity()).refreshUI();
+                ((DeviceCardActivity)getActivity()).finish();
 
                 Connection connection = new Connection();
                 connection.putChangeDevice(device, getContext());
@@ -284,6 +284,7 @@ public class CardFragment extends Fragment implements
         editText.setEnabled(false);
         editText.setCursorVisible(false);
     }
+
 
     /**
      * unlock Blocks the input from all editTexts

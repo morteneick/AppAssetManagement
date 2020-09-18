@@ -156,9 +156,6 @@ public class Connection {
 
                 ArrayList<UserInfo> posts = response.body();
                 JsonHandler.createJsonFromUserInfoList(posts, "UserList.json", context);
-//
-//                Calendar calendar = Calendar.getInstance();
-//                JsonHandler.createJsonFromCalendar(calendar, "lastUpdateUser.json", context);
             }
 
             @Override
@@ -212,9 +209,9 @@ public class Connection {
         });
     }
 
-    public void putChangeUser(UserInfo user, final Context context) {
+    public void putUpdateUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.putChangedUser(user.getWorkerId(), user);
+        Call<ArrayList<Errors>> call = getPostConnection.putUpdateUser(user.getWorkerId(), user);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override

@@ -48,7 +48,7 @@ public interface GetPostConnection {
 
     @Headers("Accept: application/json")
     @PUT("api/user/updateUser/:{workerId}")
-    Call<ArrayList<Errors>> putChangedUser(@Path("workerId") int workerId, @Body UserInfo userInfo);
+    Call<ArrayList<Errors>> putUpdateUser(@Path("workerId") int workerId, @Body UserInfo userInfo);
 
     @Headers("Accept: application/json")
     @PUT("api/device/updateDevice/:{inventoryNumber}")

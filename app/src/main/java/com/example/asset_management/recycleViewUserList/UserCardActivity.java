@@ -13,21 +13,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.deviceCard.ui.card.CardFragment;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
-import com.example.asset_management.recycleViewDeviceList.FilterDeviceListActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class UserCardActivity extends AppCompatActivity {
     public boolean onOffSwitch = false;
-
+    String saveMessage = "Informationen wurden geändert.";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +39,38 @@ public class UserCardActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
-        EditText editWorkerId = findViewById(R.id.editWorkerId);
-        EditText editFirstname = findViewById(R.id.editFirstname);
-        EditText editSurname = findViewById(R.id.editSurname);
-        EditText editRole = findViewById(R.id.editRole);
-        EditText editEmail = findViewById(R.id.editEmail);
+        final EditText editWorkerId = findViewById(R.id.editWorkerId);
+        final EditText editFirstname = findViewById(R.id.editFirstname);
+        final EditText editSurname = findViewById(R.id.editSurname);
+        final EditText editRole = findViewById(R.id.editRole);
+        final EditText editEmail = findViewById(R.id.editEmail);
         Intent intent = getIntent();
-        CheckBox checkAddDevice = findViewById(R.id.checkBoxAddDevice);
+        final CheckBox checkAddDevice = findViewById(R.id.checkBoxAddDevice);
+        final CheckBox checkEditDevice = findViewById(R.id.checkBoxEditDevice);
+        final CheckBox checkDeleteDevice = findViewById(R.id.checkBoxDeleteDevice);
+        final CheckBox checkViewDevice = findViewById(R.id.checkBoxViewDevice);
+        final CheckBox checkAddUser = findViewById(R.id.checkBoxAddUser);
+        final CheckBox checkEditUser = findViewById(R.id.checkBoxEditUser);
+        final CheckBox checkDeleteUser = findViewById(R.id.checkBoxDeleteUser);
+        final CheckBox checkAddReservation = findViewById(R.id.checkBoxReserveDevice);
+        final CheckBox checkDeleteReservation = findViewById(R.id.checkBoxDeleteReservation);
+        final CheckBox checkEditReservation = findViewById(R.id.checkBoxEditReservation);
 
         Button btnSave = findViewById(R.id.btnSave);
         View viewSave = findViewById(R.id.btnSave);
 
         UserInfo user = (UserInfo) intent.getSerializableExtra("User");
+
+        checkAddDevice.setChecked(user.intToBool(user.getAddDevice()));
+        checkViewDevice.setChecked(user.intToBool(user.getViewDevice()));
+        checkEditDevice.setChecked(user.intToBool(user.getEditDevice()));
+        checkDeleteDevice.setChecked(user.intToBool(user.getDeleteDevice()));
+        checkAddUser.setChecked(user.intToBool(user.getAddUser()));
+        checkEditUser.setChecked(user.intToBool(user.getEditUser()));
+        checkDeleteUser.setChecked(user.intToBool(user.getDeleteUser()));
+        checkAddReservation.setChecked(user.intToBool(user.getBookingDevice()));
+        checkEditReservation.setChecked(user.intToBool(user.getEditBooking()));
+        checkDeleteReservation.setChecked(user.intToBool(user.getDeleteBooking()));
 
         editWorkerId.setText(user.getWorkerIdString());
         editFirstname.setText(user.getFirstname());
@@ -63,6 +85,16 @@ public class UserCardActivity extends AppCompatActivity {
             CardFragment.blockInput(editRole);
             CardFragment.blockInput(editEmail);
             viewSave.setVisibility(View.INVISIBLE);
+            checkAddDevice.setClickable(false);
+            checkEditDevice.setClickable(false);
+            checkDeleteDevice.setClickable(false);
+            checkViewDevice.setClickable(false);
+            checkAddUser.setClickable(false);
+            checkEditUser.setClickable(false);
+            checkDeleteUser.setClickable(false);
+            checkEditReservation.setClickable(false);
+            checkDeleteReservation.setClickable(false);
+            checkAddReservation.setClickable(false);
         } else {
             CardFragment.unblockInput(editFirstname);
             CardFragment.unblockInput(editSurname);
@@ -70,8 +102,59 @@ public class UserCardActivity extends AppCompatActivity {
             CardFragment.unblockInput(editRole);
             CardFragment.unblockInput(editEmail);
             viewSave.setVisibility(View.VISIBLE);
+            checkAddDevice.setClickable(true);
+            checkEditDevice.setClickable(true);
+            checkDeleteDevice.setClickable(true);
+            checkViewDevice.setClickable(true);
+            checkAddUser.setClickable(true);
+            checkEditUser.setClickable(true);
+            checkDeleteUser.setClickable(true);
+            checkEditReservation.setClickable(true);
+            checkDeleteReservation.setClickable(true);
+            checkAddReservation.setClickable(true);
         }
 
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserInfo user = new UserInfo();
+                try{
+                    user.setWorkerId(editWorkerId.toString());
+                } catch (Exception e) {
+                    user.setWorkerId(user.getWorkerId());
+                }
+                user.setFirstname(editFirstname.toString());
+                user.setSurname(editSurname.toString());
+                user.seteMail(editEmail.toString());
+                user.setRole(editRole.toString());
+                user.setAddDevice(user.boolToInt(checkAddDevice.isChecked()));
+                user.setEditDevice(user.boolToInt(checkEditDevice.isChecked()));
+                user.setDeleteDevice(user.boolToInt(checkDeleteDevice.isChecked()));
+                user.setViewDevice(user.boolToInt(checkViewDevice.isChecked()));
+                user.setAddUser(user.boolToInt(checkAddUser.isChecked()));
+                user.setEditUser(user.boolToInt(checkEditUser.isChecked()));
+                user.setDeleteUser(user.boolToInt(checkDeleteUser.isChecked()));
+                user.setBookingDevice(user.boolToInt(checkAddReservation.isChecked()));
+                user.setEditBooking(user.boolToInt(checkEditReservation.isChecked()));
+                user.setDeleteBooking(user.boolToInt(checkDeleteReservation.isChecked()));
+
+                Connection connection = new Connection();
+                connection.putUpdateUser(user, getApplicationContext());
+                ArrayList<UserInfo> list = new ArrayList<>();
+                try {
+                    list = JsonHandler.getUserList("UserList.json",
+                            getApplicationContext());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                SwitchEditable switchEditable = new SwitchEditable(false);
+                createSwitch(switchEditable);
+                finish();
+                overridePendingTransition(0, 0);
+                Toast.makeText(getApplicationContext(),saveMessage,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +208,7 @@ public class UserCardActivity extends AppCompatActivity {
         if(onOffSwitch){
             new AlertDialog.Builder(this)
                     .setTitle("Änderungen verwerfen")
-                    .setMessage("Sind Sie sich sicher, dass Sie ddie Änderungen verwerfen möchten?")
+                    .setMessage("Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?")
 
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.

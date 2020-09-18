@@ -42,6 +42,30 @@ public class UserInfo implements Serializable {
         this.editBooking = editBooking;
     }
 
+    public UserInfo(){
+
+    }
+
+    public int boolToInt(boolean bool){
+        if (bool){
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public boolean intToBool(int i){
+        if(i == 1){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean intToBool(boolean bool){
+        return bool;
+    }
+
     public int getWorkerId() {
         return workerId;
     }
@@ -50,8 +74,13 @@ public class UserInfo implements Serializable {
         return String.valueOf(workerId);
     }
 
+
     public void setWorkerId(int workerId) {
         this.workerId = workerId;
+    }
+
+    public void setWorkerId(String workerId) {
+        this.workerId = Integer.parseInt(workerId);
     }
 
     public String getPassword() {

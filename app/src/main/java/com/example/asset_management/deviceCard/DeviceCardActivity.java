@@ -218,7 +218,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
         if(onOffSwitch){
             new AlertDialog.Builder(this)
                     .setTitle("Änderungen verwerfen")
-                    .setMessage("Sind Sie sich sicher, dass Sie ddie Änderungen verwerfen möchten?")
+                    .setMessage("Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?")
 
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
