@@ -1,6 +1,7 @@
 package com.example.asset_management.connection;
 
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
+import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
@@ -17,6 +18,14 @@ import retrofit2.http.Path;
 
 public interface GetPostConnection {
 
+
+
+    @GET("api/login")
+    Call<ArrayList<Login>> getLogin();
+
+    @Headers("Accept: application/json")
+    @POST("api/login")
+    Call<ArrayList<Errors>> postLogin(@Body Login login);
 
 
     @Headers("Accept: application/json")
