@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.asset_management.connection.Errors;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
+import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
@@ -49,6 +50,22 @@ public class JsonHandler {
      * @param context
      * @return
      */
+
+    public static String createJsonFromLogin(ArrayList<Login> list, String path, Context context){
+        String json = convertIntoString(list);
+
+        try {
+            FileOutputStream fOut = context.openFileOutput(path, 0);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.append(json);
+            osw.flush();
+            osw.close();
+            return "Success";
+        } catch (Exception E){
+            return "Failed";
+        }
+    }
+
     public static String createJsonFromObject(Object object, String path, Context context){
         String json = convertIntoString(object);
 
@@ -168,7 +185,6 @@ public class JsonHandler {
             return "Failed";
         }
     }
-
 
 
     public static String getListString(Context context, String fileName)

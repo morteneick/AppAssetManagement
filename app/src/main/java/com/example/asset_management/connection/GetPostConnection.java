@@ -27,7 +27,6 @@ public interface GetPostConnection {
     @POST("api/login")
     Call<ArrayList<Errors>> postLogin(@Body Login login);
 
-
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
     Call<ArrayList<Device>> getDevices();
