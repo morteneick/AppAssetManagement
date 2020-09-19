@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
@@ -46,6 +47,51 @@ public class Connection {
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    public void getLoginData(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Login>> call = getPostConnection.getLogin();
+
+        call.enqueue(new Callback<ArrayList<Login>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Login>> call,
+                                   retrofit2.Response<ArrayList<Login>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Login> posts = response.body();
+                JsonHandler.createJsonFromLogin(posts, "Login.json", context);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Login>> call, Throwable t) {
+                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void postLogin(Login login, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Errors>> call = getPostConnection.postLogin(login);
+
+        call.enqueue(new Callback<ArrayList<Errors>>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(context,call.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
@@ -336,7 +382,6 @@ public class Connection {
         mQueue = Volley.newRequestQueue(context);
         mQueue.add(request);
     }
-
 
     public static boolean isConnectedToServer(String url, int timeout) {
         try{
