@@ -2,7 +2,14 @@ package com.example.asset_management.deviceCard.ui.reservation;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Reservation
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 30.08.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class Reservation {
     Date loanDay;
     Date loanEnd;

@@ -18,6 +18,7 @@ import static java.lang.String.valueOf;
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class Device implements Serializable {
 

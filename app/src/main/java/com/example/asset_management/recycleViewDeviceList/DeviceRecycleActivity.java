@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * RecycleActivity
+ * DeviceRecycleActivity
  * <p>
  *     Version 1.0
  * </p>
@@ -105,24 +105,29 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
         for (Device item : list) {
-            if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            try{
+                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            } catch (Exception e){
+
             }
-            if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
+
         }
         adapter.filterList(filteredList);
     }

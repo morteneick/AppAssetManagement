@@ -15,7 +15,7 @@ import java.util.Calendar;
  * <p>
  *     Version 1.0
  * </p>
- * 11.05.2020
+ * 30.08.2020
  * AUTHOR: Dominik Dziersan
  */
 public class DatePickerFragment extends DialogFragment {

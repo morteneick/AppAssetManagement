@@ -15,7 +15,14 @@ import com.example.asset_management.connection.Connection;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
-
+/**
+ * SettingsActivity
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 09.09.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -27,12 +34,11 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
-        ArrayList<String> list = new ArrayList<>();
+        final ArrayList<String> list = new ArrayList<>();
         ListView listView = findViewById(R.id.listOptions);
 
-
         list.add("Nutzer bearbeiten");
-        list.add("Rechte bearbeiten");
+        list.add("Benutzerdokumentation");
         list.add("Informationen zur App");
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
@@ -42,24 +48,23 @@ public class SettingsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch(position){
-                    case 0:
+                String menuItem = list.get(position);
+                switch(menuItem){
+                    case "Nutzer bearbeiten":
                         Connection connection = new Connection();
                         connection.getAllUsers(getApplicationContext());
                         Intent intent = new Intent(SettingsActivity.this,
                                 UserRecycleActivity.class);
                         startActivity(intent);
                         break;
-                    case 1:
+                    case "Benutzerdokumentation":
                         break;
-                    case 2:
+                    case "Informationen zur App":
                         break;
                     default:
                 }
             }
         });
-
-
     }
 }
+

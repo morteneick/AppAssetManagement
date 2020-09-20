@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * RecycleActivity
+ * DeviceHistoryActivity
  * <p>
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 //TODO after deleting one device, delete it in the history too
 public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {

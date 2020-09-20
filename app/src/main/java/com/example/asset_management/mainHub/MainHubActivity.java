@@ -21,6 +21,7 @@ import android.view.MenuItem;
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class MainHubActivity extends AppCompatActivity {
 

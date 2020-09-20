@@ -30,11 +30,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * RecycleActivity
+ * UserRecycleActivity
  * <p>
  *     Version 1.0
  * </p>
- * 11.05.2020
+ * 15.09.2020
  * AUTHOR: Dominik Dziersan
  */
 public class UserRecycleActivity extends AppCompatActivity implements UserAdapter.OnNoteListener {

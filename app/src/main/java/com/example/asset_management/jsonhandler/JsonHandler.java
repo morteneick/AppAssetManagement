@@ -28,6 +28,7 @@ import java.util.Calendar;
  *     Version 1.0
  * </p>
  * 02.06.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class JsonHandler {
 

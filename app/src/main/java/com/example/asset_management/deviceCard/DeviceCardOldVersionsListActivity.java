@@ -16,7 +16,14 @@ import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * DeviceCardOldVersionsListActivity
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 04.09.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
     ArrayList<Device> devices = new ArrayList<>();
 
@@ -50,11 +57,15 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
-                        DeviceCardActivity.class);
-                intent.putExtra("Device", devices.get(position));
-                intent.putExtra("isOldVersion", true);
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
+                            DeviceCardActivity.class);
+                    intent.putExtra("Device", devices.get(position));
+                    intent.putExtra("isOldVersion", true);
+                    startActivity(intent);
+                } catch (Exception e ) {
+
+                }
             }
         });
     }

@@ -150,7 +150,7 @@ public class Connection {
         @Override
         public void onResponse(Call call, retrofit2.Response response) {
             if (!response.isSuccessful()) {
-                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
+                Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT)
                         .show();
                 return;
             }
@@ -163,6 +163,28 @@ public class Connection {
 
         }
     });
+    }
+
+    public void getUser(int workerId, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<UserInfo> call = getPostConnection.getUser(workerId);
+
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                JsonHandler.createJsonFromObject(response.body(), "User.json", context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
     }
 
     public void postNewReservation(Reservation reservation, final Context context){
@@ -210,6 +232,7 @@ public class Connection {
             }
         });
     }
+
 
     public void postNewDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);

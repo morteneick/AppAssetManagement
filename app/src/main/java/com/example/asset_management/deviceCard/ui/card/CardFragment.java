@@ -38,7 +38,9 @@ import java.util.Calendar;
  *     Version 1.0
  * </p>
  * 17.08.2020
+ * AUTHOR: Dominik Dziersan
  */
+
 public class CardFragment extends Fragment implements
         DatePickerDialog.OnDateSetListener {
     private DialogFragment datePicker = new DatePickerFragment();
@@ -84,6 +86,7 @@ public class CardFragment extends Fragment implements
         final EditText editStreet = root.findViewById(R.id.editStreet);
         final EditText editNotes = root.findViewById(R.id.editNotes);
         final EditText editProject = root.findViewById(R.id.editProject);
+
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
         editRepair = root.findViewById(R.id.editRepair);
@@ -144,6 +147,7 @@ public class CardFragment extends Fragment implements
                         editStatus.setSelection(getPosition(device));
                     }
                 });
+
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());

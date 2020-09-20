@@ -15,7 +15,14 @@ import com.example.asset_management.jsonhandler.JsonHandler;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * FilterDeviceListActivity
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 14.09.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class FilterDeviceListActivity extends AppCompatActivity {
 
     @Override
