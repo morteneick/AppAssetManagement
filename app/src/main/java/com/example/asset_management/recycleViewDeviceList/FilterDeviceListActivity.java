@@ -152,6 +152,7 @@ public class FilterDeviceListActivity extends AppCompatActivity implements
         });
     }
 
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();

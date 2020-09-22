@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -23,19 +24,25 @@ import androidx.core.app.ActivityCompat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.recycleViewDeviceList.Device;
+import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * ScanDeviceActivity
- * Version 1.0
+ * Version 1.1
  * 31.07.2020
+ * AUTHOR: Morten Eickmann & Dominik Dziersan
  */
 
 public class ScanDeviceActivity extends AppCompatActivity {
@@ -104,6 +111,29 @@ public class ScanDeviceActivity extends AppCompatActivity {
                             detectedCode = qrCodes.valueAt(0).displayValue;
 
                             textView.setText(detectedCode);
+                            try{
+                                Device device = new Device();
+                                int i = 0;
+
+                                ArrayList<Device> devices = JsonHandler.getDeviceList
+                                        ("DeviceList.json", getApplicationContext());
+                                for(Device d : devices){
+                                    if(d.getInventoryNumber().equals(detectedCode)){
+                                        device = d;
+                                        i++;
+                                    }
+                                }
+                                if(i == 1){
+                                    Intent intent = new Intent(getApplicationContext(),
+                                            DeviceCardActivity.class);
+                                    intent.putExtra("Device", device);
+                                    intent.putExtra("isOldVersion", false);
+                                    startActivity(intent);
+                                }
+                            } catch (Exception e) {
+                                Toast.makeText(getApplicationContext(),"Fehler",
+                                        Toast.LENGTH_SHORT).show();
+                            }
 
                            // if (detectedCode.equals())
 
