@@ -53,7 +53,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
-
+        Intent intent = getIntent();
         Connection connection = new Connection();
         connection.getDeviceList(this);
         connection.getReservationList(this);
@@ -61,7 +61,11 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
 
-        Intent intent = getIntent();
+        File file = this.getFileStreamPath(jsonName);
+        if(file == null || !file.exists()){
+            file = new File(this.getFilesDir(),jsonName);
+        }
+
         try {
             list = (ArrayList<Device>) intent.getSerializableExtra("filteredList");
         } catch (Exception e) {
@@ -104,30 +108,30 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 //TODO Add improtant filters
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
+
         for (Device item : list) {
-            try{
-                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-            } catch (Exception e){
-
+            int i = 0;
+            if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
+                i++;
             }
-
+            if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
+                i++;
+            }
+            if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                i++;
+            }
+            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                i++;
+            }
+            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                i++;
+            }
+            if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
+                i++;
+            }
+            if(i > 0){
+                filteredList.add(item);
+            }
         }
         adapter.filterList(filteredList);
     }
@@ -143,8 +147,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
 
-        String show = list.size() + " Geräte wurden gefunden";
-        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
+//        String show = list.size() + " Geräte wurden gefunden";
+//        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -43,7 +43,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
     private String currentDateString;
     private boolean isOldDevice;
     @Override
-    public void onInputASent(String input) {
+    public void onInputSent(String input) {
         clickedCalendar = input;
     }
 

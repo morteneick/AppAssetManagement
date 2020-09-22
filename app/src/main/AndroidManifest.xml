@@ -23,11 +23,13 @@
         <activity android:name=".recycleViewUserList.UserCardActivity"></activity>
         <activity
             android:name=".recycleViewDeviceList.FilterDeviceListActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+            android:label="@string/title_filter"></activity>
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".deviceCard.DeviceCardOldVersionsListActivity" />
+            android:label="@string/title_settings" />
+        <activity android:name=".deviceCard.DeviceCardOldVersionsListActivity"
+            android:label="@string/title_oldversionsdevice"/>
         <activity
             android:name=".deviceCard.ui.reservation.ReservationActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />
@@ -40,20 +42,21 @@
             android:name=".deviceCard.DeviceCardActivity"
             android:label="@string/title_activity_device_card" />
         <activity android:name=".scanDevice.ScanDeviceActivity" />
-        <activity android:name=".addDevice.AddDeviceActivity" />
+        <activity android:name=".addDevice.AddDeviceActivity"
+            android:label="@string/title_adddevice"/>
         <activity
             android:name=".recycleViewDeviceList.DeviceRecycleActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_deviceList"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".recycleViewUserList.UserRecycleActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_userlist"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".recycleViewDeviceList.DeviceHistoryActivity"
-            android:label="@string/title_activity_main2"
+            android:label="@string/title_historydeviceList"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity

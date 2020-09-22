@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * MapFragment
@@ -37,6 +38,13 @@ public class MapFragment extends Fragment {
     private MapView mapView;
     private GoogleMap googleMap;
 
+    /**
+     * Creates the map from the longitude and latitude of the given device
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mapViewModel =
@@ -59,7 +67,7 @@ public class MapFragment extends Fragment {
         });
 
         final TextView textMapDate = root.findViewById(R.id.textMapDate);
-        Timestamp timestamp = device.getLastLocationUpdate();
+        Date timestamp = device.getLastLocationUpdate();
 
         textMapDate.setText("Letzte Aktualisierung: " + timestamp.toString());
 
