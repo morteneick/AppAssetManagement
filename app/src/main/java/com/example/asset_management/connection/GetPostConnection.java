@@ -21,7 +21,7 @@ public interface GetPostConnection {
 
 
     @GET("api/login")
-    Call<ArrayList<Login>> getLogin();
+    Call<ArrayList<UserInfo>> getLogin();
 
     @Headers("Accept: application/json")
     @POST("api/login")

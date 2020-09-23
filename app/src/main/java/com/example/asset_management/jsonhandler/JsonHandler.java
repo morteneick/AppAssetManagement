@@ -51,7 +51,7 @@ public class JsonHandler {
      * @return
      */
 
-    public static String createJsonFromLogin(ArrayList<Login> list, String path, Context context){
+    public static String createJsonFromLogin(ArrayList<UserInfo> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {

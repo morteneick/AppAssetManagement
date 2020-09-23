@@ -24,6 +24,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -70,8 +71,6 @@ public class ScanDeviceActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
-
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
@@ -105,6 +104,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
 
                             textView.setText(detectedCode);
 
+                            Connection connection = new Connection();
+                            connection.getDeviceList(detectedCode,getApplicationContext());
                            // if (detectedCode.equals())
 
                         }

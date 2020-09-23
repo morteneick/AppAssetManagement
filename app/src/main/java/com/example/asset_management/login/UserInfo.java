@@ -3,6 +3,7 @@ package com.example.asset_management.login;
 import java.io.Serializable;
 
 public class UserInfo implements Serializable {
+    private boolean access;
     private int workerId;
     private String password;
     private String eMail;
@@ -20,10 +21,11 @@ public class UserInfo implements Serializable {
     int deleteBooking;
     int editBooking;
 
-    public UserInfo(int workerId, String password, String eMail, String surname, String firstname,
+    public UserInfo(boolean access, int workerId, String password, String eMail, String surname, String firstname,
                     String role, int bookingDevice, int editDevice, int addDevice, int viewDevice,
                     int deleteDevice, int addUser, int deleteUser, int editUser, int deleteBooking,
                     int editBooking) {
+        this.access = access;
         this.workerId = workerId;
         this.password = password;
         this.eMail = eMail;
@@ -64,6 +66,10 @@ public class UserInfo implements Serializable {
 
     public boolean intToBool(boolean bool){
         return bool;
+    }
+
+    public boolean getAccess() {
+        return access;
     }
 
     public int getWorkerId() {

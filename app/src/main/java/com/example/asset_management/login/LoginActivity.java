@@ -10,23 +10,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.mainHub.MainHubActivity;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.google.gson.JsonObject;
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.example.asset_management.login.Login;
+import com.example.asset_management.mainHub.MainHubActivity;
 
 import static com.example.asset_management.R.id.login;
 
 
 public class LoginActivity extends AppCompatActivity {
     String jsonName = "Login.json";
-    //JSONObject jsonLogin = new JSONObject();
-    private EditText Name;
-    private EditText Password;
-    private Button Login;
+    private EditText NameET;
+    private EditText PasswordET;
+    private Button LoginBtn;
     private TextView Info;
     private int counter = 10;
 
@@ -36,54 +31,64 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(login);
 
-        Name = findViewById(R.id.editText);
-        Password = findViewById(R.id.editText2);
+        NameET = findViewById(R.id.editText);
+        PasswordET = findViewById(R.id.editText2);
         Info = findViewById(R.id.textView);
-        Login = findViewById(R.id.btnLogin);
+        LoginBtn = findViewById(R.id.btnLogin);
 
         //Info.setText("Versuche übrig: 10");
 
 
-        Login.setOnClickListener(new View.OnClickListener() {
+        LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Login login = new Login(Name.getText().toString(), BCrypt.withDefaults().hashToString(12, Password.getText().toString().toCharArray()));
+                String Username = NameET.getText().toString();
+                String Password = PasswordET.getText().toString();
 
-                String createDeviceMessage = JsonHandler.createJsonFromObject(login,
-                        jsonName, getApplicationContext());
+                if (validateLogin(Username,Password)){
+                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,Password.toCharArray()));
 
-                Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
-                        .show();
+                    //posting login data
+                    Connection connection = new Connection();
+                    connection.postLogin(login, getApplicationContext());
 
-                //posting login data
-                Connection connection = new Connection();
-                connection.postLogin(login, getApplicationContext());
+                    String createDeviceMessage = JsonHandler.createJsonFromObject(login,
+                            jsonName, getApplicationContext());
 
-                /*JSONObject jsonResponseLogin = new JSONObject(result);  // in progress TODO recive json
-                try {
-                    UserInfo currentUser = new UserInfo(jsonResponseLogin.getString("worker_id"), jsonResponseLogin.getString("e_mail"), jsonResponseLogin.getString("name"), jsonResponseLogin.getString("surname"), jsonResponseLogin.getString("role"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
+                            .show();
+
+                    // receiving answer
+                    connection.getLoginData(getApplicationContext());
+
+                    UserInfo ui = new UserInfo();
+                    boolean access = ui.getAccess();
+                    String uname = ui.getFirstname() + ui.getSurname();
+
+                    if (access == true){
+                        //access granted
+                        Toast.makeText(getApplicationContext(),uname,Toast.LENGTH_SHORT);
+                        Intent intent = new Intent(LoginActivity.this, MainHubActivity.class);
+                    }
                 }
-                try {
-                    userRights userRights = new userRights(jsonResponseLogin.getBoolean("add_device"), jsonResponseLogin.getBoolean("add_user"),
-                            jsonResponseLogin.getBoolean("booking_device"), jsonResponseLogin.getBoolean("delete_booking"), jsonResponseLogin.getBoolean("delete_device"),
-                            jsonResponseLogin.getBoolean("delete_user"), jsonResponseLogin.getBoolean("edit_booking"), jsonResponseLogin.getBoolean("edit_device"),
-                            jsonResponseLogin.getBoolean("edit_user"), jsonResponseLogin.getBoolean("view_device"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-
-                //validate(Name.getText().toString(), Password.getText().toString());
             }
         });
+    }
 
+    private boolean validateLogin(String Username, String Passwd){
 
-        // Benutzer und Rechte - Empfangen JSON
-        //
-
-
+        if (Username == null || Username.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben.", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+        if (Passwd == null || Passwd.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Bitte Passwort eingeben.", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+        return true;
     }
 }
    /* private void validate(String userName, String userPassword){
@@ -108,4 +113,18 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 */
+   /*JSONObject jsonResponseLogin = new JSONObject(result);
+                try {
+                    UserInfo currentUser = new UserInfo(jsonResponseLogin.getString("worker_id"), jsonResponseLogin.getString("e_mail"), jsonResponseLogin.getString("name"), jsonResponseLogin.getString("surname"), jsonResponseLogin.getString("role"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    userRights userRights = new userRights(jsonResponseLogin.getBoolean("add_device"), jsonResponseLogin.getBoolean("add_user"),
+                            jsonResponseLogin.getBoolean("booking_device"), jsonResponseLogin.getBoolean("delete_booking"), jsonResponseLogin.getBoolean("delete_device"),
+                            jsonResponseLogin.getBoolean("delete_user"), jsonResponseLogin.getBoolean("edit_booking"), jsonResponseLogin.getBoolean("edit_device"),
+                            jsonResponseLogin.getBoolean("edit_user"), jsonResponseLogin.getBoolean("view_device"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
 
