@@ -1,12 +1,5 @@
 package com.example.asset_management.deviceCard;
-/**
- * SwitchEditable
- * <p>
- *     Version 1.0
- * </p>
- * 20.09.2020
- * AUTHOR: Dominik Dziersan
- */
+
 public class SwitchEditable {
 
     private boolean isEnabled;

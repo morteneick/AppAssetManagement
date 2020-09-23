@@ -19,7 +19,6 @@ import java.util.ArrayList;
  *     Version 1.0
  * </p>
  * 11.05.2020
- * AUTHOR: Dominik Dziersan
  */
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
     private OnNoteListener mOnNoteListener;

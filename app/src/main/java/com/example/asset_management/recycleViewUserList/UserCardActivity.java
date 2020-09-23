@@ -25,19 +25,11 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-/**
- * UserCardActivity
- * <p>
- *     Version 1.0
- * </p>
- * 15.09.2020
- * AUTHOR: Dominik Dziersan
- */
+
 
 public class UserCardActivity extends AppCompatActivity {
     public boolean onOffSwitch = false;
     String saveMessage = "Informationen wurden geändert.";
-    UserInfo user = new UserInfo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +59,7 @@ public class UserCardActivity extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         View viewSave = findViewById(R.id.btnSave);
 
-        user = (UserInfo) intent.getSerializableExtra("User");
+        UserInfo user = (UserInfo) intent.getSerializableExtra("User");
 
         checkAddDevice.setChecked(user.intToBool(user.getAddDevice()));
         checkViewDevice.setChecked(user.intToBool(user.getViewDevice()));
@@ -194,26 +186,6 @@ public class UserCardActivity extends AppCompatActivity {
             startActivity(getIntent());
             overridePendingTransition(0, 0);
             return true;
-        }
-        if(id == R.id.action_delete){
-            new AlertDialog.Builder(this)
-                    .setTitle("Gerät löschen")
-                    .setMessage("Sind Sie sich sicher, dass Sie das Gerät löschen möchten?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Connection connection = new Connection();
-                            connection.deleteUser(user, getApplicationContext());
-                            finish();
-                        }
-                    })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
         }
         return super.onOptionsItemSelected(item);
     }

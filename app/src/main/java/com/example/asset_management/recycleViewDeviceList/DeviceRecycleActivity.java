@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -36,8 +37,10 @@ import java.util.ArrayList;
 public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
+    private String fileName = "HistoryDeviceList.json";
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
+    private String jsonName = "DeviceList.json";
 
     /**
      *  Executes code after open Activity.
@@ -58,10 +61,9 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
 
-        String jsonName = "DeviceList.json";
         File file = this.getFileStreamPath(jsonName);
         if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(), jsonName);
+            file = new File(this.getFilesDir(),jsonName);
         }
 
         try {
@@ -109,7 +111,6 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
         for (Device item : list) {
             int i = 0;
-
             if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
                 i++;
             }
@@ -198,11 +199,10 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     public void setHistoryDeviceList(int position) throws IOException {
 
         ArrayList<Integer> listHistory = new ArrayList<>();
-        String fileName = "HistoryDeviceList.json";
         File file = this.getFileStreamPath(fileName);
 
         if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(), fileName);
+            file = new File(this.getFilesDir(),fileName);
             listHistory.add(position);
             JsonHandler.createJsonFromInteger(listHistory, fileName, this);
         } else {
@@ -221,7 +221,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 listHistory.remove(remover);
                 listHistory.add(position);
             }
-            JsonHandler.createJsonFromInteger(listHistory, fileName,this);
+            JsonHandler.createJsonFromInteger(listHistory,fileName,this);
         }
     }
     @Override

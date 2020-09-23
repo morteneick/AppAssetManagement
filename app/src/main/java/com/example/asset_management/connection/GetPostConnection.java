@@ -21,12 +21,12 @@ public interface GetPostConnection {
 
 
     @GET("api/login")
-    Call<ArrayList<Login>> getLogin();
+    Call<ArrayList<UserInfo>> getLogin();
 
     @Headers("Accept: application/json")
     @POST("api/login")
     Call<ArrayList<Errors>> postLogin(@Body Login login);
-//    @GET("/api/device/getAllDevices")
+
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
     Call<ArrayList<Device>> getDevices();

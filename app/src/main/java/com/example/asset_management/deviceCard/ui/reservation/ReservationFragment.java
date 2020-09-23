@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * <p>
  *     Version 1.0
  * </p>
- * 30.08.2020
+ * 11.05.2020
  * AUTHOR: Dominik Dziersan
  */
 public class ReservationFragment extends Fragment {

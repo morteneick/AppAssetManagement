@@ -26,6 +26,7 @@ import android.view.SurfaceView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleViewDeviceList.Device;
@@ -77,8 +78,6 @@ public class ScanDeviceActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
-
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             }
@@ -136,6 +135,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
 
+                            Connection connection = new Connection();
+                            connection.getDeviceList(detectedCode,getApplicationContext());
                            // if (detectedCode.equals())
 
                         }
