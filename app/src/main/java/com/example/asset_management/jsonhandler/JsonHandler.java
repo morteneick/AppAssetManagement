@@ -51,7 +51,7 @@ public class JsonHandler {
      * @return
      */
 
-    public static String createJsonFromLogin(ArrayList<Login> list, String path, Context context){
+    public static String createJsonFromLogin(ArrayList<UserInfo> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -186,7 +186,6 @@ public class JsonHandler {
         }
     }
 
-
     public static String getListString(Context context, String fileName)
             throws IOException {
 
@@ -214,6 +213,20 @@ public class JsonHandler {
         Gson gson = new Gson();
         ArrayList<Device> list = gson.fromJson(jsonString,
                 new TypeToken<ArrayList<Device>>() {}.getType());
+
+        return list;
+    };
+
+
+    //DOING
+    public static ArrayList<Login> getLogin(String filename, Context context)
+            throws IOException {
+
+        String jsonString = getListString(context, filename);
+
+        Gson gson = new Gson();
+        ArrayList<Login> list = gson.fromJson(jsonString,
+                new TypeToken<ArrayList<Login>>() {}.getType());
 
         return list;
     };

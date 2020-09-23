@@ -1,6 +1,5 @@
 package com.example.asset_management.login;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +17,9 @@ import static com.example.asset_management.R.id.login;
 public class LoginActivity extends AppCompatActivity {
     String jsonName = "Login.json";
     //JSONObject jsonLogin = new JSONObject();
-    private EditText Name;
-    private EditText Password;
-    private Button Login;
+    private EditText NameET;
+    private EditText PasswordET;
+    private Button LoginBtn;
     private TextView Info;
     private int counter = 10;
 
@@ -30,29 +29,31 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(login);
 
-        Name = findViewById(R.id.editText);
-        Password = findViewById(R.id.editText2);
+        NameET = findViewById(R.id.editText);
+        PasswordET = findViewById(R.id.editText2);
         Info = findViewById(R.id.textView);
-        Login = findViewById(R.id.btnLogin);
+        LoginBtn = findViewById(R.id.btnLogin);
 
         //Info.setText("Versuche übrig: 10");
 
 
-        Login.setOnClickListener(new View.OnClickListener() {
+        LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String Username = Name.getText().toString();
-                String Passwd = Password.getText().toString();
+                String Username = NameET.getText().toString();
+                String Password = PasswordET.getText().toString();
 
-                if (validateLogin(Username,Passwd)){
-                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,Passwd.toCharArray()));
+                if (validateLogin(Username,Password)){
+                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,Password.toCharArray()));
 
                     //posting login data
                     Connection connection = new Connection();
                     connection.postLogin(login, getApplicationContext());
 
                     connection.getLoginData(getApplicationContext());
+
+
 
                     String createDeviceMessage = JsonHandler.createJsonFromObject(login,
                             jsonName, getApplicationContext());
