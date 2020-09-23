@@ -19,9 +19,9 @@ import retrofit2.http.Path;
 public interface GetPostConnection {
 
 
-    @Headers("Accept: application/json")
+
     @GET("api/login")
-    Call<ArrayList<UserInfo>> getLogin();
+    Call<ArrayList<Login>> getLogin();
 
     @Headers("Accept: application/json")
     @POST("api/login")

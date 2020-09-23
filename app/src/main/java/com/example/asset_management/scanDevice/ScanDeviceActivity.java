@@ -34,6 +34,7 @@ import java.io.IOException;
 
 /**
  * ScanDeviceActivity
+ * Version 1.0
  * 31.07.2020
  */
 

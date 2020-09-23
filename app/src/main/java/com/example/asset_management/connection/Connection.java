@@ -50,22 +50,22 @@ public class Connection {
 
     public void getLoginData(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
+        Call<ArrayList<Login>> call = getPostConnection.getLogin();
 
-        call.enqueue(new Callback<ArrayList<UserInfo>>() {
+        call.enqueue(new Callback<ArrayList<Login>>() {
             @Override
-            public void onResponse(Call<ArrayList<UserInfo>> call,
-                                   retrofit2.Response<ArrayList<UserInfo>> response) {
+            public void onResponse(Call<ArrayList<Login>> call,
+                                   retrofit2.Response<ArrayList<Login>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ArrayList<UserInfo> posts = response.body();
+                ArrayList<Login> posts = response.body();
                 JsonHandler.createJsonFromLogin(posts, "Login.json", context);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Login>> call, Throwable t) {
                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,7 +93,7 @@ public class Connection {
         });
     }
 
-    public void getDeviceList(final Context context)   {
+    public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getDevices();
 
