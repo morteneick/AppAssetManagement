@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 import com.example.asset_management.R;
 
 /**
- * UserRecycleFragment
+ * RecyclerFragment
  * <p>
  *     Version 1.0
  * </p>
- * 15.09.2020
+ * 11.05.2020
  */
 public class UserRecycleFragment extends Fragment {
 

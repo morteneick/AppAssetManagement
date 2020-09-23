@@ -26,7 +26,7 @@ import java.util.Calendar;
  * <p>
  *     Version 1.0
  * </p>
- * 30.08.2020
+ * 11.05.2020
  * AUTHOR: Dominik Dziersan
  */
 
@@ -123,13 +123,6 @@ public class ReservationActivity extends AppCompatActivity implements
         }
     }
 
-    /**
-     *
-     * @param textStart calendar of the start of a reservation
-     * @param textEnd calendar of the end of a reservation
-     * @return
-     * @throws IOException
-     */
     public boolean isCorrectFilled (TextView textStart, TextView textEnd) throws IOException {
 
         String start = textStart.getText().toString();

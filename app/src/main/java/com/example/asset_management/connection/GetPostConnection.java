@@ -26,18 +26,10 @@ public interface GetPostConnection {
     @Headers("Accept: application/json")
     @POST("api/login")
     Call<ArrayList<Errors>> postLogin(@Body Login login);
-//    @GET("/api/device/getAllDevices")
+
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
     Call<ArrayList<Device>> getDevices();
-
-    @Headers("Accept: application/json")
-    @GET("/get1")
-    Call<ArrayList<Device>> getDevices1();
-
-    @Headers("Accept: application/json")
-    @GET("/get")
-    Call<Test> getTest();
 
     @GET("api/borrow/getReservations")
     Call<ArrayList<Reservation>> getReservation();

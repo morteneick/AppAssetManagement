@@ -16,12 +16,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * UserAdapter
+ * DeviceAdapter
  * <p>
  *     Version 1.0
  * </p>
- * 15.09.2020
- * AUTHOR: Dominik Dziersan
+ * 11.05.2020
  */
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private OnNoteListener mOnNoteListener;
