@@ -76,8 +76,7 @@ public class MainHubFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //
-           Connection connection = new Connection();
-           connection.get1(getContext());
+
 
             }
         });

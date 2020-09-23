@@ -31,14 +31,6 @@ public interface GetPostConnection {
     @GET("/api/device/getAllDevices")
     Call<ArrayList<Device>> getDevices();
 
-    @Headers("Accept: application/json")
-    @GET("/get1")
-    Call<ArrayList<Device>> getDevices1();
-
-    @Headers("Accept: application/json")
-    @GET("/get")
-    Call<Test> getTest();
-
     @GET("api/borrow/getReservations")
     Call<ArrayList<Reservation>> getReservation();
 

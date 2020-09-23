@@ -58,8 +58,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_device);
 
-        surfaceView = (SurfaceView) findViewById(R.id.camerapreview);
-        textView = (TextView) findViewById(R.id.textView);
+        surfaceView = findViewById(R.id.camerapreview);
+        textView = findViewById(R.id.textView);
 
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE).build();
@@ -118,6 +118,7 @@ public class ScanDeviceActivity extends AppCompatActivity {
                                 ArrayList<Device> devices = JsonHandler.getDeviceList
                                         ("DeviceList.json", getApplicationContext());
                                 for(Device d : devices){
+                                    assert d.getInventoryNumber() != null;
                                     if(d.getInventoryNumber().equals(detectedCode)){
                                         device = d;
                                         i++;
