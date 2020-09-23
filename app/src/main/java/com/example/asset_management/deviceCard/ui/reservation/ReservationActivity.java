@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+
 /**
  * ReservationActivity
  * <p>
@@ -135,6 +137,8 @@ public class ReservationActivity extends AppCompatActivity implements
         } else {
             ArrayList<Reservation> reservationList = JsonHandler.getReservationList
                     ("Reservation.json",this);
+            Calendar date123 = Calendar.getInstance();
+            reservation.getStart();
             Connection connection = new Connection();
             connection.postNewReservation(reservation, this);
             return true;
