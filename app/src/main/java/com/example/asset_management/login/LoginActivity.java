@@ -90,12 +90,12 @@ public class LoginActivity extends AppCompatActivity {
     private boolean validateLogin(String Username, String Passwd){
 
         if (Username == null || Username.trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben!", Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben.", Toast.LENGTH_SHORT)
                     .show();
             return false;
         }
         if (Passwd == null || Passwd.trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Bitte Passwort eingeben!", Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), "Bitte Passwort eingeben.", Toast.LENGTH_SHORT)
                     .show();
             return false;
         }

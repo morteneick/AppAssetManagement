@@ -141,7 +141,6 @@ public class Connection {
         });
     }
 
-
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postLogin(login);
