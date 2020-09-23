@@ -61,6 +61,14 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
                             .show();
                 }
+                /*
+                connection.getLoginData(this);
+                try {
+                    list = JsonHandler.getLogin(jsonName, this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                */
                 /*JSONObject jsonResponseLogin = new JSONObject(result);
                 try {
                     UserInfo currentUser = new UserInfo(jsonResponseLogin.getString("worker_id"), jsonResponseLogin.getString("e_mail"), jsonResponseLogin.getString("name"), jsonResponseLogin.getString("surname"), jsonResponseLogin.getString("role"));
