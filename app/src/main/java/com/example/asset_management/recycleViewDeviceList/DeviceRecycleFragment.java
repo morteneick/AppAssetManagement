@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.asset_management.R;
 /**
- * RecyclerFragment
+ * DeviceRecyclerFragment
  * <p>
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class DeviceRecycleFragment extends Fragment {
 

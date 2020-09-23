@@ -32,7 +32,7 @@ import java.io.IOException;
  * <p>
  *     Version 1.0
  * </p>
- * 30.08.2020
+ * 29.08.2020
  * AUTHOR: Dominik Dziersan
  */
 public class DeviceCardActivity extends AppCompatActivity implements
@@ -43,7 +43,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
     private String currentDateString;
     private boolean isOldDevice;
     @Override
-    public void onInputASent(String input) {
+    public void onInputSent(String input) {
         clickedCalendar = input;
     }
 

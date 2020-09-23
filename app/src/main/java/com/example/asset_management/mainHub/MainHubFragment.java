@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity;
@@ -24,6 +25,7 @@ import com.example.asset_management.settings.SettingsActivity;
  *     Version 1.0
  * </p>
  * 11.05.2020
+ * AUTHOR: Dominik Dziersan
  */
 public class MainHubFragment extends Fragment {
 
@@ -74,9 +76,8 @@ public class MainHubFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //
-                Intent intent = new Intent(getActivity(),
-                        DeviceRecycleActivity.class);
-                startActivity(intent);
+           Connection connection = new Connection();
+           connection.get1(getContext());
 
             }
         });

@@ -2,6 +2,7 @@ package com.example.asset_management.deviceCard.ui.card;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,9 @@ import java.util.Calendar;
  *     Version 1.0
  * </p>
  * 17.08.2020
+ * AUTHOR: Dominik Dziersan
  */
+
 public class CardFragment extends Fragment implements
         DatePickerDialog.OnDateSetListener {
     private DialogFragment datePicker = new DatePickerFragment();
@@ -51,9 +54,11 @@ public class CardFragment extends Fragment implements
     EditText editUvv;
     EditText editRepair;
 
-
+    /**
+     * Interface to communicate between activities.
+     */
     public interface FragmentDeviceCardListener {
-        void onInputASent(String input);
+        void onInputSent(String input);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,7 +77,6 @@ public class CardFragment extends Fragment implements
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         editStatus.setAdapter(adapter);
 
-
 //        editStatus.setOnItemSelectedListener(this);
         final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
         final EditText editModel = root.findViewById(R.id.editModel);
@@ -84,6 +88,7 @@ public class CardFragment extends Fragment implements
         final EditText editStreet = root.findViewById(R.id.editStreet);
         final EditText editNotes = root.findViewById(R.id.editNotes);
         final EditText editProject = root.findViewById(R.id.editProject);
+
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
         editRepair = root.findViewById(R.id.editRepair);
@@ -130,20 +135,18 @@ public class CardFragment extends Fragment implements
             }
         });
 
-        cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
+
             DeviceCardActivity activity = (DeviceCardActivity) getActivity();
             final Device device = activity.getDevice();
 
             editInventoryNumber.setText(device.getInventoryNumber());
-//            editStatus.setText(device.getStatus());
                 editStatus.post(new Runnable() {
                     @Override
                     public void run() {
                         editStatus.setSelection(getPosition(device));
                     }
                 });
+
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());
@@ -212,13 +215,10 @@ public class CardFragment extends Fragment implements
                     unblockInput(editProject);
                 }
 
-            }
-        });
-
-/**
- * Takes the input from als editTexts and saves it into an json file
- */
         btnSave.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Takes the input from all editTexts and saves it into an json file
+             */
             @Override
             public void onClick(View v) {
                 String jsonName = "DeviceList.json";
@@ -296,6 +296,11 @@ public class CardFragment extends Fragment implements
         editText.setCursorVisible(true);
     }
 
+    /**
+     * prepares the status from the device for the status spinner position.
+     * @param device
+     * @return int for the status spinner
+     */
     private int getPosition (Device device){
 
         String status = device.getStatus();
@@ -321,11 +326,21 @@ public class CardFragment extends Fragment implements
         }
     }
 
+    /**
+     * Sets the visibility of an editText
+     * @param editText Edittext to change visibility
+     * @param view
+     */
     public static void setVisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setVisibility(View.VISIBLE);
     }
+    /**
+     * Sets the visibility of an editText
+     * @param editText Edittext to change visibility
+     * @param view
+     */
     public static void setInvisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -356,6 +371,10 @@ public class CardFragment extends Fragment implements
         }
     }
 
+    /**
+     * Preparation for the interface to communicate between activities.
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

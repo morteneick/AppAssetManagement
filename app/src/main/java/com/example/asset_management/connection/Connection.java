@@ -20,11 +20,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -39,37 +42,105 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * AUTHOR: Dominik Dziersan
  */
 public class Connection {
+    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 
     private String baseURL = "http://10.0.2.2:3000/";
     private String msgNoConnectionServer = "Keine Verbindung zum Server.";
+    OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(baseURL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void getLoginData(final Context context){
-        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
+    public void get(final Context context){
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
 
-        call.enqueue(new Callback<ArrayList<UserInfo>>() {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<Test> call = getPostConnection.getTest();
+
+        call.enqueue(new Callback<Test>() {
             @Override
-            public void onResponse(Call<ArrayList<UserInfo>> call,
-                                   retrofit2.Response<ArrayList<UserInfo>> response) {
+            public void onResponse(Call<Test> call,
+                                   retrofit2.Response<Test> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ArrayList<UserInfo> posts = response.body();
+                Test posts = response.body();
+                JsonHandler.createJsonFromObject(posts, "Test.json", context);
+            }
+
+            @Override
+            public void onFailure(Call<Test> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(context, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+            }
+        });
+    }
+
+    public void get1(final Context context){
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Device>> call = getPostConnection.getDevices1();
+
+        call.enqueue(new Callback<ArrayList<Device>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromObject(posts, "Test.json", context);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(context, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
+            }
+        });
+    }
+
+    public void getLoginData(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Login>> call = getPostConnection.getLogin();
+
+        call.enqueue(new Callback<ArrayList<Login>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Login>> call,
+                                   retrofit2.Response<ArrayList<Login>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Login> posts = response.body();
                 JsonHandler.createJsonFromLogin(posts, "Login.json", context);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Login>> call, Throwable t) {
                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
@@ -93,7 +164,13 @@ public class Connection {
         });
     }
 
-    public void getDeviceList(final Context context)   {
+    /**
+     * GETs a list with all devices and saves them into an internal json file.
+     * @param context activity context
+     */
+    public void getDeviceList(final Context context){
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getDevices();
 
@@ -114,11 +191,22 @@ public class Connection {
 
             @Override
             public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                if (t instanceof IOException) {
+                    Toast.makeText(context, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+                    // logging probably not necessary
+                }
+                else {
+                    Toast.makeText(context, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+                    // todo log to some central bug tracking service
+                }
             }
         });
     }
 
+    /**
+     * GETs a list of all reseravtions for all devices and saves them into an internal json file.
+     * @param context activity context
+     */
     public void getReservationList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Reservation>> call = getPostConnection.getReservation();
@@ -142,6 +230,11 @@ public class Connection {
         });
     }
 
+    /**
+     * GETs all old versions from one specific device and saves them into an json file
+     * @param inventoryNumber number from the device
+     * @param context activity context
+     */
     public void getDeviceOldVersion(int inventoryNumber, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
     Call<ArrayList<Device>> call = getPostConnection.getDeviceOldVersion(inventoryNumber);
@@ -150,7 +243,7 @@ public class Connection {
         @Override
         public void onResponse(Call call, retrofit2.Response response) {
             if (!response.isSuccessful()) {
-                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
+                Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT)
                         .show();
                 return;
             }
@@ -165,6 +258,38 @@ public class Connection {
     });
     }
 
+    /**
+     * GETs only one user with the givin workerId
+     * @param workerId Id of the person you want to get all informations
+     * @param context activity context
+     */
+    public void getUser(int workerId, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<UserInfo> call = getPostConnection.getUser(workerId);
+
+        call.enqueue(new Callback<UserInfo>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                JsonHandler.createJsonFromObject(response.body(), "User.json", context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+
+            }
+        });
+    }
+
+    /**
+     * POSTs the reservation to the server and receives and ErrorMessage if it failed.
+     * @param reservation new reservation object
+     * @param context activity context
+     */
     public void postNewReservation(Reservation reservation, final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postNewReservation(reservation);
@@ -187,6 +312,10 @@ public class Connection {
         });
     }
 
+    /**
+     * GETs all users and saves them into a json file.
+     * @param context activity context
+     */
     public void getAllUsers(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<UserInfo>> call = getPostConnection.getAllUsers();
@@ -211,6 +340,12 @@ public class Connection {
         });
     }
 
+
+    /**
+     *  POSTs new device to the server and receives and ErrorMessage if it failed.
+     * @param device new device object
+     * @param context activitiy context.
+     */
     public void postNewDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postDevice(device);
@@ -233,6 +368,11 @@ public class Connection {
         });
     }
 
+    /**
+     * PUTs the device to the server with an edited device object
+     * @param device changed/edited device object
+     * @param context activity context
+     */
     public void putChangeDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
@@ -255,6 +395,11 @@ public class Connection {
         });
     }
 
+    /**
+     * PUTs an edited user to the server
+     * @param user edited user object
+     * @param context activity context
+     */
     public void putUpdateUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.putUpdateUser(user.getWorkerId(), user);
@@ -277,6 +422,11 @@ public class Connection {
         });
     }
 
+    /**
+     * DELETE request to the server with the devices inventory number
+     * @param device device object
+     * @param context activity context
+     */
     public void deleteDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
@@ -299,6 +449,11 @@ public class Connection {
         });
     }
 
+    /**
+     * DELETE request with the users workerId
+     * @param user user object
+     * @param context activity context
+     */
     public void deleteUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(user.getWorkerId());
@@ -321,6 +476,12 @@ public class Connection {
         });
     }
 
+    /**
+     * DELETE request fpr a reservation from one device
+     * @param device device object with the reservation
+     * @param reservation reservation object
+     * @param context activity context
+     */
     public void deleteReservation(Device device, Reservation reservation, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(device.getInventoryNumberInt(), reservation);
@@ -343,6 +504,12 @@ public class Connection {
         });
     }
 
+    /**
+     *  GETs all devices from the server ans saves them into a json file
+     * @param url http
+     * @param context activity context
+     * @deprecated
+     */
     public static void getDeviceList(String url, final Context context) {
         RequestQueue mQueue = Volley.newRequestQueue(context);
         final ArrayList<Device> list = new ArrayList<>();
@@ -383,6 +550,12 @@ public class Connection {
         mQueue.add(request);
     }
 
+    /**
+     * Tests the connection to the given url
+     * @param url
+     * @param timeout int in milliseconds for how long to wait until it fails
+     * @return true or false if connection works
+     */
     public static boolean isConnectedToServer(String url, int timeout) {
         try{
             URL myUrl = new URL(url);

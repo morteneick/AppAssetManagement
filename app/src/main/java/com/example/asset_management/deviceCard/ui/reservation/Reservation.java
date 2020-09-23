@@ -2,11 +2,18 @@ package com.example.asset_management.deviceCard.ui.reservation;
 
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Reservation
+ * <p>
+ *     Version 1.0
+ * </p>
+ * 30.08.2020
+ * AUTHOR: Dominik Dziersan
+ */
 public class Reservation {
     Date loanDay;
     Date loanEnd;
-    String name;
+    String firstname;
     String surname;
     int projectId;
     String buildingSite;
@@ -41,12 +48,12 @@ public class Reservation {
         this.loanEnd = loanEnd;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getSurname() {
