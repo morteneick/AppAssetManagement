@@ -10,14 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.mainHub.MainHubActivity;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.asset_management.jsonhandler.JsonHandler;
-import com.google.gson.JsonObject;
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.example.asset_management.login.Login;
-
 import static com.example.asset_management.R.id.login;
 
 
@@ -48,19 +42,33 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Login login = new Login(Name.getText().toString(), BCrypt.withDefaults().hashToString(12, Password.getText().toString().toCharArray()));
+                String Username = Name.getText().toString();
+                String Passwd = Password.getText().toString();
 
-                String createDeviceMessage = JsonHandler.createJsonFromObject(login,
-                        jsonName, getApplicationContext());
+                if (validateLogin(Username,Passwd)){
+                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,Passwd.toCharArray()));
 
-                Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
-                        .show();
+                    //posting login data
+                    Connection connection = new Connection();
+                    connection.postLogin(login, getApplicationContext());
 
-                //posting login data
-                Connection connection = new Connection();
-                connection.postLogin(login, getApplicationContext());
+                    connection.getLoginData(getApplicationContext());
 
-                /*JSONObject jsonResponseLogin = new JSONObject(result);  // in progress TODO recive json
+                    String createDeviceMessage = JsonHandler.createJsonFromObject(login,
+                            jsonName, getApplicationContext());
+
+                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
+                            .show();
+                }
+                /*
+                connection.getLoginData(this);
+                try {
+                    list = JsonHandler.getLogin(jsonName, this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                */
+                /*JSONObject jsonResponseLogin = new JSONObject(result);
                 try {
                     UserInfo currentUser = new UserInfo(jsonResponseLogin.getString("worker_id"), jsonResponseLogin.getString("e_mail"), jsonResponseLogin.getString("name"), jsonResponseLogin.getString("surname"), jsonResponseLogin.getString("role"));
                 } catch (JSONException e) {
@@ -74,16 +82,23 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }*/
-
-                //validate(Name.getText().toString(), Password.getText().toString());
             }
         });
+    }
 
+    private boolean validateLogin(String Username, String Passwd){
 
-        // Benutzer und Rechte - Empfangen JSON
-        //
-
-
+        if (Username == null || Username.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben!", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+        if (Passwd == null || Passwd.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "Bitte Passwort eingeben!", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
+        return true;
     }
 }
    /* private void validate(String userName, String userPassword){
