@@ -2,15 +2,15 @@ package com.example.asset_management.login;
 
 
 public class Login {
-    private String username;
+    private String usermail;
     private String password;
 
 
     public Login() {
     }
 
-    public Login(String username, String password) {
-        this.username = username;
+    public Login(String usermail, String password) {
+        this.usermail = usermail;
         this.password = password;
 
     }

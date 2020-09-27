@@ -1,7 +1,9 @@
 package com.example.asset_management.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.mainHub.MainHubActivity;
 
+import static com.example.asset_management.R.id.action_FirstFragment_to_Login;
 import static com.example.asset_management.R.id.login;
 
 
@@ -23,21 +26,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText PasswordET;
     private Button LoginBtn;
     private TextView Info;
-    private int counter = 10;
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(login);
+        setContentView(R.layout.activity_login);
 
         NameET = findViewById(R.id.editText);
         PasswordET = findViewById(R.id.editText2);
         Info = findViewById(R.id.textView);
         LoginBtn = findViewById(R.id.btnLogin);
-
-        //Info.setText("Versuche übrig: 10");
-
 
         LoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,15 +52,16 @@ public class LoginActivity extends AppCompatActivity {
                     Connection connection = new Connection();
                     connection.postLogin(login, getApplicationContext());
 
-                    String createDeviceMessage = JsonHandler.createJsonFromObject(login,
-                            jsonName, getApplicationContext());
-
-                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
-                            .show();
 
                     // receiving answer
+
+                    
                     connection.getLoginData(getApplicationContext());
 
+                    UserInfo ui = new UserInfo();
+                    String user = ui.getFirstname();
+                    Toast.makeText(getApplicationContext(), user, Toast.LENGTH_SHORT).show();
+/*
                     UserInfo ui = new UserInfo();
                     boolean access = ui.getAccess();
                     String uname = ui.getFirstname() + ui.getSurname();
@@ -70,14 +70,27 @@ public class LoginActivity extends AppCompatActivity {
                         //access granted
                         Toast.makeText(getApplicationContext(),uname,Toast.LENGTH_SHORT);
                         Intent intent = new Intent(LoginActivity.this, MainHubActivity.class);
-                    }
+                    }*/
                 }
+            }
+        });
+        Info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Replace Link with link to User documentation
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                startActivity(browserIntent);
             }
         });
     }
 
     private boolean validateLogin(String Username, String Passwd){
 
+        if (Passwd.trim().length() == 0 && Username.trim().length() == 0 || Username ==null && Passwd == null) {
+            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen und Passwort eingeben.", Toast.LENGTH_SHORT)
+                    .show();
+            return false;
+        }
         if (Username == null || Username.trim().length() == 0) {
             Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben.", Toast.LENGTH_SHORT)
                     .show();
