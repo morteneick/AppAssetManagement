@@ -16,7 +16,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.mainHub.MainHubActivity;
 
-import static com.example.asset_management.R.id.action_FirstFragment_to_Login;
+//import static com.example.asset_management.R.id.action_FirstFragment_to_Login;
 import static com.example.asset_management.R.id.login;
 
 

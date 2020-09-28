@@ -74,6 +74,15 @@ class MainHubActivityTest {
         onView(withId(R.id.deviceList)).check(ViewAssertions.matches(isDisplayed()))
 
     }
+    @Test
+    fun testNavigationShowSettings() {
+
+        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
+
+        onView(withId(R.id.btnSettings)).perform(click())
+        onView(withId(R.id.activity_settings)).check(ViewAssertions.matches(isDisplayed()))
+
+    }
 
     @Test
     fun testNavigationShowDeviceBack() {
