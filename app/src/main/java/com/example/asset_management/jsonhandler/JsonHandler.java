@@ -9,6 +9,7 @@ import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
@@ -37,7 +38,12 @@ public class JsonHandler {
      * @return json String
      */
     public static String  convertIntoString(Object object){
-        Gson gson = new Gson();
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .create();
+
         String json = gson.toJson(object);
 
         return json;
