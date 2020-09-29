@@ -56,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
                     connection.postLogin(login, getApplicationContext());
 
                     // receiving answer
-                    connection.getLoginData(getApplicationContext());
-
+                    //connection.getLoginData(getApplicationContext());
+/*
                     UserInfo ui = new UserInfo();
                     String user = ui.getFirstname();
-                    Toast.makeText(getApplicationContext(), "Willkommen " + user, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Willkommen " + user, Toast.LENGTH_SHORT).show();*/
 /*
                     UserInfo ui = new UserInfo();
                     boolean access = ui.getAccess();

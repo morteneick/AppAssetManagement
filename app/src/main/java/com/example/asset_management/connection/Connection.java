@@ -20,11 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -56,7 +58,7 @@ public class Connection {
             @Override
             public void onResponse(Call<ArrayList<UserInfo>> call,
                                    retrofit2.Response<ArrayList<UserInfo>> response) {
-
+                
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
                     return;
@@ -76,24 +78,37 @@ public class Connection {
 
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.postLogin(login);
+        Call<ResponseBody> call = getPostConnection.postLogin(login);
 
-        call.enqueue(new Callback<ArrayList<Errors>>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call call, retrofit2.Response response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
-                    return;
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                if (!response.isSuccessful()){
+                    String s = response.toString();
+                    Toast.makeText(context,"Error" + s,Toast.LENGTH_SHORT).show();
+/*
+                    String error = "nix";
+                    try {
+                        error = response.errorBody().string();
+                        error = error.replace("\"","");
+                        Toast.makeText(context,error,Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+
                 }
-                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
-                showErrors(errors, context);
+                String s = response.toString();
+                Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(context,call.toString(),Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(context,"FAIL " + t.getMessage(),Toast.LENGTH_SHORT).show();
+
             }
         });
+
     }
 
     public void getDeviceList(final Context context){

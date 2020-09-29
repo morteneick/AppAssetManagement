@@ -7,6 +7,7 @@ import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -24,7 +25,7 @@ public interface GetPostConnection {
 
     @Headers("Accept: application/json")
     @POST("/api/login")
-    Call<ArrayList<Errors>> postLogin(@Body Login login);
+    Call<ResponseBody> postLogin(@Body Login login);
 
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
