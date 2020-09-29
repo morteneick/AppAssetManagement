@@ -1,6 +1,7 @@
 package com.example.asset_management.settings;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.login.LoginActivity;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
@@ -34,6 +36,8 @@ public class SettingsActivity extends AppCompatActivity {
         list.add("Nutzer bearbeiten");
         list.add("Rechte bearbeiten");
         list.add("Informationen zur App");
+        list.add("LOGIN");
+        list.add("FAQ");
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, list);
@@ -54,6 +58,15 @@ public class SettingsActivity extends AppCompatActivity {
                     case 1:
                         break;
                     case 2:
+                        break;
+                    case 3:
+                        Intent login = new Intent(SettingsActivity.this,LoginActivity.class);
+                        startActivity(login);
+                        break;
+                    case 4:
+                        //http://localhost:3000/FAQ
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                        startActivity(browserIntent);
                         break;
                     default:
                 }

@@ -18,13 +18,12 @@ import retrofit2.http.Path;
 
 public interface GetPostConnection {
 
-
-
-    @GET("api/login")
+    @Headers("Accept: application/json")
+    @GET("/api/login")
     Call<ArrayList<UserInfo>> getLogin();
 
     @Headers("Accept: application/json")
-    @POST("api/login")
+    @POST("/api/login")
     Call<ArrayList<Errors>> postLogin(@Body Login login);
 
     @Headers("Accept: application/json")

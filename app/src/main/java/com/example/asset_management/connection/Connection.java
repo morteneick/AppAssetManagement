@@ -56,14 +56,17 @@ public class Connection {
             @Override
             public void onResponse(Call<ArrayList<UserInfo>> call,
                                    retrofit2.Response<ArrayList<UserInfo>> response) {
+
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
                     return;
                 }
+               // Toast.makeText(context,ArrayList<UserInfo>,Toast.LENGTH_SHORT).show();
+
                 ArrayList<UserInfo> posts = response.body();
+
                 JsonHandler.createJsonFromLogin(posts, "Login.json", context);
             }
-
             @Override
             public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
                 Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
