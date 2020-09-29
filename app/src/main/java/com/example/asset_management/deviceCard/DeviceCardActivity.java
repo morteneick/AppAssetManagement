@@ -156,6 +156,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
         Intent intent = getIntent();
         return (Device)intent.getSerializableExtra("Device");
     }
+
     public boolean isOldDevice(){
         Intent intent = getIntent();
         return (boolean) intent.getSerializableExtra("isOldVersion");

@@ -344,7 +344,7 @@ public class CardFragment extends Fragment implements
         editText.setCursorVisible(true);
     }
 
-    private int getPosition (Device device){
+    public static int getPosition (Device device){
 
         String status = device.getStatus();
         if (status == null){
@@ -374,6 +374,7 @@ public class CardFragment extends Fragment implements
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setVisibility(View.VISIBLE);
     }
+
     public static void setInvisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));

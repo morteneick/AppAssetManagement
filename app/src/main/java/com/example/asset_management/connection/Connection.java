@@ -98,7 +98,7 @@ public class Connection {
                     }*/
 
                 }
-                String s = response.toString();
+                String s = response.body().toString();
                 Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
             }
 

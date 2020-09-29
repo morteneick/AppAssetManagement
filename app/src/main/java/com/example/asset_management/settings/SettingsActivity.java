@@ -34,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         list.add("Nutzer bearbeiten");
-        list.add("Rechte bearbeiten");
         list.add("Informationen zur App");
         list.add("LOGIN");
         list.add("FAQ");
@@ -58,12 +57,10 @@ public class SettingsActivity extends AppCompatActivity {
                     case 1:
                         break;
                     case 2:
-                        break;
-                    case 3:
                         Intent login = new Intent(SettingsActivity.this,LoginActivity.class);
                         startActivity(login);
                         break;
-                    case 4:
+                    case 3:
                         //http://localhost:3000/FAQ
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
                         startActivity(browserIntent);
@@ -72,7 +69,5 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

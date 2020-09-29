@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".recycleViewDeviceList.DeviceRecycleActivity">
+    tools:context=".recycleViewDeviceList.DeviceRecycleActivity"
+    android:id="@+id/deviceListRecycle">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
