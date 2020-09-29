@@ -16,7 +16,9 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.mainHub.MainHubActivity;
 
-//import static com.example.asset_management.R.id.action_FirstFragment_to_Login;
+import java.util.ArrayList;
+
+import static com.example.asset_management.R.id.action_FirstFragment_to_Login;
 import static com.example.asset_management.R.id.login;
 
 
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText PasswordET;
     private Button LoginBtn;
     private TextView Info;
+    private ArrayList<UserInfo> userInfos = new ArrayList<>();
 
     @SuppressLint("ResourceType")
     @Override
@@ -52,15 +55,12 @@ public class LoginActivity extends AppCompatActivity {
                     Connection connection = new Connection();
                     connection.postLogin(login, getApplicationContext());
 
-
                     // receiving answer
-
-                    
                     connection.getLoginData(getApplicationContext());
 
                     UserInfo ui = new UserInfo();
                     String user = ui.getFirstname();
-                    Toast.makeText(getApplicationContext(), user, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Willkommen " + user, Toast.LENGTH_SHORT).show();
 /*
                     UserInfo ui = new UserInfo();
                     boolean access = ui.getAccess();
@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         Info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Replace Link with link to User documentation
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
                 startActivity(browserIntent);
             }
@@ -86,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String Username, String Passwd){
 
-        if (Passwd.trim().length() == 0 && Username.trim().length() == 0 || Username ==null && Passwd == null) {
+        if (Passwd.trim().length() == 0 && Username.trim().length() == 0 || Username == null && Passwd == null) {
             Toast.makeText(getApplicationContext(), "Bitte Benutzernamen und Passwort eingeben.", Toast.LENGTH_SHORT)
                     .show();
             return false;
