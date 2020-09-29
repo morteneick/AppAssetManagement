@@ -1,5 +1,13 @@
 package com.example.asset_management.deviceCard.ui.reservation;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.example.asset_management.connection.Connection;
+import com.example.asset_management.jsonhandler.JsonHandler;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -95,5 +103,20 @@ public class Reservation {
 
     public void setEnd(Calendar end) {
         this.end = end;
+    }
+
+    public boolean isCorrectFilled (String start, String end, Reservation reservation, Context context) throws IOException {
+
+        if (start.equals("")
+                || end.equals("")) {
+            return false;
+        } else {
+            ArrayList<Reservation> reservationList = JsonHandler.getReservationList
+                    ("Reservation.json",context);
+            reservation.getStart();
+            Connection connection = new Connection();
+            connection.postNewReservation(reservation, context);
+            return true;
+        }
     }
 }

@@ -45,6 +45,9 @@ public class Device implements Serializable {
     private String status;
     private Date lastRepair;
     private Date lastChange;
+    private String repairNote;
+    private String beaconMajor;
+    private String beaconMinor;
 
     public Device(){
     }
@@ -119,6 +122,22 @@ public class Device implements Serializable {
         this.inventoryNumber = inventoryNumber;
     }
 
+    public String getBeaconMajor() {
+        return beaconMajor;
+    }
+
+    public void setBeaconMajor(String beaconMajor) {
+        this.beaconMajor = beaconMajor;
+    }
+
+    public String getBeaconMinor() {
+        return beaconMinor;
+    }
+
+    public void setBeaconMinor(String beaconMinor) {
+        this.beaconMinor = beaconMinor;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }
@@ -138,6 +157,14 @@ public class Device implements Serializable {
     public String getStatus() {
         status = description;
         return status;
+    }
+
+    public String getRepairNote() {
+        return repairNote;
+    }
+
+    public void setRepairNote(String repairNote) {
+        this.repairNote = repairNote;
     }
 
     public void setStatus(String status) {

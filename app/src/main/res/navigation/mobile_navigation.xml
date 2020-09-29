@@ -21,7 +21,7 @@
         android:id="@+id/navigation_reservation1"
         android:name="com.example.asset_management.deviceCard.ui.reservation.ReservationActivity"
         android:label="Reservieren"
-        tools:layout="@layout/activity_reservation_test" />
+        tools:layout="@layout/activity_reservation" />
 
     <fragment
         android:id="@+id/navigation_reservation"

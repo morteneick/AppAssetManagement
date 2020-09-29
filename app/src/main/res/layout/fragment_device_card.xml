@@ -461,6 +461,83 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutRepairNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textRepairNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Notiz der letzten Reparatur" />
+
+                    <EditText
+                        android:id="@+id/editRepairNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutBeaconMinor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textBeaconMinor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="BeaconMinor" />
+
+                    <EditText
+                        android:id="@+id/editBeaconMinor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutBeaconMajor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textBeaconMajor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="BeaconMayjor" />
+
+                    <EditText
+                        android:id="@+id/editBeaconMajor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <LinearLayout

@@ -2,6 +2,7 @@ package com.example.asset_management.deviceCard.ui.card;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,10 @@ import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * CardFragment
@@ -84,6 +88,9 @@ public class CardFragment extends Fragment implements
         final EditText editStreet = root.findViewById(R.id.editStreet);
         final EditText editNotes = root.findViewById(R.id.editNotes);
         final EditText editProject = root.findViewById(R.id.editProject);
+        final EditText editRepairNotes = root.findViewById(R.id.editRepairNotes);
+        final EditText editBeaconMinor = root.findViewById(R.id.editBeaconMinor);
+        final EditText editBeaconMajor = root.findViewById(R.id.editBeaconMajor);
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
         editRepair = root.findViewById(R.id.editRepair);
@@ -153,6 +160,9 @@ public class CardFragment extends Fragment implements
             editStreet.setText(device.getStreet());
             editName.setText(device.getName());
             editNotes.setText(device.getNote());
+            editRepairNotes.setText(device.getRepairNote());
+            editBeaconMinor.setText(device.getBeaconMinor());
+            editBeaconMajor.setText(device.getBeaconMajor());
 //            editProject.setText(device.getProjectId());
             try {
                 editTuev.setText(device.getLastTuev().toString());
@@ -189,6 +199,9 @@ public class CardFragment extends Fragment implements
                     blockInput(editRepair);
                     blockInput(editProject);
                     blockInput(editNotes);
+                    blockInput(editRepairNotes);
+                    blockInput(editBeaconMajor);
+                    blockInput(editBeaconMinor);
 
                 } else {
                     setVisibility(editTuev, btnTuev);
@@ -210,6 +223,9 @@ public class CardFragment extends Fragment implements
                     blockInput(editRepair);
                     unblockInput(editNotes);
                     unblockInput(editProject);
+                    unblockInput(editRepairNotes);
+                    unblockInput(editBeaconMinor);
+                    unblockInput(editBeaconMinor);
                 }
 
             }
@@ -242,6 +258,9 @@ public class CardFragment extends Fragment implements
                 String uvv = editUvv.getText().toString();
                 String project = editProject.getText().toString();
                 String repair = editRepair.getText().toString();
+                String repairNote = editRepairNotes.getText().toString();
+                String beaconMinor = editBeaconMinor.getText().toString();
+                String beaconMajor = editBeaconMajor.getText().toString();
 
                 DeviceCardActivity activity = (DeviceCardActivity) getActivity();
                 Device device = activity.getDevice();
@@ -256,6 +275,35 @@ public class CardFragment extends Fragment implements
                 device.setCity(city);
                 device.setStreet(street);
                 device.setName(name);
+                device.setBeaconMinor(beaconMinor);
+                device.setBeaconMajor(beaconMajor);
+                device.setRepairNote(repairNote);
+
+                SimpleDateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz uuuu", Locale.ENGLISH);
+                Date date = null;
+
+                try {
+                    date = format.parse(repair);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                device.setLastRepair(date);
+                date = null;
+
+                try {
+                    date = format.parse(tuev);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                device.setLastTuev(date);
+                date = null;
+
+                try {
+                    date = format.parse(uvv);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                device.setLastUvv(date);
 
                 JsonHandler.createJsonFromDevice(device, jsonChangedDevice, getContext());
 

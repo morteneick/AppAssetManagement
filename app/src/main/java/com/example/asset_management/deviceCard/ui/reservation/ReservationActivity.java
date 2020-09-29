@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asset_management.R;
-import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
@@ -21,7 +20,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * ReservationActivity
@@ -42,7 +40,7 @@ public class ReservationActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_test);
+        setContentView(R.layout.activity_reservation);
 
         Button buttonStart = findViewById(R.id.btnStartDate);
         Button buttonReserve = findViewById(R.id.btnReserve);
@@ -63,8 +61,10 @@ public class ReservationActivity extends AppCompatActivity implements
             public void onClick(View v) {
                 TextView textStart = findViewById(R.id.textReservationStart);
                 TextView textEnd = findViewById(R.id.textReservationEnd);
+                String start = textStart.getText().toString();
+                String end = textEnd.getText().toString();
                 try {
-                    isCorrectFilled(textStart, textEnd);
+                    reservation.isCorrectFilled(start, end, reservation,getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -125,23 +125,5 @@ public class ReservationActivity extends AppCompatActivity implements
         }
     }
 
-    public boolean isCorrectFilled (TextView textStart, TextView textEnd) throws IOException {
 
-        String start = textStart.getText().toString();
-        String end = textEnd.getText().toString();
-
-        if (start.equals("")
-                || end.equals("")) {
-            Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
-            return false;
-        } else {
-            ArrayList<Reservation> reservationList = JsonHandler.getReservationList
-                    ("Reservation.json",this);
-            Calendar date123 = Calendar.getInstance();
-            reservation.getStart();
-            Connection connection = new Connection();
-            connection.postNewReservation(reservation, this);
-            return true;
-        }
-    }
 }
