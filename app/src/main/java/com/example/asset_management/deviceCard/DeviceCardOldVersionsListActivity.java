@@ -41,21 +41,24 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
 
         if(list.size() == 0){
             list.add("Keine alten Versionen gefunden");
+        } else {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
+                            DeviceCardActivity.class);
+                    intent.putExtra("Device", devices.get(position));
+                    intent.putExtra("isOldVersion", true);
+                    startActivity(intent);
+                }
+            });
         }
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, list);
         listView.setAdapter(itemsAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
-                        DeviceCardActivity.class);
-                intent.putExtra("Device", devices.get(position));
-                intent.putExtra("isOldVersion", true);
-                startActivity(intent);
-            }
-        });
+
     }
 }

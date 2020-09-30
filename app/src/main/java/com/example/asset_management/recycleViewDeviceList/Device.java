@@ -68,7 +68,7 @@ public class Device implements Serializable {
                   Date guarantee, String note, int deviceStatus, String description, String category,
                   Double longitude, Double latitude, Timestamp lastLocationUpdate, Date lastTuev,
                   Date lastUvv, int projectId, String name, String street, String postcode,
-                  String city, String status, Date lastRepair) {
+                  String city, String status, Date lastRepair, Timestamp timestamp) {
         this.inventoryNumber = inventoryNumber;
         this.model = model;
         this.manufacturer = manufacturer;
@@ -90,6 +90,7 @@ public class Device implements Serializable {
         this.city = city;
         this.status = status;
         this.lastRepair = lastRepair;
+        this.timestamp = timestamp;
     }
 
     /**
