@@ -251,6 +251,28 @@ public class Connection {
         });
     }
 
+    public void postNewUser(UserInfo userInfo, final Context context) {
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Errors>> call = getPostConnection.postUser(userInfo);
+
+        call.enqueue(new Callback<ArrayList<Errors>>() {
+            @Override
+            public void onResponse(Call call, retrofit2.Response response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Errors> errors = (ArrayList<Errors>) response.body();
+                showErrors(errors, context);
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                onFailureMessage(context, t);
+            }
+        });
+    }
+
     public void putChangeDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
@@ -319,7 +341,7 @@ public class Connection {
 
     public void deleteUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(user.getWorkerId());
+        Call<ArrayList<Errors>> call = getPostConnection.deleteUser(user.getWorkerId(), user);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override

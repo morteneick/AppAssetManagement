@@ -53,7 +53,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editInventoryNumber"
+                        android:id="@+id/editAddInventoryNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -79,7 +79,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editSerialNumber"
+                        android:id="@+id/editAddSerialNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -106,7 +106,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editManufacturer"
+                        android:id="@+id/editAddManufacturer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -133,7 +133,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editModel"
+                        android:id="@+id/editAddModel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -160,34 +160,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editCategorie"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="391dp"
-                    android:layout_height="46dp"
-                    android:layout_marginTop="200dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:width="150dp"
-                        android:text="Status"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/editStatus"
+                        android:id="@+id/editAddCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -196,7 +169,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/btnAddSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"

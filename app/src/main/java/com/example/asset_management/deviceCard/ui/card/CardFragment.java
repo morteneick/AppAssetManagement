@@ -54,7 +54,8 @@ public class CardFragment extends Fragment implements
     EditText editTuev;
     EditText editUvv;
     EditText editRepair;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    EditText editGuarantee;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
     Date date = new Date();
 
     public interface FragmentDeviceCardListener {
@@ -92,6 +93,7 @@ public class CardFragment extends Fragment implements
         final EditText editRepairNotes = root.findViewById(R.id.editRepairNotes);
         final EditText editBeaconMinor = root.findViewById(R.id.editBeaconMinor);
         final EditText editBeaconMajor = root.findViewById(R.id.editBeaconMajor);
+        editGuarantee = root.findViewById(R.id.editGuarantee);
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
         editRepair = root.findViewById(R.id.editRepair);
@@ -104,8 +106,20 @@ public class CardFragment extends Fragment implements
         final View viewUvv = root.findViewById(R.id.btnUvv);
         final Button btnRepair = root.findViewById(R.id.btnRepair);
         final View viewRepair = root.findViewById(R.id.btnRepair);
+        final Button btnGuarantee = root.findViewById(R.id.btnGuarantee);
+        final View viewGuarantee = root.findViewById(R.id.btnGuarantee);
 
         btnTuev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCalendar = "tuev";
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+        btnGuarantee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickedCalendar = "tuev";
@@ -185,10 +199,17 @@ public class CardFragment extends Fragment implements
             } catch (Exception e){
                 editRepair.setText("");
             }
+                try {
+                    date = device.getGuarantee();
+                    editRepair.setText(format.format(date));
+                } catch (Exception e){
+                    editRepair.setText("");
+                }
                 if (!SwitchEditable.isClicked(getContext())){
                     setInvisibility(editTuev, btnTuev);
                     setInvisibility(editUvv, btnUvv);
                     setInvisibility(editRepair, btnRepair);
+                    setInvisibility(editGuarantee, btnGuarantee);
                     viewSave.setVisibility(View.INVISIBLE);
                     blockInput(editInventoryNumber);
                     editStatus.setEnabled(false);
@@ -213,6 +234,7 @@ public class CardFragment extends Fragment implements
                     setVisibility(editTuev, btnTuev);
                     setVisibility(editUvv, btnUvv);
                     setVisibility(editRepair, btnRepair);
+                    setVisibility(editGuarantee, btnGuarantee);
                     unblockInput(editInventoryNumber);
                     viewSave.setVisibility(View.VISIBLE);
                     editStatus.setEnabled(true);
@@ -233,7 +255,6 @@ public class CardFragment extends Fragment implements
                     unblockInput(editBeaconMinor);
                     unblockInput(editBeaconMinor);
                 }
-
             }
         });
 
@@ -262,6 +283,7 @@ public class CardFragment extends Fragment implements
                 String notes = editNotes.getText().toString();
                 String tuev = editTuev.getText().toString();
                 String uvv = editUvv.getText().toString();
+                String guarantee = editGuarantee.getText().toString();
                 String project = editProject.getText().toString();
                 String repair = editRepair.getText().toString();
                 String repairNote = editRepairNotes.getText().toString();
@@ -285,7 +307,7 @@ public class CardFragment extends Fragment implements
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
 
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz uuuu", Locale.ENGLISH);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
                 Date date = null;
 
                 try {
@@ -311,6 +333,15 @@ public class CardFragment extends Fragment implements
                 }
                 device.setLastUvv(date);
 
+                try {
+                    date = format.parse(guarantee);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                device.setLastUvv(date);
+
+                Toast.makeText(getContext(),device.getLastTuev().toString(),Toast.LENGTH_SHORT).show();
+
                 JsonHandler.createJsonFromDevice(device, jsonChangedDevice, getContext());
 
                 SwitchEditable switchEditable = new SwitchEditable(false);
@@ -318,11 +349,10 @@ public class CardFragment extends Fragment implements
                 SwitchEditable.createSwitch(switchEditable, getContext());
 
                 ((DeviceCardActivity)getActivity()).finish();
+//                Connection connection = new Connection();
+//                connection.putChangeDevice(device, getContext());
 
-                Connection connection = new Connection();
-                connection.putChangeDevice(device, getContext());
 
-                Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
             }
         });
 

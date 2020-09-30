@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -35,27 +36,35 @@ public class AddDeviceActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
-        Button btnSave = findViewById(R.id.button4);
+        Button btnSave = findViewById(R.id.btnAddSave);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                    Device device = new Device(findViewById(R.id.editInventoryNumber),
-                            findViewById(R.id.editSerialNumber),
-                            findViewById(R.id.editModel),
-                            findViewById(R.id.editManufacturer),
-                            findViewById(R.id.editCategorie),
-                                    findViewById(R.id.editStatus));
+//                    Device device = new Device(findViewById(R.id.editInventoryNumber),
+//                            findViewById(R.id.editSerialNumber),
+//                            findViewById(R.id.editModel),
+//                            findViewById(R.id.editManufacturer),
+//                            findViewById(R.id.editCategorie),
+//                                    findViewById(R.id.editStatus));
+                EditText editInventoryNumber = findViewById(R.id.editAddInventoryNumber);
+                EditText editSerialnumber = findViewById(R.id.editAddSerialNumber);
+                EditText editModel = findViewById(R.id.editAddModel);
+                EditText editManufacturer = findViewById(R.id.editAddManufacturer);
+                EditText editCategory = findViewById(R.id.editAddCategory);
 
-                    String createDeviceMessage = JsonHandler.createJsonFromObject(device,
-                            jsonName, getApplicationContext());
+                Device device = new Device();
+                device.setInventoryNumber(editInventoryNumber.getText().toString());
+                device.setSerialNumber(editSerialnumber.getText().toString());
+                device.setModel(editModel.getText().toString());
+                device.setManufacturer(editManufacturer.getText().toString());
+                device.setCategory(editCategory.getText().toString());
+                device.setDeviceStatus(1);
 
                 Connection connection = new Connection();
                 connection.postNewDevice(device, getApplicationContext());
 
-//                    Toast.makeText(getApplicationContext(), createDeviceMessage, Toast.LENGTH_SHORT)
-//                            .show();
 
             }
         });

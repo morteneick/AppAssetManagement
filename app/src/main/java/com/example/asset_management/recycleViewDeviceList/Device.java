@@ -1,5 +1,6 @@
 package com.example.asset_management.recycleViewDeviceList;
 
+import android.icu.text.SimpleDateFormat;
 import android.view.View;
 import android.widget.EditText;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Date;
 
 import static java.lang.String.valueOf;
@@ -97,25 +99,6 @@ public class Device implements Serializable {
      * Takes the input from the AddDeviceActivity fields, creates an Device object.
      * @throws IOException
      */
-    public Device(View viewById, View viewById1, View viewById2, View viewById3, View viewById4, View viewById5) {
-
-        EditText editInventoryNumber = (EditText) viewById;
-        EditText editSerialNumber = (EditText) viewById1;
-        EditText editModel = (EditText) viewById2;
-        EditText editManufacturer = (EditText) viewById3;
-        EditText editCategorie = (EditText) viewById4;
-        EditText editStatus = (EditText) viewById5;
-
-        this.inventoryNumber = editInventoryNumber.getText().toString();
-        this.serialNumber = editSerialNumber.getText().toString();
-        this.model = editModel.getText().toString();
-        this.manufacturer = editManufacturer.getText().toString();
-        this.category = editCategorie.getText().toString();
-        this.status = editStatus.getText().toString();
-//
-//        Device device = new Device(stringInventoryNumber,stringSerialNumber, stringEditModel, stringManufacturer,
-//                stringCategorie, stringStatus);
-    }
 
     public Timestamp getTimestamp() {
         return timestamp;
@@ -348,5 +331,31 @@ public class Device implements Serializable {
                 ", deviceCategorie='" + category + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public void changeDateFormat() throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        try {
+            this.lastTuev = format.parse(format.format(lastTuev));
+        } catch (Exception ignore){
+
+        }
+        try {
+            this.lastRepair = format.parse(format.format(lastRepair));
+        } catch (Exception ignore){
+
+        }
+        try {
+            this.lastUvv = format.parse(format.format(lastUvv));
+        } catch (Exception ignore){
+
+        }
+        try {
+            this.guarantee = format.parse(format.format(guarantee));
+        } catch (Exception ignore){
+
+        }
+
     }
 }

@@ -55,6 +55,10 @@ public interface GetPostConnection {
     Call<ArrayList<Errors>> postDevice(@Body Device device);
 
     @Headers("Accept: application/json")
+    @POST("api/device/createDevice")
+    Call<ArrayList<Errors>> postUser(@Body UserInfo userInfo);
+
+    @Headers("Accept: application/json")
     @PUT("api/user/updateUser/{workerId}")
     Call<ArrayList<Errors>> putUpdateUser(@Path("workerId") int workerId, @Body UserInfo userInfo);
 
@@ -64,7 +68,7 @@ public interface GetPostConnection {
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/user/deleteUser/{workerId}", hasBody = true)
-    Call<ArrayList<Errors>> deleteUser(@Path("inventoryNumber")int workerId, @Body UserInfo userInfo);
+    Call<ArrayList<Errors>> deleteUser(@Path("workerId")int workerId, @Body UserInfo userInfo);
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/borrow/cancelReservation/{inventoryNumber}", hasBody = true)

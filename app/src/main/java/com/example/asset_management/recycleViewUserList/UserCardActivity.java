@@ -79,7 +79,7 @@ public class UserCardActivity extends AppCompatActivity {
         editRole.setText(user.getRole());
         editEmail.setText(user.geteMail());
 
-        if(!isClicked()){
+        if(!SwitchEditable.isClicked(this)){
             CardFragment.blockInput(editFirstname);
             CardFragment.blockInput(editSurname);
             CardFragment.blockInput(editWorkerId);
@@ -124,10 +124,10 @@ public class UserCardActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     user.setWorkerId(user.getWorkerId());
                 }
-                user.setFirstname(editFirstname.toString());
-                user.setSurname(editSurname.toString());
-                user.seteMail(editEmail.toString());
-                user.setRole(editRole.toString());
+                user.setFirstname(editFirstname.getText().toString());
+                user.setSurname(editSurname.getText().toString());
+                user.seteMail(editEmail.getText().toString());
+                user.setRole(editRole.getText().toString());
                 user.setAddDevice(user.boolToInt(checkAddDevice.isChecked()));
                 user.setEditDevice(user.boolToInt(checkEditDevice.isChecked()));
                 user.setDeleteDevice(user.boolToInt(checkDeleteDevice.isChecked()));
@@ -197,8 +197,10 @@ public class UserCardActivity extends AppCompatActivity {
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            user = (UserInfo) getIntent().getSerializableExtra("User");
                             Connection connection = new Connection();
                             connection.deleteUser(user, getApplicationContext());
+                            connection.getAllUsers(getApplicationContext());
                             finish();
                         }
                     })
@@ -210,22 +212,10 @@ public class UserCardActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public boolean isClicked(){
-        String isEditable = "";
-        try {
-            isEditable = getSwitch();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Gson gson = new Gson();
-        final SwitchEditable switchEditable = gson.fromJson(isEditable, SwitchEditable.class);
-        return switchEditable.isEnabled();
-    }
 
     @Override
     public void onBackPressed() {
-        onOffSwitch = isClicked();
+        onOffSwitch = SwitchEditable.isClicked(this);
         if(onOffSwitch){
             new AlertDialog.Builder(this)
                     .setTitle("Änderungen verwerfen")
