@@ -520,11 +520,11 @@ public class Connection {
 
     private static void onFailureMessage(Context context, Throwable t){
         if (t instanceof IOException) {
-            Toast.makeText(context, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Keine Verbindung zum Server \uD83D\uDE33", Toast.LENGTH_SHORT).show();
             // logging probably not necessary
         }
         else {
-            Toast.makeText(context, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Conversion Error \uD83D\uDE33", Toast.LENGTH_SHORT).show();
             // todo log to some central bug tracking service
         }
     }

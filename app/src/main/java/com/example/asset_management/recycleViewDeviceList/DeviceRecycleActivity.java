@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +45,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     private ArrayList<Device> list = new ArrayList<>();
     private String jsonName = "DeviceList.json";
     private Boolean isFiltered;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     /**
      *  Executes code after open Activity.
@@ -109,6 +111,18 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
+            }
+        });
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Connection connection = new Connection();
+                connection.getDeviceList(getApplicationContext());
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
             }
         });
     }
@@ -306,10 +320,10 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", this);
             Connection connection = new Connection();
             connection.getDeviceList(this);
-
+            overridePendingTransition(0, 0);
             finish();
+            overridePendingTransition(0, 0);
             startActivity(getIntent());
-
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -50,11 +50,12 @@ public class CardFragment extends Fragment implements
     String saveMessage = "Informationen wurden geändert.";
     private CardViewModel cardViewModel;
     String clickedCalendar = "";
-    private Calendar date = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
     EditText editTuev;
     EditText editUvv;
     EditText editRepair;
-
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = new Date();
 
     public interface FragmentDeviceCardListener {
         void onInputASent(String input);
@@ -108,9 +109,9 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "tuev";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -119,9 +120,9 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "uvv";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -130,9 +131,9 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "repair";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -165,18 +166,22 @@ public class CardFragment extends Fragment implements
             editBeaconMinor.setText(device.getBeaconMinor());
             editBeaconMajor.setText(device.getBeaconMajor());
 //            editProject.setText(device.getProjectId());
+
             try {
-                editTuev.setText(device.getLastTuev().toString());
+                date = device.getLastTuev();
+                editTuev.setText(format.format(date));
             } catch (Exception e){
                 editTuev.setText("");
             }
             try {
-                editUvv.setText(device.getLastUvv().toString());
+                date = device.getLastUvv();
+                editUvv.setText(format.format(date));
             } catch (Exception e){
                 editUvv.setText("");
             }
             try {
-                editRepair.setText(device.getLastRepair().toString());
+                date = device.getLastRepair();
+                editRepair.setText(format.format(date));
             } catch (Exception e){
                 editRepair.setText("");
             }
@@ -392,15 +397,16 @@ public class CardFragment extends Fragment implements
 
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
 
+        date = c.getTime();
         switch(clickedCalendar){
             case"tuev":
-                editTuev.setText(currentDateString);
+                editTuev.setText(format.format(date));
                 break;
             case"uvv":
-                editUvv.setText(currentDateString);
+                editUvv.setText(format.format(date));
                 break;
             case"repair":
-                editRepair.setText(currentDateString);
+                editRepair.setText(format.format(date));
                 break;
             default:
         }

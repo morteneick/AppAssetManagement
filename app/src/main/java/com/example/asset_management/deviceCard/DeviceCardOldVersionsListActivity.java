@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
     ArrayList<Device> devices = new ArrayList<>();
@@ -34,9 +36,10 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         for(Device d : devices){
-            list.add(d.getLastChange().toString());
+            list.add(format.format(d.getLastChange()));
         }
 
         if(list.size() == 0){
