@@ -144,8 +144,7 @@ public class FilterDeviceListActivity extends AppCompatActivity implements
                 }
 
                 finish();
-                Intent intent = new Intent(FilterDeviceListActivity.this,
-                        DeviceRecycleActivity.class);
+                Intent intent = new Intent(FilterDeviceListActivity.this, DeviceRecycleActivity.class);
                 intent.putExtra("filteredList", (Serializable) filteredList);
                 startActivity(intent);
             }

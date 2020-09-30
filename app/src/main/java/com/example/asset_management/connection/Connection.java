@@ -71,7 +71,7 @@ public class Connection {
             }
             @Override
             public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                onFailureMessage(context, t);
             }
         });
     }
@@ -104,7 +104,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(context,"FAIL " + t.getMessage(),Toast.LENGTH_SHORT).show();
+                onFailureMessage(context, t);
 
             }
         });
@@ -123,16 +123,16 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
-
                 Calendar calendar = Calendar.getInstance();
                 JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", context);
+
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                onFailureMessage(context, t);
             }
         });
     }
@@ -155,7 +155,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call<ArrayList<Reservation>> call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -178,7 +178,7 @@ public class Connection {
 
         @Override
         public void onFailure(Call call, Throwable t) {
-
+            onFailureMessage(context, t);
         }
     });
     }
@@ -200,7 +200,7 @@ public class Connection {
 
             @Override
             public void onFailure(@NotNull Call<ArrayList<Errors>> call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -224,7 +224,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                onFailureMessage(context, t);
             }
         });
     }
@@ -246,7 +246,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(context,call.toString(),Toast.LENGTH_SHORT).show();
+                onFailureMessage(context, t);
             }
         });
     }
@@ -268,7 +268,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -290,7 +290,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -312,7 +312,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -334,7 +334,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -356,7 +356,7 @@ public class Connection {
 
             @Override
             public void onFailure(Call call, Throwable t) {
-
+                onFailureMessage(context, t);
             }
         });
     }
@@ -420,5 +420,112 @@ public class Connection {
             message+= e.getMsg() + " ";
         }
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
+
+    public void getTuev(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Device>> call = getPostConnection.getTuev();
+
+        call.enqueue(new Callback<ArrayList<Device>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "TuevList.json", context);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
+                onFailureMessage(context, t);
+            }
+        });
+    }
+
+    public void getUvv(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Device>> call = getPostConnection.getUvv();
+
+        call.enqueue(new Callback<ArrayList<Device>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "UvvList.json", context);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
+                onFailureMessage(context, t);
+            }
+        });
+    }
+
+    public void getMaintenance(final Context context){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Device>> call = getPostConnection.getUvv();
+
+        call.enqueue(new Callback<ArrayList<Device>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "MaintenanceList.json", context);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
+                onFailureMessage(context, t);
+            }
+        });
+    }
+
+    public void getBooking(final Context context, UserInfo userInfo){
+        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+        Call<ArrayList<Device>> call = getPostConnection.getBooking(userInfo.getWorkerId());
+
+        call.enqueue(new Callback<ArrayList<Device>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Device>> call,
+                                   retrofit2.Response<ArrayList<Device>> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                ArrayList<Device> posts = response.body();
+                JsonHandler.createJsonFromDeviceList(posts, "BookingList.json", context);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Device>> call, Throwable t) {
+                onFailureMessage(context, t);
+            }
+        });
+    }
+
+    private static void onFailureMessage(Context context, Throwable t){
+        if (t instanceof IOException) {
+            Toast.makeText(context, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+            // logging probably not necessary
+        }
+        else {
+            Toast.makeText(context, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+            // todo log to some central bug tracking service
+        }
     }
 }

@@ -8,5 +8,10 @@
         android:orderInCategory="100"
         android:title="Filtern"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reload"
+        android:orderInCategory="100"
+        android:title="Liste neu laden"
+        app:showAsAction="never" />
 
 </menu>

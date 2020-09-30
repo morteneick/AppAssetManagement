@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -48,6 +49,7 @@ public class Device implements Serializable {
     private String repairNote;
     private String beaconMajor;
     private String beaconMinor;
+    private Timestamp timestamp;
 
     public Device(){
     }
@@ -112,6 +114,14 @@ public class Device implements Serializable {
 //
 //        Device device = new Device(stringInventoryNumber,stringSerialNumber, stringEditModel, stringManufacturer,
 //                stringCategorie, stringStatus);
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getInventoryNumber() {

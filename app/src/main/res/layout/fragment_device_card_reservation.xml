@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.asset_management.deviceCard.ui.reservation.ReservationFragment">
+    tools:context="com.example.asset_management.deviceCard.ui.reservation.ReservationFragment"
+    android:id="@+id/fragment_reservation">
 
     <ScrollView
         android:layout_width="312dp"

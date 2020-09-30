@@ -52,7 +52,12 @@ public class DeviceCardActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
 
-        isOldDevice = (Boolean)intent.getSerializableExtra("isOldVersion");
+        try {
+            isOldDevice = (Boolean)intent.getSerializableExtra("isOldVersion");
+        } catch (Exception e) {
+            isOldDevice = false;
+        }
+
 
         AppBarConfiguration appBarConfiguration;
         BottomNavigationView navView;
@@ -91,10 +96,8 @@ public class DeviceCardActivity extends AppCompatActivity implements
         if(file == null || !file.exists()){
             file = new File(this.getFilesDir(),fileName);
             SwitchEditable switchEditable = new SwitchEditable(onOffSwitch);
-            createSwitch(switchEditable);
+            SwitchEditable.createSwitch(switchEditable,this);
         }
-
-
     }
 
     @Override
@@ -112,7 +115,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
 
         if (id == R.id.action_settings) {
             SwitchEditable switchEditable = new SwitchEditable(true);
-            createSwitch(switchEditable);
+            SwitchEditable.createSwitch(switchEditable,getApplicationContext());
             finish();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
@@ -157,37 +160,6 @@ public class DeviceCardActivity extends AppCompatActivity implements
         return (Device)intent.getSerializableExtra("Device");
     }
 
-    public boolean isOldDevice(){
-        Intent intent = getIntent();
-        return (boolean) intent.getSerializableExtra("isOldVersion");
-    }
-
-    /**
-     * creates an json from the given object
-     * @param object SwitchEditable button true or false, if the card is editable
-     * @return returns the onOffSwitch variable
-     */
-    public boolean createSwitch(Object object){
-        JsonHandler.createJsonFromObject(object,"Switch.json",this);
-        return onOffSwitch;
-    }
-
-    public String getSwitch() throws IOException {
-        return JsonHandler.getListString(this, "Switch.json");
-    }
-
-    public boolean isClicked(){
-        String isEditable = "";
-        try {
-            isEditable = getSwitch();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Gson gson = new Gson();
-        final SwitchEditable switchEditable = gson.fromJson(isEditable, SwitchEditable.class);
-        return switchEditable.isEnabled();
-    }
 
     @Override
     protected void onResume() {
@@ -215,7 +187,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        onOffSwitch = isClicked();
+        onOffSwitch = SwitchEditable.isClicked(getApplicationContext());
         if(onOffSwitch){
             new AlertDialog.Builder(this)
                     .setTitle("Änderungen verwerfen")
@@ -226,7 +198,7 @@ public class DeviceCardActivity extends AppCompatActivity implements
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SwitchEditable switchEditable = new SwitchEditable(false);
-                            createSwitch(switchEditable);
+                            SwitchEditable.createSwitch(switchEditable,getApplicationContext());
                             finish();
                         }
                     })

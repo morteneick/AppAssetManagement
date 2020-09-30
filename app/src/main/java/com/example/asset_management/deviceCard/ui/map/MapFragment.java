@@ -61,7 +61,12 @@ public class MapFragment extends Fragment {
         final TextView textMapDate = root.findViewById(R.id.textMapDate);
         Timestamp timestamp = device.getLastLocationUpdate();
 
-        textMapDate.setText("Letzte Aktualisierung: " + timestamp.toString());
+        try {
+            textMapDate.setText("Letzte Aktualisierung: " + timestamp.toString());
+        } catch (Exception ignored){
+
+        }
+
 
         return root;
     }

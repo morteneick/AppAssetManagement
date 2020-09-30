@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_Login"
             app:destination="@+id/login"/>
+        <action
+            android:id="@+id/action_FirstFragment_to_notificationMenuActivity"
+            app:destination="@id/notificationMenuActivity" />
     </fragment>
     <activity
         android:id="@+id/recycleActivity"
@@ -77,4 +80,9 @@
         android:name="com.example.asset_management.recycleViewDeviceList.DeviceHistoryActivity"
         android:label="activity_device_history"
         tools:layout="@layout/activity_device_history" />
+    <activity
+        android:id="@+id/notificationMenuActivity"
+        android:name="com.example.asset_management.notification.NotificationMenuActivity"
+        android:label="activity_notification_menu"
+        tools:layout="@layout/activity_notification_menu" />
 </navigation>

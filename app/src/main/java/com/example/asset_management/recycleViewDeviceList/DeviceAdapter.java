@@ -55,7 +55,11 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.model.setText(device.getModel());
         holder.category.setText(device.getCategory());
         holder.status.setText(device.getStatus());
+        try {
+            holder.endDate.setText(device.getTimestamp().toString());
+        } catch (Exception e) {
 
+        }
     }
 
     @Override
@@ -83,6 +87,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         public final TextView status;
         public final TextView category;
         public final ImageView image;
+        public final TextView endDate;
         OnNoteListener onNoteListener;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
@@ -94,6 +99,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             status = view.findViewById(R.id.status);
             category = view.findViewById(R.id.deviceCategorie);
             image = view.findViewById(R.id.image);
+            endDate = view.findViewById(R.id.endDate);
             itemView.setOnClickListener(this);
             this.onNoteListener = onNoteListener;
         }

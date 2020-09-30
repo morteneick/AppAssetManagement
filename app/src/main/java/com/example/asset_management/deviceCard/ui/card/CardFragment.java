@@ -141,6 +141,7 @@ public class CardFragment extends Fragment implements
             @Override
             public void onChanged(@Nullable String s) {
             DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+
             final Device device = activity.getDevice();
 
             editInventoryNumber.setText(device.getInventoryNumber());
@@ -179,7 +180,7 @@ public class CardFragment extends Fragment implements
             } catch (Exception e){
                 editRepair.setText("");
             }
-                if (!activity.isClicked()){
+                if (!SwitchEditable.isClicked(getContext())){
                     setInvisibility(editTuev, btnTuev);
                     setInvisibility(editUvv, btnUvv);
                     setInvisibility(editRepair, btnRepair);
@@ -309,7 +310,7 @@ public class CardFragment extends Fragment implements
 
                 SwitchEditable switchEditable = new SwitchEditable(false);
                 DeviceCardActivity activityCard = new DeviceCardActivity();
-                ((DeviceCardActivity)getActivity()).createSwitch(switchEditable);
+                SwitchEditable.createSwitch(switchEditable, getContext());
 
                 ((DeviceCardActivity)getActivity()).finish();
 
