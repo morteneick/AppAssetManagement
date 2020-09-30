@@ -1,5 +1,7 @@
 package com.example.asset_management.recycleViewDeviceList;
 
+import android.annotation.SuppressLint;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import com.example.asset_management.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * DeviceAdapter
  * <p>
@@ -55,10 +59,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.model.setText(device.getModel());
         holder.category.setText(device.getCategory());
         holder.status.setText(device.getStatus());
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format =
+                new SimpleDateFormat("yyyy-MM-dd");
+        Date date = device.getTimestamp();
         try {
-            holder.endDate.setText(device.getTimestamp().toString());
-        } catch (Exception e) {
-
+            holder.endDate.setText(format.format(date));
+        } catch (Exception ignored) {
         }
     }
 
