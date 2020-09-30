@@ -70,11 +70,9 @@ public class CardFragment extends Fragment implements
                 false);
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
-//        final EditText editStatus = root.findViewById(R.id.editStatus);
         final Spinner editStatus = root.findViewById(R.id.editStatus);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.status, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         editStatus.setAdapter(adapter);
 
@@ -122,7 +120,7 @@ public class CardFragment extends Fragment implements
         btnGuarantee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickedCalendar = "tuev";
+                clickedCalendar = "guarantee";
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
@@ -164,7 +162,7 @@ public class CardFragment extends Fragment implements
                 editStatus.post(new Runnable() {
                     @Override
                     public void run() {
-                        editStatus.setSelection(getPosition(device));
+                        editStatus.setSelection(getPosition(device.getStatus()));
                     }
                 });
             editManufacturer.setText(device.getManufacturer());
@@ -380,9 +378,8 @@ public class CardFragment extends Fragment implements
         editText.setCursorVisible(true);
     }
 
-    public static int getPosition (Device device){
+    public static int getPosition (String status){
 
-        String status = device.getStatus();
         if (status == null){
             return 0;
         }
@@ -438,20 +435,23 @@ public class CardFragment extends Fragment implements
             case"repair":
                 editRepair.setText(format.format(date));
                 break;
+            case"guarantee":
+                editGuarantee.setText(format.format(date));
+                break;
             default:
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof FragmentDeviceCardListener) {
-            listener = (FragmentDeviceCardListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement Listener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof FragmentDeviceCardListener) {
+//            listener = (FragmentDeviceCardListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement Listener");
+//        }
+//    }
 
     @Override
     public void onDetach() {

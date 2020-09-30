@@ -48,6 +48,7 @@ public class AddUserActivity extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         View viewSave = findViewById(R.id.btnSave);
         viewSave.setVisibility(View.VISIBLE);
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,15 +75,7 @@ public class AddUserActivity extends AppCompatActivity {
 
                 Connection connection = new Connection();
                 connection.postNewUser(user, getApplicationContext());
-                ArrayList<UserInfo> list = new ArrayList<>();
-                try {
-                    list = JsonHandler.getUserList("UserList.json",
-                            getApplicationContext());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
 
-                SwitchEditable switchEditable = new SwitchEditable(false);
                 finish();
                 overridePendingTransition(0, 0);
             }
