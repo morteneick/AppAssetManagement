@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -40,10 +39,11 @@ import java.util.Calendar;
 public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
-    private String fileName = "HistoryDeviceList.json";
+
+    private String historyDeviceListNameJson = "HistoryDeviceList.json";
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
-    private String jsonName = "DeviceList.json";
+
     private Boolean isFiltered;
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -65,21 +65,23 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
+        String deviceListName = getString(R.string.deviceListNameJSON);
+        String isFilteredList = getString(R.string.isFilteredList);
 
-        File file = this.getFileStreamPath(jsonName);
+        File file = this.getFileStreamPath(deviceListName);
         if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(),jsonName);
+            file = new File(this.getFilesDir(),deviceListName);
         }
 
         try {
-            list = (ArrayList<Device>) intent.getSerializableExtra("filteredList");
+            list = (ArrayList<Device>) intent.getSerializableExtra(isFilteredList);
             isFiltered = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         if(list == null){
             try {
-                list = JsonHandler.getDeviceList(jsonName, this);
+                list = JsonHandler.getDeviceList(deviceListName, this);
                 isFiltered = false;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -91,7 +93,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        lastUpdate.setText("Letzte aktualisierung: " + calendar.getTime().toString());
+        lastUpdate.setText(getString(R.string.lastUpdateMessage) + calendar.getTime().toString());
         }
 
         setupRecyclerView();
@@ -217,24 +219,27 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
      */
     @Override
     public void onNoteClick(int position) throws IOException {
-
+        String deviceListNameJson = getString(R.string.deviceListNameJSON);
+        String deviceNameJson = getString(R.string.deviceNameJSON);
+        String deviceName = getString(R.string.deviceName);
+        String isOldVersion = getString(R.string.isOldVersion);
         Intent intent = new Intent(DeviceRecycleActivity.this, DeviceCardActivity.class);
         if(isFiltered){
-            ArrayList<Device> deviceList = JsonHandler.getDeviceList("DeviceList.json", this);
+            ArrayList<Device> deviceList = JsonHandler.getDeviceList(deviceListNameJson, this);
             for(Device d : deviceList){
                 if(list.get(position).getInventoryNumber().equals(d.getInventoryNumber())){
-                    intent.putExtra("Device", d);
-                    JsonHandler.createJsonFromDevice(d, "Device.json", this);
+                    intent.putExtra(deviceName, d);
+                    JsonHandler.createJsonFromDevice(d, deviceNameJson, this);
                 }
             }
 
         } else {
-            intent.putExtra("Device", list.get(position));
-            JsonHandler.createJsonFromDevice(list.get(position), "Device.json", this);
+            intent.putExtra(deviceName, list.get(position));
+            JsonHandler.createJsonFromDevice(list.get(position), deviceNameJson, this);
             setHistoryDeviceList(position);
         }
 
-        intent.putExtra("isOldVersion", false);
+        intent.putExtra(isOldVersion, false);
         startActivity(intent);
     }
 
@@ -257,7 +262,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     public void onStop () {
 
         SwitchEditable switchEditable = new SwitchEditable(false);
-        JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
+        String switchNameJson = getString(R.string.switchNameJSON);
+        JsonHandler.createJsonFromObject(switchEditable, switchNameJson, this);
         super.onStop();
     }
 
@@ -269,16 +275,17 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
      * @throws IOException
      */
     public void setHistoryDeviceList(int position) throws IOException {
-
+        String historyDeviceListNameJson = getString(R.string.historyDeviceListNameJSON);
         ArrayList<Integer> listHistory = new ArrayList<>();
-        File file = this.getFileStreamPath(fileName);
+        File file = this.getFileStreamPath(this.historyDeviceListNameJson);
 
         if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(),fileName);
+            file = new File(this.getFilesDir(), this.historyDeviceListNameJson);
             listHistory.add(position);
-            JsonHandler.createJsonFromInteger(listHistory, fileName, this);
+            JsonHandler.createJsonFromInteger(listHistory, this.historyDeviceListNameJson,
+                    this);
         } else {
-            listHistory = JsonHandler.getIntegerList(fileName, this);
+            listHistory = JsonHandler.getIntegerList(this.historyDeviceListNameJson, this);
             int counter = 0;
             Integer remover = null;
             for(Integer i : listHistory){
@@ -293,7 +300,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 listHistory.remove(remover);
                 listHistory.add(position);
             }
-            JsonHandler.createJsonFromInteger(listHistory,fileName,this);
+            JsonHandler.createJsonFromInteger(listHistory, this.historyDeviceListNameJson,
+                    this);
         }
     }
     @Override

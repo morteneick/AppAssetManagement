@@ -105,7 +105,8 @@ public class FilterDeviceListActivity extends AppCompatActivity implements
                 ArrayList<Device> unfilteredList = new ArrayList<Device>();
                 ArrayList<Device> filteredList = new ArrayList<Device>();
                 try {
-                    unfilteredList = JsonHandler.getDeviceList("DeviceList.json",
+                    unfilteredList = JsonHandler.getDeviceList(
+                            getString(R.string.deviceListNameJSON),
                             getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -144,8 +145,9 @@ public class FilterDeviceListActivity extends AppCompatActivity implements
                 }
 
                 finish();
-                Intent intent = new Intent(FilterDeviceListActivity.this, DeviceRecycleActivity.class);
-                intent.putExtra("filteredList", (Serializable) filteredList);
+                Intent intent = new Intent(FilterDeviceListActivity.this,
+                        DeviceRecycleActivity.class);
+                intent.putExtra(getString(R.string.filteredList), (Serializable) filteredList);
                 startActivity(intent);
             }
         });
@@ -178,7 +180,8 @@ public class FilterDeviceListActivity extends AppCompatActivity implements
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());
                 overridePendingTransition(0, 0);
-                Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.failedToReserve),
+                        Toast.LENGTH_SHORT).show();
             }
         }
 

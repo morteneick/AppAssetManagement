@@ -46,7 +46,7 @@ public class ReservationFragment extends Fragment {
                 ViewModelProviders.of(this).get(ReservationViewModel.class);
         View root = inflater.inflate(R.layout.fragment_device_card_reservation, container,
                 false);
-
+        final String reservationDeviceName = getString(R.string.reservationDeviceNameJSON);
         reservationViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -64,7 +64,7 @@ public class ReservationFragment extends Fragment {
                 Device device = activity.getDevice();
                 ArrayList<Device> list = new ArrayList<>();
                 list.add(device);
-                JsonHandler.createJsonFromDeviceList(list, "ReservationDevice.json", getContext());
+                JsonHandler.createJsonFromDeviceList(list, reservationDeviceName, getContext());
             }
         });
 
@@ -72,7 +72,7 @@ public class ReservationFragment extends Fragment {
         ArrayList<Reservation> list = new ArrayList<>();
         final ArrayList<Reservation> listReservation = new ArrayList<>();
         try {
-            list = JsonHandler.getReservationList("ReservationList.json", getContext());
+            list = JsonHandler.getReservationList(reservationDeviceName, getContext());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class ReservationFragment extends Fragment {
         }
 
         if(arrayList.size() == 0){
-            arrayList.add("Keine Reservierungen gefunden");
+            arrayList.add(getString(R.string.noReservationFoundText));
         }
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(),
@@ -99,21 +99,17 @@ public class ReservationFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 new AlertDialog.Builder(getContext())
-                        .setTitle("Reservierung löschen")
-                        .setMessage("Sind Sie sich sicher, dass Sie die Reservierung löschen möchten?")
-
-                        // Specifying a listener allows you to take an action before dismissing the dialog.
-                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setTitle(getString(R.string.deleteReservationTitle))
+                        .setMessage(getString(R.string.deleteReservationText))
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Connection connection = new Connection();
-                                connection.deleteReservation(device, listReservation.get(position), getContext());
+                                connection.deleteReservation(device, listReservation.get(position),
+                                        getContext());
                                 ArrayList<Reservation> list = new ArrayList<Reservation>();
                                 ((DeviceCardActivity)getActivity()).refreshUI();
                             }
                         })
-
-                        // A null listener allows the button to dismiss the dialog and take no further action.
                         .setNegativeButton(android.R.string.no, null)
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();

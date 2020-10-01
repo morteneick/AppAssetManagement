@@ -50,10 +50,7 @@ import static com.example.asset_management.deviceCard.ui.card.CardFragment.setVi
 
 public class AddDeviceActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener {
-    private String jsonName = "NewDevice.json";
     private String clickedCalendar = "";
-    private Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
     Date date = new Date();
 
     EditText editGuarantee;
@@ -189,8 +186,9 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 device.setBeaconMinor(beaconMinor);
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
-                device.setDeviceStatus(CardFragment.getPosition(status)+1);
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
+                device.setDeviceStatus(device.getPosition(getApplicationContext())+1);
+                SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern),
+                        Locale.GERMAN);
                 Date date = null;
 
                 try {
@@ -222,13 +220,12 @@ public class AddDeviceActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
                 device.setLastUvv(date);
-
-                JsonHandler.createJsonFromDevice(device, "NewDevice.json",
+                String newDeviceNameJson = getString(R.string.newDeviceNameJSON);
+                JsonHandler.createJsonFromDevice(device, newDeviceNameJson,
                         getApplicationContext());
 
                 Connection connection = new Connection();
                 connection.postNewDevice(device, getApplicationContext());
-
 
             }
         });
@@ -247,24 +244,27 @@ public class AddDeviceActivity extends AppCompatActivity implements
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        date = c.getTime();
 
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String calendarPicker0 = getString(R.string.calendarPicker0);
+        String calendarPicker1 = getString(R.string.calendarPicker1);
+        String calendarPicker2 = getString(R.string.calendarPicker2);
+        String calendarPicker3 = getString(R.string.calendarPicker3);
 
-        date = c.getTime();
-        switch (clickedCalendar) {
-            case "tuev":
-                editTuev.setText(format.format(date));
-                break;
-            case "uvv":
-                editUvv.setText(format.format(date));
-                break;
-            case "repair":
-                editRepair.setText(format.format(date));
-                break;
-            case "guarantee":
-                editGuarantee.setText(format.format(date));
-                break;
-            default:
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern),
+                Locale.GERMAN);
+        if(clickedCalendar.equals(calendarPicker0)){
+            editTuev.setText(format.format(date));
+        }
+        if(clickedCalendar.equals(calendarPicker1)){
+            editUvv.setText(format.format(date));
+        }
+        if(clickedCalendar.equals(calendarPicker2)){
+            editRepair.setText(format.format(date));
+        }
+        if(clickedCalendar.equals(calendarPicker3)){
+            editGuarantee.setText(format.format(date));
         }
     }
 
@@ -272,11 +272,8 @@ public class AddDeviceActivity extends AppCompatActivity implements
     public void onBackPressed() {
         {
             new AlertDialog.Builder(this)
-                    .setTitle("Änderungen verwerfen")
-                    .setMessage("Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setTitle(getString(R.string.discardTitle))
+                    .setMessage(getString(R.string.discardText))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SwitchEditable switchEditable = new SwitchEditable(false);
@@ -284,12 +281,9 @@ public class AddDeviceActivity extends AppCompatActivity implements
                             finish();
                         }
                     })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-
         }
     }
 }

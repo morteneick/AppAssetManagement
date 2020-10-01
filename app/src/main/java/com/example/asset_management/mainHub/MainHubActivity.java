@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.example.asset_management.R;
 
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.deviceCard.SwitchEditable;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class MainHubActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Connection connection = new Connection();
         connection.getDeviceList(this);
+        SwitchEditable switchEditable = new SwitchEditable(false);
+        SwitchEditable.createSwitch(switchEditable, this);
 //        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 //        boolean firstStart = prefs.getBoolean("firstStart", true);
 //        if (firstStart) {
@@ -67,14 +70,13 @@ public class MainHubActivity extends AppCompatActivity {
     }
     private void showStartDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Willkommen")
-                .setMessage("Um sich mit allen Funktionalitäten der App vertraut zu machen werden " +
-                        "Sie zu der Bedienungsanleitung weitergeleitet. Diese können Sie später in " +
-                        "den Einstellungen immer wieder ansehen. ")
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                .setTitle(getString(R.string.welcomeTitle))
+                .setMessage(getString(R.string.welcomeText))
+                .setPositiveButton(getString(R.string.alertDialogAcceptButton), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.url)));
                         startActivity(browserIntent);
                         dialog.dismiss();
                     }

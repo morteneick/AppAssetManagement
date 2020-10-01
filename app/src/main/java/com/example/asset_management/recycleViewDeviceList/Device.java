@@ -1,9 +1,11 @@
 package com.example.asset_management.recycleViewDeviceList;
 
+import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.asset_management.R;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.IOException;
@@ -321,6 +323,44 @@ public class Device implements Serializable {
         this.lastChange = lastChange;
     }
 
+    public int getPosition (Context context){
+
+        if (status == null){
+            return 0;
+        }
+
+        String status0 = context.getString(R.string.deviceStatus0);
+        String status1 = context.getString(R.string.deviceStatus1);
+        String status2 = context.getString(R.string.deviceStatus2);
+        String status3 = context.getString(R.string.deviceStatus3);
+        String status4 = context.getString(R.string.deviceStatus4);
+        String status5 = context.getString(R.string.deviceStatus5);
+        String status6 = context.getString(R.string.deviceStatus6);
+
+        if(status.equals(status0)){
+            return 0;
+        }
+        if(status.equals(status1)){
+            return 1;
+        }
+        if(status.equals(status2)){
+            return 2;
+        }
+        if(status.equals(status3)){
+            return 3;
+        }
+        if(status.equals(status4)){
+            return 4;
+        }
+        if(status.equals(status5)){
+            return 5;
+        }
+        if(status.equals(status6)){
+            return 6;
+        } else {
+            return 0;
+        }
+    }
     @Override
     public String toString() {
         return "Device{" +

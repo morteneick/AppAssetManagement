@@ -16,8 +16,10 @@
     <string name="title_activity_device_card">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Benachrichtigungen</string>
     <string name="title_device_list_old_versions">Versionsverlauf</string>
+    <string name="title_deviceList">Geräteübersicht</string>
+    <string name="title_addDevice">Gerät hinzufügen</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -44,5 +46,80 @@
         <item>Gestohlen</item>
         <item></item>
     </string-array>
+
+<!--    JSON File names-->
+    <string name="deviceListNameJSON">DeviceList.json</string>
+    <string name="deviceNameJSON">Device.json</string>
+    <string name="historyDeviceListNameJSON">HistoryDeviceList.json</string>
+    <string name="switchNameJSON">Switch.json</string>
+    <string name="changedDeviceNameJSON">ChangedDevice.json</string>
+    <string name="newDeviceNameJSON">NewDevice.json</string>
+    <string name="reservationNameJSON">Reservation.json</string>
+    <string name="reservationDeviceNameJSON">ReservationDevice.json</string>
+    <string name="tuevNameJSON">TuevList.json</string>
+    <string name="uvvNameJSON">UvvList.json</string>
+    <string name="maintenanceNameJSON">MaintenanceList.json</string>
+    <string name="bookingNameJSON">BookingList.json</string>
+    <string name="userListNameJSON">UserList.json</string>
+    <string name="lastUpdateNameJSON">LastUpdate.json</string>
+
+<!--    putExtraNames-->
+    <string name="deviceListName">DEVICE_LIST</string>
+    <string name="deviceName">DEVICE</string>
+    <string name="isOldVersion">isOldVersion</string>
+    <string name="isFilteredList">isFilteredList</string>
+    <string name="filteredList">filteredList</string>
+    <string name="user">user</string>
+
+<!--    MessageTexts-->
+    <string name="welcomeTitle">Willkommen</string>
+    <string name="discardTitle">Änderungen verwerfen</string>
+    <string name="deleteDeviceTitle">Gerät löschen</string>
+    <string name="deleteReservationTitle">Reservierung löschen</string>
+    <string name="deleteUserTitle">Benutzer löschen</string>
+    <string name="deleteReservationText">Sind Sie sich sicher, dass Sie die Reservierung löschen möchten?</string>
+    <string name="deleteUserText">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?</string>
+    <string name="deleteDeviceText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?</string>
+    <string name="discardText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?</string>
+    <string name="welcomeText">Um sich mit allen Funktionalitäten der App vertraut zu machen werden
+                        Sie zu der Bedienungsanleitung weitergeleitet. Diese können Sie später in
+                        den Einstellungen immer wieder ansehen. </string>
+    <string name="alertDialogAcceptButton">ok</string>
+    <string name="lastUpdateMessage">Letzte Aktualisierung: </string>
+    <string name="noReservationFoundText">Keine Reservierungen gefunden.</string>
+    <string name="failedToReserve">Das Enddatum darf nicht vor dem Startdaum liegen!</string>
+    <string name="numbersDeviceFound"> Geräte wurden gefunden.</string>
+    <string name="numbersUserFound"> Benutzer wurden gefunden.</string>
+    <string name="saveMessage">Informationen wurden gespeichert.</string>
+
+    <!--    NotificationMenu-->
+    <string name="notification0">Anstehende TÜV Prüfungen</string>
+    <string name="notification1">Anstehende UVV Prüfungen</string>
+    <string name="notification2">Anstehende Instandhaltungstermine</string>
+    <string name="notification3">Relevante Termine</string>
+
+    <!--    SettingsMenu-->
+    <string name="settings0">Nutzer bearbeiten</string>
+    <string name="settings1">Informationen zur App</string>
+    <string name="settings2">LOGIN</string>
+    <string name="settings3">FAQ</string>
+
+<!--    Device Status for Spinner-->
+    <string name="deviceStatus0">Verfügbar</string>
+    <string name="deviceStatus1">Ausgeliehen</string>
+    <string name="deviceStatus2">In Wartung</string>
+    <string name="deviceStatus3">Außer Betrieb</string>
+    <string name="deviceStatus4">Defekt</string>
+    <string name="deviceStatus5">Verschollen/Verschwunden</string>
+    <string name="deviceStatus6">Gestohlen</string>
+
+<!--    Calenderpicker-->
+    <string name="calendarPicker0">tuev</string>
+    <string name="calendarPicker1">uvv</string>
+    <string name="calendarPicker2">repair</string>
+    <string name="calendarPicker3">guarantee</string>
+
+    <string name="url">http://www.dallmann-bau.de</string>
+    <string name="datePattern">yyyy-MM-dd</string>
 
 </resources>

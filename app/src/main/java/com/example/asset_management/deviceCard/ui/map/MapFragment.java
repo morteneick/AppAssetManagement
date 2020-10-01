@@ -62,12 +62,10 @@ public class MapFragment extends Fragment {
         Timestamp timestamp = device.getLastLocationUpdate();
 
         try {
-            textMapDate.setText("Letzte Aktualisierung: " + timestamp.toString());
+            textMapDate.setText(getString(R.string.lastUpdateMessage) + timestamp.toString());
         } catch (Exception ignored){
 
         }
-
-
         return root;
     }
 }

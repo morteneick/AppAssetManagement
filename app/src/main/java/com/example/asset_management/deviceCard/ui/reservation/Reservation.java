@@ -3,6 +3,7 @@ package com.example.asset_management.deviceCard.ui.reservation;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
@@ -24,6 +25,19 @@ public class Reservation {
     Calendar end;
 
     public Reservation(String inventoryNumber, Calendar start, Calendar end) {
+        this.inventoryNumber = inventoryNumber;
+        this.start = start;
+        this.end = end;
+    }
+
+    public Reservation(Date loanDay, Date loanEnd, String name, String surname, int projectId,
+                       String buildingSite, String inventoryNumber, Calendar start, Calendar end) {
+        this.loanDay = loanDay;
+        this.loanEnd = loanEnd;
+        this.name = name;
+        this.surname = surname;
+        this.projectId = projectId;
+        this.buildingSite = buildingSite;
         this.inventoryNumber = inventoryNumber;
         this.start = start;
         this.end = end;
@@ -105,14 +119,16 @@ public class Reservation {
         this.end = end;
     }
 
-    public boolean isCorrectFilled (String start, String end, Reservation reservation, Context context) throws IOException {
+    public boolean isCorrectFilled (String start, String end, Reservation reservation,
+                                    Context context) throws IOException {
 
         if (start.equals("")
                 || end.equals("")) {
             return false;
         } else {
+            String reservationNameJson = context.getString(R.string.reservationNameJSON);
             ArrayList<Reservation> reservationList = JsonHandler.getReservationList
-                    ("Reservation.json",context);
+                    (reservationNameJson,context);
             reservation.getStart();
             Connection connection = new Connection();
             connection.postNewReservation(reservation, context);

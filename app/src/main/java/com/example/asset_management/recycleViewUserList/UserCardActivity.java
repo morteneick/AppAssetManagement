@@ -30,12 +30,11 @@ import java.util.ArrayList;
 public class UserCardActivity extends AppCompatActivity {
     public boolean onOffSwitch = false;
     private UserInfo user = new UserInfo();
-    String saveMessage = "Informationen wurden geändert.";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_card);
-
 
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
@@ -143,17 +142,18 @@ public class UserCardActivity extends AppCompatActivity {
                 connection.putUpdateUser(user, getApplicationContext());
                 ArrayList<UserInfo> list = new ArrayList<>();
                 try {
-                    list = JsonHandler.getUserList("UserList.json",
+                    list = JsonHandler.getUserList(getString(R.string.userListNameJSON),
                             getApplicationContext());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 SwitchEditable switchEditable = new SwitchEditable(false);
-                createSwitch(switchEditable);
+                SwitchEditable.createSwitch(switchEditable, getApplicationContext());
                 finish();
                 overridePendingTransition(0, 0);
-                Toast.makeText(getApplicationContext(),saveMessage,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        getString(R.string.saveMessage),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -163,14 +163,6 @@ public class UserCardActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean createSwitch(Object object){
-        JsonHandler.createJsonFromObject(object,"Switch.json",this);
-        return onOffSwitch;
-    }
-
-    public String getSwitch() throws IOException {
-        return JsonHandler.getListString(this, "Switch.json");
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -181,7 +173,7 @@ public class UserCardActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             SwitchEditable switchEditable = new SwitchEditable(true);
-            createSwitch(switchEditable);
+            SwitchEditable.createSwitch(switchEditable, this);
             finish();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
@@ -190,14 +182,13 @@ public class UserCardActivity extends AppCompatActivity {
         }
         if(id == R.id.action_delete){
             new AlertDialog.Builder(this)
-                    .setTitle("Gerät löschen")
-                    .setMessage("Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?")
+                    .setTitle(getString(R.string.deleteUserTitle))
+                    .setMessage(getString(R.string.deleteUserText))
 
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            user = (UserInfo) getIntent().getSerializableExtra("User");
+                            user = (UserInfo) getIntent().getSerializableExtra(
+                                    getString(R.string.user));
                             Connection connection = new Connection();
                             connection.deleteUser(user, getApplicationContext());
                             connection.getAllUsers(getApplicationContext());
@@ -205,7 +196,6 @@ public class UserCardActivity extends AppCompatActivity {
                         }
                     })
 
-                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
@@ -218,20 +208,15 @@ public class UserCardActivity extends AppCompatActivity {
         onOffSwitch = SwitchEditable.isClicked(this);
         if(onOffSwitch){
             new AlertDialog.Builder(this)
-                    .setTitle("Änderungen verwerfen")
-                    .setMessage("Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setTitle(getString(R.string.discardTitle))
+                    .setMessage(getString(R.string.discardText))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SwitchEditable switchEditable = new SwitchEditable(false);
-                            createSwitch(switchEditable);
+                            SwitchEditable.createSwitch(switchEditable, getApplicationContext());
                             finish();
                         }
                     })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();

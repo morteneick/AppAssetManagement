@@ -2,6 +2,7 @@ package com.example.asset_management.deviceCard;
 
 import android.content.Context;
 
+import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.google.gson.Gson;
@@ -18,11 +19,13 @@ public class SwitchEditable {
 
 
     public static void createSwitch(Object object, Context context){
-        JsonHandler.createJsonFromObject(object,"Switch.json",context);
+        String switchNameJson = context.getString(R.string.switchNameJSON);
+        JsonHandler.createJsonFromObject(object,switchNameJson,context);
     }
 
     public static String getSwitch(Context context) throws IOException {
-        return JsonHandler.getListString(context, "Switch.json");
+        String switchNameJson = context.getString(R.string.switchNameJSON);
+        return JsonHandler.getListString(context, switchNameJson);
     }
 
     public static boolean isClicked(Context context){

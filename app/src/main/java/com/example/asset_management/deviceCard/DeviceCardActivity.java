@@ -51,13 +51,12 @@ public class DeviceCardActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-
+        String isOldVersion = getString(R.string.isOldVersion);
         try {
-            isOldDevice = (Boolean)intent.getSerializableExtra("isOldVersion");
+            isOldDevice = (Boolean)intent.getSerializableExtra(isOldVersion);
         } catch (Exception e) {
             isOldDevice = false;
         }
-
 
         AppBarConfiguration appBarConfiguration;
         BottomNavigationView navView;
@@ -86,8 +85,6 @@ public class DeviceCardActivity extends AppCompatActivity implements
             navController = Navigation.findNavController(this, R.id.nav_host_fragment_old_devicecard);
 //            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         }
-
-
 
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -134,11 +131,8 @@ public class DeviceCardActivity extends AppCompatActivity implements
 
         if(id == R.id.action_delete){
             new AlertDialog.Builder(this)
-                    .setTitle("Gerät löschen")
-                    .setMessage("Sind Sie sich sicher, dass Sie das Gerät löschen möchten?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setTitle(getString(R.string.deleteDeviceTitle))
+                    .setMessage(getString(R.string.deleteDeviceText))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Connection connection = new Connection();
@@ -146,8 +140,6 @@ public class DeviceCardActivity extends AppCompatActivity implements
                             finish();
                         }
                     })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
@@ -156,10 +148,10 @@ public class DeviceCardActivity extends AppCompatActivity implements
     }
 
     public Device getDevice(){
+        String deviceName = getString(R.string.deviceName);
         Intent intent = getIntent();
-        return (Device)intent.getSerializableExtra("Device");
+        return (Device)intent.getSerializableExtra(deviceName);
     }
-
 
     @Override
     protected void onResume() {
@@ -190,11 +182,8 @@ public class DeviceCardActivity extends AppCompatActivity implements
         onOffSwitch = SwitchEditable.isClicked(getApplicationContext());
         if(onOffSwitch){
             new AlertDialog.Builder(this)
-                    .setTitle("Änderungen verwerfen")
-                    .setMessage("Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?")
-
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setTitle(getString(R.string.discardTitle))
+                    .setMessage(getString(R.string.discardText))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SwitchEditable switchEditable = new SwitchEditable(false);

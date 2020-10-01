@@ -21,7 +21,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".recycleViewUserList.AddUserActivity"></activity>
+        <activity
+            android:name=".recycleViewUserList.AddUserActivity"
+            android:label="@string/title_addDevice" />
         <activity android:name=".notification.NotificationMenuActivity" />
         <activity android:name=".recycleViewUserList.UserCardActivity" />
         <activity
@@ -48,7 +50,7 @@
         <activity android:name=".addDevice.AddDeviceActivity" />
         <activity
             android:name=".recycleViewDeviceList.DeviceRecycleActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_deviceList"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity

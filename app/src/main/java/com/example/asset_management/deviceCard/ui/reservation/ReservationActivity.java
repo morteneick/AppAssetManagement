@@ -3,11 +3,10 @@ package com.example.asset_management.deviceCard.ui.reservation;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-import android.view.ContextThemeWrapper;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -37,7 +36,7 @@ import java.util.Date;
 public class ReservationActivity extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener {
     private boolean isStart;
-    private String fileName = "Reservation.json";
+
     ArrayList<Reservation> list = new ArrayList<>();
     Reservation reservation = new Reservation();
 
@@ -49,7 +48,6 @@ public class ReservationActivity extends AppCompatActivity implements
         Button buttonStart = findViewById(R.id.btnStartDate);
         Button buttonReserve = findViewById(R.id.btnReserve);
         Button buttonEnd = findViewById(R.id.btnEndDate);
-
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,16 +99,17 @@ public class ReservationActivity extends AppCompatActivity implements
         String inventoryNumber = null;
 
         reservation.setBuildingSite(editConstruction.getText().toString());
+        String deviceNameJson = getString(R.string.deviceNameJSON);
         try {
             Device device = JsonHandler.getDevice
-                    ("Device.json",this);
+                    (deviceNameJson,this);
             inventoryNumber = device.getInventoryNumber();
         } catch (IOException e) {
             e.printStackTrace();
         }
 //TODO add name surname
         reservation.setInventoryNumber(inventoryNumber);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
         Date date = new Date();
         if(isStart){
             date = c.getTime();
@@ -124,13 +123,15 @@ public class ReservationActivity extends AppCompatActivity implements
                 reservation.setLoanEnd(date);
                 reservation.setStart(null);
                 list.add(reservation);
-                JsonHandler.createJsonFromCalendarList(list,fileName, this);
+                JsonHandler.createJsonFromCalendarList(list,getString(R.string.reservationNameJSON),
+                        this);
             } else {
                 finish();
                 overridePendingTransition(0, 0);
                 startActivity(getIntent());
                 overridePendingTransition(0, 0);
-                Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getString(R.string.failedToReserve),
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }

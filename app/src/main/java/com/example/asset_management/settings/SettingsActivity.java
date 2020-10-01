@@ -32,13 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
         ListView listView = findViewById(R.id.listOptions);
 
+        list.add(getString(R.string.settings0));
+        list.add(getString(R.string.settings1));
+        list.add(getString(R.string.settings2));
+        list.add(getString(R.string.settings3));
 
-        list.add("Nutzer bearbeiten");
-        list.add("Informationen zur App");
-        list.add("LOGIN");
-        list.add("FAQ");
-
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, list);
         listView.setAdapter(itemsAdapter);
 
@@ -57,12 +56,14 @@ public class SettingsActivity extends AppCompatActivity {
                     case 1:
                         break;
                     case 2:
-                        Intent login = new Intent(SettingsActivity.this,LoginActivity.class);
+                        Intent login = new Intent(SettingsActivity.this,
+                                LoginActivity.class);
                         startActivity(login);
                         break;
                     case 3:
                         //http://localhost:3000/FAQ
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(getString(R.string.url)));
                         startActivity(browserIntent);
                         break;
                     default:

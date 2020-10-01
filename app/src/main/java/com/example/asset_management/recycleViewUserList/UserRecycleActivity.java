@@ -43,7 +43,6 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
     private UserAdapter adapter;
     private RequestQueue mQueue;
     private ArrayList<UserInfo> list = new ArrayList<>();
-    private String jsonName = "UserList.json";
 
     /**
      *  Executes code after open Activity.
@@ -64,8 +63,9 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         EditText editSearch = findViewById(R.id.editSearch);
         this.userRecycleView = findViewById(R.id.users);
 
+        String userListNameJson = getString(R.string.userListNameJSON);
         try {
-            list = JsonHandler.getUserList(jsonName, this);
+            list = JsonHandler.getUserList(userListNameJson, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         adapter = new UserAdapter(list,this);
         this.userRecycleView.setAdapter(adapter);
 
-        String show = list.size() + " Benutzer wurden gefunden";
+        String show = list.size() + getString(R.string.numbersUserFound);
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
@@ -137,11 +137,11 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
      * @param position Integer from the clicked List
      */
     @Override
-    public void onNoteClick(int position) throws IOException {
+    public void onNoteClick(int position){
 
         Intent intent = new Intent(UserRecycleActivity.this, UserCardActivity.class);
         UserInfo user = list.get(position);
-        intent.putExtra("User", user);
+        intent.putExtra(getString(R.string.user), user);
         startActivity(intent);
 
     }
@@ -164,7 +164,8 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
      */
     public void onStop () {
         SwitchEditable switchEditable = new SwitchEditable(false);
-        JsonHandler.createJsonFromObject(switchEditable, "Switch.json", this);
+        JsonHandler.createJsonFromObject(switchEditable, getString(R.string.switchNameJSON),
+                this);
         super.onStop();
     }
 
@@ -189,7 +190,8 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         }
         if (id == R.id.action_reload) {
             Calendar calendar = Calendar.getInstance();
-            JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", this);
+            JsonHandler.createJsonFromCalendar(calendar, getString(R.string.lastUpdateNameJSON),
+                    this);
             Connection connection = new Connection();
             connection.getDeviceList(this);
             overridePendingTransition(0, 0);

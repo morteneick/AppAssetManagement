@@ -162,7 +162,7 @@ public class CardFragment extends Fragment implements
                 editStatus.post(new Runnable() {
                     @Override
                     public void run() {
-                        editStatus.setSelection(getPosition(device.getStatus()));
+                        editStatus.setSelection(device.getPosition(getContext()));
                     }
                 });
             editManufacturer.setText(device.getManufacturer());
@@ -262,8 +262,8 @@ public class CardFragment extends Fragment implements
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String jsonName = "DeviceList.json";
-                String jsonChangedDevice = "ChangedDevice.json";
+                String jsonName = getString(R.string.deviceNameJSON);
+                String jsonChangedDevice = getString(R.string.changedDeviceNameJSON);
 
                 String inventoryNumber = editInventoryNumber.getText().toString();
                 String serialnumber = editSerialnumber.getText().toString();
@@ -271,7 +271,7 @@ public class CardFragment extends Fragment implements
                 String model = editModel.getText().toString();
                 String status;
                 if(editStatus.getSelectedItem().toString().equals("")){
-                    status = "Verfürgbar";
+                    status = getString(R.string.deviceStatus0);
                 }
                 status = editStatus.getSelectedItem().toString();
                 String category = editCategory.getText().toString();
@@ -305,7 +305,8 @@ public class CardFragment extends Fragment implements
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
 
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
+                SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern),
+                        Locale.GERMAN);
                 Date date = null;
 
                 try {
@@ -349,8 +350,6 @@ public class CardFragment extends Fragment implements
                 ((DeviceCardActivity)getActivity()).finish();
                 Connection connection = new Connection();
                 connection.putChangeDevice(device, getContext());
-
-
             }
         });
 
@@ -376,30 +375,6 @@ public class CardFragment extends Fragment implements
         editText.setFocusableInTouchMode(true);
         editText.setEnabled(true);
         editText.setCursorVisible(true);
-    }
-
-    public static int getPosition (String status){
-
-        if (status == null){
-            return 0;
-        }
-        switch(status) {
-            case "Verfügbar":
-                return 0;
-            case "Ausgeliehen":
-                return 1;
-            case "In Wartung":
-                return 2;
-            case "Außer Betrieb":
-                return 3;
-            case "Defekt":
-                return 4;
-            case "Verschollen/Verschwunden":
-                return 5;
-            case "Gestohlen":
-                return 6;
-            default: return 0;
-        }
     }
 
     public static void setVisibility(EditText editText, View view){
@@ -441,17 +416,6 @@ public class CardFragment extends Fragment implements
             default:
         }
     }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof FragmentDeviceCardListener) {
-//            listener = (FragmentDeviceCardListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement Listener");
-//        }
-//    }
 
     @Override
     public void onDetach() {

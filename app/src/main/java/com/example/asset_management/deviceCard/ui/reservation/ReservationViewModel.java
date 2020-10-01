@@ -10,7 +10,6 @@ public class ReservationViewModel extends ViewModel {
 
     public ReservationViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications TEST");
     }
 
     public LiveData<String> getText() {

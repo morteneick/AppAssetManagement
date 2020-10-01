@@ -51,31 +51,31 @@ public class Connection {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void getLoginData(final Context context){
-        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
-
-        call.enqueue(new Callback<ArrayList<UserInfo>>() {
-            @Override
-            public void onResponse(Call<ArrayList<UserInfo>> call,
-                                   retrofit2.Response<ArrayList<UserInfo>> response) {
-                
-                if (!response.isSuccessful()) {
-                    Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-               // Toast.makeText(context,ArrayList<UserInfo>,Toast.LENGTH_SHORT).show();
-
-                ArrayList<UserInfo> posts = response.body();
-
-                JsonHandler.createJsonFromLogin(posts, "Login.json", context);
-            }
-            @Override
-            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-                onFailureMessage(context, t);
-            }
-        });
-    }
+//    public void getLoginData(final Context context){
+//        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
+//        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
+//
+//        call.enqueue(new Callback<ArrayList<UserInfo>>() {
+//            @Override
+//            public void onResponse(Call<ArrayList<UserInfo>> call,
+//                                   retrofit2.Response<ArrayList<UserInfo>> response) {
+//
+//                if (!response.isSuccessful()) {
+//                    Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//               // Toast.makeText(context,ArrayList<UserInfo>,Toast.LENGTH_SHORT).show();
+//
+//                ArrayList<UserInfo> posts = response.body();
+//
+//                JsonHandler.createJsonFromLogin(posts, "Login.json", context);
+//            }
+//            @Override
+//            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
+//                onFailureMessage(context, t);
+//            }
+//        });
+//    }
 
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
@@ -514,7 +514,7 @@ public class Connection {
 
     public void getMaintenance(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Device>> call = getPostConnection.getUvv();
+        Call<ArrayList<Device>> call = getPostConnection.getMaintenance();
 
         call.enqueue(new Callback<ArrayList<Device>>() {
             @Override

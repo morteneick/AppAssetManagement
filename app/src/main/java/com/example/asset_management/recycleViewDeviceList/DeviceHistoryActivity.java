@@ -120,7 +120,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
 
-        String show = list.size() + " Geräte wurden gefunden";
+        String show = list.size() + getString(R.string.numbersDeviceFound);
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
 
     }
@@ -132,8 +132,8 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     @Override
     public void onNoteClick(int position) throws IOException {
         Intent intent = new Intent(DeviceHistoryActivity.this, DeviceCardActivity.class);
-        intent.putExtra("Device", list.get(position));
-        intent.putExtra("isOldVersion", false);
+        intent.putExtra(getString(R.string.deviceName), list.get(position));
+        intent.putExtra(getString(R.string.isOldVersion), false);
         startActivity(intent);
     }
 
