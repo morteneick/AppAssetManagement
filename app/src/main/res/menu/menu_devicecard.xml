@@ -20,4 +20,5 @@
         android:orderInCategory="100"
         android:title="Löschen"
         app:showAsAction="never" />
+
 </menu>

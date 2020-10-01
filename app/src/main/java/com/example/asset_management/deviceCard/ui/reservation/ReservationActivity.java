@@ -3,8 +3,11 @@ package com.example.asset_management.deviceCard.ui.reservation;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * ReservationActivity
@@ -106,12 +110,16 @@ public class ReservationActivity extends AppCompatActivity implements
         }
 //TODO add name surname
         reservation.setInventoryNumber(inventoryNumber);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
         if(isStart){
-            textStart.setText(currentDateString);
+            date = c.getTime();
+            textStart.setText(format.format(date));
             reservation.setStart(c);
         } else {
             if(reservation.getStart().compareTo(c) <= 0){
-                textEnd.setText(currentDateString);
+                date = c.getTime();
+                textEnd.setText(format.format(date));
                 reservation.setEnd(c);
                 list.add(reservation);
                 JsonHandler.createJsonFromCalendarList(list,fileName, this);

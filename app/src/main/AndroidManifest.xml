@@ -20,15 +20,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".recycleViewUserList.UserCardActivity"></activity>
+
+        <activity android:name=".recycleViewUserList.AddUserActivity"></activity>
+        <activity android:name=".notification.NotificationMenuActivity" />
+        <activity android:name=".recycleViewUserList.UserCardActivity" />
         <activity
             android:name=".recycleViewDeviceList.FilterDeviceListActivity"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"></activity>
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
-
-        <activity android:name=".deviceCard.DeviceCardOldVersionsListActivity" />
+        <activity
+            android:name=".deviceCard.DeviceCardOldVersionsListActivity"
+            android:label="@string/title_device_list_old_versions" />
         <activity
             android:name=".deviceCard.ui.reservation.ReservationActivity"
             android:theme="@style/Theme.AppCompat.Dialog.Alert" />

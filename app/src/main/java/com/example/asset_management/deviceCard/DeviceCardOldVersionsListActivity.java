@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
     ArrayList<Device> devices = new ArrayList<>();
@@ -34,28 +36,32 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         for(Device d : devices){
-            list.add(d.getLastChange().toString());
+            list.add(format.format(d.getLastChange()));
         }
 
         if(list.size() == 0){
             list.add("Keine alten Versionen gefunden");
+        } else {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
+                            DeviceCardActivity.class);
+                    intent.putExtra("Device", devices.get(position));
+                    intent.putExtra("isOldVersion", true);
+                    startActivity(intent);
+                }
+            });
         }
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, list);
         listView.setAdapter(itemsAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
-                        DeviceCardActivity.class);
-                intent.putExtra("Device", devices.get(position));
-                intent.putExtra("isOldVersion", true);
-                startActivity(intent);
-            }
-        });
+
     }
 }

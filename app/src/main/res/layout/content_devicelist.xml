@@ -31,12 +31,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/devices"
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/refreshLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:itemCount="17"
-                    tools:listitem="@layout/recycler_view_item_device" />
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/devices"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:itemCount="17"
+                        tools:listitem="@layout/recycler_view_item_device" />
+
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

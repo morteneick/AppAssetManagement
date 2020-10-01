@@ -1,5 +1,7 @@
 package com.example.asset_management.recycleViewDeviceList;
 
+import android.annotation.SuppressLint;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import com.example.asset_management.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * DeviceAdapter
  * <p>
@@ -55,7 +59,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         holder.model.setText(device.getModel());
         holder.category.setText(device.getCategory());
         holder.status.setText(device.getStatus());
-
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format =
+                new SimpleDateFormat("yyyy-MM-dd");
+        Date date = device.getTimestamp();
+        try {
+            holder.endDate.setText(format.format(date));
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -83,6 +93,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
         public final TextView status;
         public final TextView category;
         public final ImageView image;
+        public final TextView endDate;
         OnNoteListener onNoteListener;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
@@ -94,6 +105,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
             status = view.findViewById(R.id.status);
             category = view.findViewById(R.id.deviceCategorie);
             image = view.findViewById(R.id.image);
+            endDate = view.findViewById(R.id.endDate);
             itemView.setOnClickListener(this);
             this.onNoteListener = onNoteListener;
         }

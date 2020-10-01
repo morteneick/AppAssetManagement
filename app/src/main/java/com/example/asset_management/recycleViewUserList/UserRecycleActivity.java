@@ -28,6 +28,7 @@ import com.example.asset_management.recycleViewDeviceList.FilterDeviceListActivi
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * RecycleActivity
@@ -169,7 +170,7 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_recycleview_devicelist, menu);
+        getMenuInflater().inflate(R.menu.menu_recycleview_userlist, menu);
         return true;
     }
 
@@ -181,9 +182,20 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_filter) {
-            Intent intent = new Intent (this, FilterDeviceListActivity.class);
+        if (id == R.id.action_add) {
+            Intent intent = new Intent (this, AddUserActivity.class);
             startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_reload) {
+            Calendar calendar = Calendar.getInstance();
+            JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", this);
+            Connection connection = new Connection();
+            connection.getDeviceList(this);
+            overridePendingTransition(0, 0);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);

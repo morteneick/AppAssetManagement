@@ -50,11 +50,13 @@ public class CardFragment extends Fragment implements
     String saveMessage = "Informationen wurden geändert.";
     private CardViewModel cardViewModel;
     String clickedCalendar = "";
-    private Calendar date = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
     EditText editTuev;
     EditText editUvv;
     EditText editRepair;
-
+    EditText editGuarantee;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
+    Date date = new Date();
 
     public interface FragmentDeviceCardListener {
         void onInputASent(String input);
@@ -68,11 +70,9 @@ public class CardFragment extends Fragment implements
                 false);
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
-//        final EditText editStatus = root.findViewById(R.id.editStatus);
         final Spinner editStatus = root.findViewById(R.id.editStatus);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.status, android.R.layout.simple_spinner_item);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         editStatus.setAdapter(adapter);
 
@@ -91,6 +91,7 @@ public class CardFragment extends Fragment implements
         final EditText editRepairNotes = root.findViewById(R.id.editRepairNotes);
         final EditText editBeaconMinor = root.findViewById(R.id.editBeaconMinor);
         final EditText editBeaconMajor = root.findViewById(R.id.editBeaconMajor);
+        editGuarantee = root.findViewById(R.id.editGuarantee);
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
         editRepair = root.findViewById(R.id.editRepair);
@@ -103,14 +104,26 @@ public class CardFragment extends Fragment implements
         final View viewUvv = root.findViewById(R.id.btnUvv);
         final Button btnRepair = root.findViewById(R.id.btnRepair);
         final View viewRepair = root.findViewById(R.id.btnRepair);
+        final Button btnGuarantee = root.findViewById(R.id.btnGuarantee);
+        final View viewGuarantee = root.findViewById(R.id.btnGuarantee);
 
         btnTuev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickedCalendar = "tuev";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+        btnGuarantee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedCalendar = "guarantee";
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -119,9 +132,9 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "uvv";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -130,9 +143,9 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "repair";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  date
-                        .get(Calendar.YEAR), date.get(Calendar.MONTH),
-                        date.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
             }
         });
@@ -141,6 +154,7 @@ public class CardFragment extends Fragment implements
             @Override
             public void onChanged(@Nullable String s) {
             DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+
             final Device device = activity.getDevice();
 
             editInventoryNumber.setText(device.getInventoryNumber());
@@ -148,7 +162,7 @@ public class CardFragment extends Fragment implements
                 editStatus.post(new Runnable() {
                     @Override
                     public void run() {
-                        editStatus.setSelection(getPosition(device));
+                        editStatus.setSelection(getPosition(device.getStatus()));
                     }
                 });
             editManufacturer.setText(device.getManufacturer());
@@ -164,25 +178,36 @@ public class CardFragment extends Fragment implements
             editBeaconMinor.setText(device.getBeaconMinor());
             editBeaconMajor.setText(device.getBeaconMajor());
 //            editProject.setText(device.getProjectId());
+
             try {
-                editTuev.setText(device.getLastTuev().toString());
+                date = device.getLastTuev();
+                editTuev.setText(format.format(date));
             } catch (Exception e){
                 editTuev.setText("");
             }
             try {
-                editUvv.setText(device.getLastUvv().toString());
+                date = device.getLastUvv();
+                editUvv.setText(format.format(date));
             } catch (Exception e){
                 editUvv.setText("");
             }
             try {
-                editRepair.setText(device.getLastRepair().toString());
+                date = device.getLastRepair();
+                editRepair.setText(format.format(date));
             } catch (Exception e){
                 editRepair.setText("");
             }
-                if (!activity.isClicked()){
+                try {
+                    date = device.getGuarantee();
+                    editRepair.setText(format.format(date));
+                } catch (Exception e){
+                    editRepair.setText("");
+                }
+                if (!SwitchEditable.isClicked(getContext())){
                     setInvisibility(editTuev, btnTuev);
                     setInvisibility(editUvv, btnUvv);
                     setInvisibility(editRepair, btnRepair);
+                    setInvisibility(editGuarantee, btnGuarantee);
                     viewSave.setVisibility(View.INVISIBLE);
                     blockInput(editInventoryNumber);
                     editStatus.setEnabled(false);
@@ -207,6 +232,7 @@ public class CardFragment extends Fragment implements
                     setVisibility(editTuev, btnTuev);
                     setVisibility(editUvv, btnUvv);
                     setVisibility(editRepair, btnRepair);
+                    setVisibility(editGuarantee, btnGuarantee);
                     unblockInput(editInventoryNumber);
                     viewSave.setVisibility(View.VISIBLE);
                     editStatus.setEnabled(true);
@@ -227,7 +253,6 @@ public class CardFragment extends Fragment implements
                     unblockInput(editBeaconMinor);
                     unblockInput(editBeaconMinor);
                 }
-
             }
         });
 
@@ -256,6 +281,7 @@ public class CardFragment extends Fragment implements
                 String notes = editNotes.getText().toString();
                 String tuev = editTuev.getText().toString();
                 String uvv = editUvv.getText().toString();
+                String guarantee = editGuarantee.getText().toString();
                 String project = editProject.getText().toString();
                 String repair = editRepair.getText().toString();
                 String repairNote = editRepairNotes.getText().toString();
@@ -279,7 +305,7 @@ public class CardFragment extends Fragment implements
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
 
-                SimpleDateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz uuuu", Locale.ENGLISH);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
                 Date date = null;
 
                 try {
@@ -305,18 +331,26 @@ public class CardFragment extends Fragment implements
                 }
                 device.setLastUvv(date);
 
+                try {
+                    date = format.parse(guarantee);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                device.setLastUvv(date);
+
+                Toast.makeText(getContext(),device.getLastTuev().toString(),Toast.LENGTH_SHORT).show();
+
                 JsonHandler.createJsonFromDevice(device, jsonChangedDevice, getContext());
 
                 SwitchEditable switchEditable = new SwitchEditable(false);
                 DeviceCardActivity activityCard = new DeviceCardActivity();
-                ((DeviceCardActivity)getActivity()).createSwitch(switchEditable);
+                SwitchEditable.createSwitch(switchEditable, getContext());
 
                 ((DeviceCardActivity)getActivity()).finish();
+//                Connection connection = new Connection();
+//                connection.putChangeDevice(device, getContext());
 
-                Connection connection = new Connection();
-                connection.putChangeDevice(device, getContext());
 
-                Toast.makeText(getContext(),saveMessage,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -344,9 +378,8 @@ public class CardFragment extends Fragment implements
         editText.setCursorVisible(true);
     }
 
-    public static int getPosition (Device device){
+    public static int getPosition (String status){
 
-        String status = device.getStatus();
         if (status == null){
             return 0;
         }
@@ -391,30 +424,34 @@ public class CardFragment extends Fragment implements
 
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
 
+        date = c.getTime();
         switch(clickedCalendar){
             case"tuev":
-                editTuev.setText(currentDateString);
+                editTuev.setText(format.format(date));
                 break;
             case"uvv":
-                editUvv.setText(currentDateString);
+                editUvv.setText(format.format(date));
                 break;
             case"repair":
-                editRepair.setText(currentDateString);
+                editRepair.setText(format.format(date));
+                break;
+            case"guarantee":
+                editGuarantee.setText(format.format(date));
                 break;
             default:
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof FragmentDeviceCardListener) {
-            listener = (FragmentDeviceCardListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement Listener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof FragmentDeviceCardListener) {
+//            listener = (FragmentDeviceCardListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement Listener");
+//        }
+//    }
 
     @Override
     public void onDetach() {

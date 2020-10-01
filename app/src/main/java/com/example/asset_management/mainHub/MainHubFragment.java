@@ -75,9 +75,8 @@ public class MainHubFragment extends Fragment {
         view.findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//
-
-
+                NavHostFragment.findNavController(MainHubFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_notificationMenuActivity);
             }
         });
         view.findViewById(R.id.btnSettings).setOnClickListener(new View.OnClickListener() {

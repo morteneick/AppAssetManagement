@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -21,10 +22,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * DeviceRecycleActivity
@@ -41,6 +44,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
     private String jsonName = "DeviceList.json";
+    private Boolean isFiltered;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     /**
      *  Executes code after open Activity.
@@ -68,15 +73,25 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
         try {
             list = (ArrayList<Device>) intent.getSerializableExtra("filteredList");
+            isFiltered = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         if(list == null){
             try {
                 list = JsonHandler.getDeviceList(jsonName, this);
+                isFiltered = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            TextView lastUpdate = findViewById(R.id.textLastUpdate);
+            Calendar calendar = Calendar.getInstance();
+            try {
+                calendar = JsonHandler.getCalendar("lastUpdate.json", this);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        lastUpdate.setText("Letzte aktualisierung: " + calendar.getTime().toString());
         }
 
         setupRecyclerView();
@@ -98,6 +113,18 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 filter(s.toString());
             }
         });
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Connection connection = new Connection();
+                connection.getDeviceList(getApplicationContext());
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+            }
+        });
     }
 
     /**
@@ -105,32 +132,65 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
      * textfield
      * @param text Text from the Textfield
      */
-//TODO Add improtant filters
+
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
 
         for (Device item : list) {
             int i = 0;
-            if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+            try{
+                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+
+            try{
+                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+
+            try {
+                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+
+            try {
+                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+
+            try {
+                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                i++;
+
+            try {
+                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if(i > 0){
-                filteredList.add(item);
+            try {
+                if(i > 0){
+                    filteredList.add(item);
+                }
+            } catch (Exception ignored){
+
             }
         }
         adapter.filterList(filteredList);
@@ -159,11 +219,23 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     public void onNoteClick(int position) throws IOException {
 
         Intent intent = new Intent(DeviceRecycleActivity.this, DeviceCardActivity.class);
-        intent.putExtra("Device", list.get(position));
+        if(isFiltered){
+            ArrayList<Device> deviceList = JsonHandler.getDeviceList("DeviceList.json", this);
+            for(Device d : deviceList){
+                if(list.get(position).getInventoryNumber().equals(d.getInventoryNumber())){
+                    intent.putExtra("Device", d);
+                    JsonHandler.createJsonFromDevice(d, "Device.json", this);
+                }
+            }
+
+        } else {
+            intent.putExtra("Device", list.get(position));
+            JsonHandler.createJsonFromDevice(list.get(position), "Device.json", this);
+            setHistoryDeviceList(position);
+        }
+
         intent.putExtra("isOldVersion", false);
         startActivity(intent);
-        JsonHandler.createJsonFromDevice(list.get(position), "Device.json", this);
-        setHistoryDeviceList(position);
     }
 
     /**
@@ -241,6 +313,17 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         if (id == R.id.action_filter) {
             Intent intent = new Intent (this, FilterDeviceListActivity.class);
             startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_reload) {
+            Calendar calendar = Calendar.getInstance();
+            JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", this);
+            Connection connection = new Connection();
+            connection.getDeviceList(this);
+            overridePendingTransition(0, 0);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
             return true;
         }
         return super.onOptionsItemSelected(item);

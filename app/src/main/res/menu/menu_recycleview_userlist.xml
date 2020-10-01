@@ -4,9 +4,9 @@
     tools:context="com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity">
 
     <item
-        android:id="@+id/action_filter"
+        android:id="@+id/action_add"
         android:orderInCategory="100"
-        android:title="Filtern"
+        android:title="Benutzer hinzufügen"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_reload"
