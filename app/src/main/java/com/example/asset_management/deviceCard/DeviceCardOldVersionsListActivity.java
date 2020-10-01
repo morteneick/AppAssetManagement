@@ -30,20 +30,21 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ArrayList<String> list = new ArrayList<>();
         ListView listView = findViewById(R.id.listOldDevice);
-
+        String deviceOldVersionNameJson = getString(R.string.deviceOldVersionNameJSON);
         try {
-            devices = JsonHandler.getDeviceList("DeviceOldVersion.json", this);
+            devices = JsonHandler.getDeviceList(deviceOldVersionNameJson, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
 
         for(Device d : devices){
             list.add(format.format(d.getLastChange()));
         }
 
         if(list.size() == 0){
-            list.add("Keine alten Versionen gefunden");
+            list.add(getString(R.string.noOldVersionsFound));
         } else {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -51,8 +52,8 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(DeviceCardOldVersionsListActivity.this,
                             DeviceCardActivity.class);
-                    intent.putExtra("Device", devices.get(position));
-                    intent.putExtra("isOldVersion", true);
+                    intent.putExtra(getString(R.string.deviceName), devices.get(position));
+                    intent.putExtra(getString(R.string.isOldVersion), true);
                     startActivity(intent);
                 }
             });

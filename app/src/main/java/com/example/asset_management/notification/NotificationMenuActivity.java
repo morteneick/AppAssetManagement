@@ -33,9 +33,10 @@ public class NotificationMenuActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
-        connection.getTuev(getApplicationContext());
-        connection.getUvv(getApplicationContext());
-        connection.getMaintenance(getApplicationContext());
+        connection.getTuev(this);
+        connection.getUvv(this);
+        connection.getMaintenance(this);
+
         //TODO User
         UserInfo userInfo = new UserInfo();
         userInfo.setWorkerId(2);

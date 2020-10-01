@@ -115,7 +115,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
                                 int i = 0;
 
                                 ArrayList<Device> devices = JsonHandler.getDeviceList
-                                        ("DeviceList.json", getApplicationContext());
+                                        (getString(R.string.deviceListNameJSON)
+                                                , getApplicationContext());
                                 for(Device d : devices){
                                     assert d.getInventoryNumber() != null;
                                     if(d.getInventoryNumber().equals(detectedCode)){
@@ -126,8 +127,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
                                 if(i == 1){
                                     Intent intent = new Intent(getApplicationContext(),
                                             DeviceCardActivity.class);
-                                    intent.putExtra("Device", device);
-                                    intent.putExtra("isOldVersion", false);
+                                    intent.putExtra(getString(R.string.deviceName), device);
+                                    intent.putExtra(getString(R.string.isOldVersion), false);
                                     startActivity(intent);
                                 }
                             } catch (Exception e) {
@@ -136,7 +137,7 @@ public class ScanDeviceActivity extends AppCompatActivity {
                             }
 
                             Connection connection = new Connection();
-                            connection.getDeviceList(detectedCode,getApplicationContext());
+                            connection.getDeviceList(getApplicationContext());
                            // if (detectedCode.equals())
 
                         }

@@ -72,7 +72,8 @@ public class DeviceCardActivity extends AppCompatActivity implements
                     R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
                     .build();
             navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+            NavigationUI.setupActionBarWithNavController(this, navController,
+                    appBarConfiguration);
         } else {
             setContentView(R.layout.activity_device_card_old_versions);
             navView = findViewById(R.id.nav_view_oldversion);
@@ -82,7 +83,8 @@ public class DeviceCardActivity extends AppCompatActivity implements
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_device, R.id.navigation_reservation, R.id.navigation_map)
                     .build();
-            navController = Navigation.findNavController(this, R.id.nav_host_fragment_old_devicecard);
+            navController = Navigation.findNavController(this,
+                    R.id.nav_host_fragment_old_devicecard);
 //            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         }
 
@@ -191,8 +193,6 @@ public class DeviceCardActivity extends AppCompatActivity implements
                             finish();
                         }
                     })
-
-                    // A null listener allows the button to dismiss the dialog and take no further action.
                     .setNegativeButton(android.R.string.no, null)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();

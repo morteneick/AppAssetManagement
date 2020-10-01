@@ -40,7 +40,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
 
-    private String historyDeviceListNameJson = "HistoryDeviceList.json";
+
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
 
@@ -66,7 +66,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         String deviceListName = getString(R.string.deviceListNameJSON);
-        String isFilteredList = getString(R.string.isFilteredList);
+        String isFilteredList = getString(R.string.filteredList);
 
         File file = this.getFileStreamPath(deviceListName);
         if(file == null || !file.exists()){
@@ -88,8 +88,9 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             }
             TextView lastUpdate = findViewById(R.id.textLastUpdate);
             Calendar calendar = Calendar.getInstance();
+            String lastUpdateNameJson = getString(R.string.lastUpdateNameJSON);
             try {
-                calendar = JsonHandler.getCalendar("lastUpdate.json", this);
+                calendar = JsonHandler.getCalendar(lastUpdateNameJson, this);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -223,7 +224,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         String deviceNameJson = getString(R.string.deviceNameJSON);
         String deviceName = getString(R.string.deviceName);
         String isOldVersion = getString(R.string.isOldVersion);
-        Intent intent = new Intent(DeviceRecycleActivity.this, DeviceCardActivity.class);
+        Intent intent = new Intent(DeviceRecycleActivity.this,
+                DeviceCardActivity.class);
         if(isFiltered){
             ArrayList<Device> deviceList = JsonHandler.getDeviceList(deviceListNameJson, this);
             for(Device d : deviceList){
@@ -277,15 +279,15 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     public void setHistoryDeviceList(int position) throws IOException {
         String historyDeviceListNameJson = getString(R.string.historyDeviceListNameJSON);
         ArrayList<Integer> listHistory = new ArrayList<>();
-        File file = this.getFileStreamPath(this.historyDeviceListNameJson);
+        File file = this.getFileStreamPath(historyDeviceListNameJson);
 
         if(file == null || !file.exists()){
-            file = new File(this.getFilesDir(), this.historyDeviceListNameJson);
+            file = new File(this.getFilesDir(), historyDeviceListNameJson);
             listHistory.add(position);
-            JsonHandler.createJsonFromInteger(listHistory, this.historyDeviceListNameJson,
+            JsonHandler.createJsonFromInteger(listHistory, historyDeviceListNameJson,
                     this);
         } else {
-            listHistory = JsonHandler.getIntegerList(this.historyDeviceListNameJson, this);
+            listHistory = JsonHandler.getIntegerList(historyDeviceListNameJson, this);
             int counter = 0;
             Integer remover = null;
             for(Integer i : listHistory){
@@ -300,7 +302,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 listHistory.remove(remover);
                 listHistory.add(position);
             }
-            JsonHandler.createJsonFromInteger(listHistory, this.historyDeviceListNameJson,
+            JsonHandler.createJsonFromInteger(listHistory, historyDeviceListNameJson,
                     this);
         }
     }
@@ -312,12 +314,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
+        String lastUpdateNameJson = getString(R.string.lastUpdateNameJSON);
         if (id == R.id.action_filter) {
             Intent intent = new Intent (this, FilterDeviceListActivity.class);
             startActivity(intent);
@@ -325,7 +323,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         }
         if (id == R.id.action_reload) {
             Calendar calendar = Calendar.getInstance();
-            JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", this);
+            JsonHandler.createJsonFromCalendar(calendar, lastUpdateNameJson,
+                    this);
             Connection connection = new Connection();
             connection.getDeviceList(this);
             overridePendingTransition(0, 0);

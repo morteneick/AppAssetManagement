@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.Login;
@@ -140,11 +141,13 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String lastUpdateNameJson = context.getString(R.string.lastUpdateNameJSON);
+                String deviceListNameJson = context.getString(R.string.deviceListNameJSON);
                 Calendar calendar = Calendar.getInstance();
-                JsonHandler.createJsonFromCalendar(calendar, "lastUpdate.json", context);
+                JsonHandler.createJsonFromCalendar(calendar, lastUpdateNameJson, context);
 
                 ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "DeviceList.json", context);
+                JsonHandler.createJsonFromDeviceList(posts, deviceListNameJson, context);
             }
 
             @Override
@@ -166,8 +169,9 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String reservationListNameJson = context.getString(R.string.reservationListNameJSON);
                 ArrayList<Reservation> posts = response.body();
-                JsonHandler.createJsonFromCalendarList(posts, "ReservationList.json", context);
+                JsonHandler.createJsonFromCalendarList(posts, reservationListNameJson, context);
             }
 
             @Override
@@ -185,12 +189,15 @@ public class Connection {
         @Override
         public void onResponse(Call call, retrofit2.Response response) {
             if (!response.isSuccessful()) {
-                Toast.makeText(context,"Keine Verbindung zum Server.",Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(context,context.getString(
+                        R.string.noConnectionServerMessage),Toast.LENGTH_SHORT).show();
                 return;
             }
-            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(), "DeviceOldVersion.json",
-                    context);
+            String deviceListOldVersionNameJson = context.getString
+                    (R.string.deviceOldVersionNameJSON);
+            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(),
+                    context.getString(R.string.deviceOldVersionNameJSON), context);
+
         }
 
         @Override
@@ -237,7 +244,8 @@ public class Connection {
                 }
 
                 ArrayList<UserInfo> posts = response.body();
-                JsonHandler.createJsonFromUserInfoList(posts, "UserList.json", context);
+                JsonHandler.createJsonFromUserInfoList(posts,
+                        context.getString(R.string.userListNameJSON), context);
             }
 
             @Override
@@ -383,7 +391,8 @@ public class Connection {
 
     public void deleteReservation(Device device, Reservation reservation, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(device.getInventoryNumberInt(), reservation);
+        Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(
+                device.getInventoryNumberInt(), reservation);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
@@ -403,45 +412,45 @@ public class Connection {
         });
     }
 
-    public static void getDeviceList(String url, final Context context) {
-        RequestQueue mQueue = Volley.newRequestQueue(context);
-        final ArrayList<Device> list = new ArrayList<>();
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("device");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-
-                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
-                                Device device = new Device();
-
-                                device.setInventoryNumber(jsonDevice.getString
-                                        ("inventoryNumber"));
-                                device.setManufacturer(jsonDevice.getString("manufacturer"));
-                                device.setModel(jsonDevice.getString("model"));
-                                device.setStatus(jsonDevice.getString("status"));
-                                device.setCategory(jsonDevice.getString
-                                        ("deviceCategorie"));
-                                list.add(device);
-                            }
-                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json",
-                                    context);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        mQueue = Volley.newRequestQueue(context);
-        mQueue.add(request);
-    }
+//    public static void getDeviceList(String url, final Context context) {
+//        RequestQueue mQueue = Volley.newRequestQueue(context);
+//        final ArrayList<Device> list = new ArrayList<>();
+//
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            JSONArray jsonArray = response.getJSONArray("device");
+//                            for (int i = 0; i < jsonArray.length(); i++) {
+//
+//                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
+//                                Device device = new Device();
+//
+//                                device.setInventoryNumber(jsonDevice.getString
+//                                        ("inventoryNumber"));
+//                                device.setManufacturer(jsonDevice.getString("manufacturer"));
+//                                device.setModel(jsonDevice.getString("model"));
+//                                device.setStatus(jsonDevice.getString("status"));
+//                                device.setCategory(jsonDevice.getString
+//                                        ("deviceCategorie"));
+//                                list.add(device);
+//                            }
+//                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json",
+//                                    context);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                error.printStackTrace();
+//            }
+//        });
+//        mQueue = Volley.newRequestQueue(context);
+//        mQueue.add(request);
+//    }
 
     public static boolean isConnectedToServer(String url, int timeout) {
         try{
@@ -476,8 +485,9 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String tuevListNameJson = context.getString(R.string.tuevNameJSON);
                 ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "TuevList.json", context);
+                JsonHandler.createJsonFromDeviceList(posts, tuevListNameJson, context);
 
             }
 
@@ -500,9 +510,9 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String uvvListNameJson = context.getString(R.string.uvvNameJSON);
                 ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "UvvList.json", context);
-
+                JsonHandler.createJsonFromDeviceList(posts, uvvListNameJson, context);
             }
 
             @Override
@@ -524,9 +534,9 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String maintenanceListNameJson = context.getString(R.string.maintenanceNameJSON);
                 ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "MaintenanceList.json", context);
-
+                JsonHandler.createJsonFromDeviceList(posts, maintenanceListNameJson, context);
             }
 
             @Override
@@ -548,9 +558,9 @@ public class Connection {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
                 }
+                String bookingListNameJson = context.getString(R.string.bookingNameJSON);
                 ArrayList<Device> posts = response.body();
-                JsonHandler.createJsonFromDeviceList(posts, "BookingList.json", context);
-
+                JsonHandler.createJsonFromDeviceList(posts, bookingListNameJson, context);
             }
 
             @Override
@@ -562,7 +572,8 @@ public class Connection {
 
     private static void onFailureMessage(Context context, Throwable t){
         if (t instanceof IOException) {
-            Toast.makeText(context, "Keine Verbindung zum Server \uD83D\uDE33", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.noConnectionServerMessage)
+                    + "\uD83D\uDE33", Toast.LENGTH_SHORT).show();
             // logging probably not necessary
         }
         else {

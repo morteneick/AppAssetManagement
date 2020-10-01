@@ -3,6 +3,7 @@ package com.example.asset_management.deviceCard.ui.reservation;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * ReservationFragment
  * <p>
@@ -54,20 +57,6 @@ public class ReservationFragment extends Fragment {
             }
         });
 
-        Button btnStartReserve = root.findViewById(R.id.btnReserveActivity);
-        btnStartReserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReservationActivity.class);
-                startActivity(intent);
-                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-                Device device = activity.getDevice();
-                ArrayList<Device> list = new ArrayList<>();
-                list.add(device);
-                JsonHandler.createJsonFromDeviceList(list, reservationDeviceName, getContext());
-            }
-        });
-
         ListView listView = root.findViewById(R.id.listView);
         ArrayList<Reservation> list = new ArrayList<>();
         final ArrayList<Reservation> listReservation = new ArrayList<>();
@@ -81,9 +70,15 @@ public class ReservationFragment extends Fragment {
 
         final Device device = activity.getDevice();
 
+        SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
         for(Reservation r : list){
             if(r.getInventoryNumber().toString().equals(device.getInventoryNumber()) )
-            arrayList.add(r.getLoanDay() + " - " + r.getLoanEnd());
+            try {
+                arrayList.add(format.format(r.getLoanDay()) + " - " + format.format(r.getLoanEnd()));
+            } catch (Exception ignored){
+
+            }
+
             listReservation.add(r);
         }
 
@@ -114,6 +109,20 @@ public class ReservationFragment extends Fragment {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
                 return false;
+            }
+        });
+
+        Button btnStartReserve = root.findViewById(R.id.btnReserveActivity);
+        btnStartReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ReservationActivity.class);
+                startActivity(intent);
+                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+                Device device = activity.getDevice();
+                ArrayList<Device> list = new ArrayList<>();
+                list.add(device);
+                JsonHandler.createJsonFromDeviceList(list, reservationDeviceName, getContext());
             }
         });
 
