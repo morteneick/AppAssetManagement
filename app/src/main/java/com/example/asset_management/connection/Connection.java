@@ -14,6 +14,7 @@ import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
+import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -78,35 +79,50 @@ public class Connection {
 
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ResponseBody> call = getPostConnection.postLogin(login);
+        Call<JsonObject> call = getPostConnection.postLogin(login);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<ResponseBody> call,
-                                   retrofit2.Response<ResponseBody> response) {
+            public void onResponse(Call<JsonObject> call, retrofit2.Response<JsonObject> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(context,"msgNoConnectionServer",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                JsonObject jsonObject = response.body();
+                JsonObject rights = jsonObject.getAsJsonObject("rights");
+                UserInfo userInfo = new UserInfo();
+                boolean access = jsonObject.get("access").getAsBoolean();
+                if ( access == true){
 
-                if (!response.isSuccessful()){
-                    String s = response.toString();
-                    Toast.makeText(context,"Error" + s,Toast.LENGTH_SHORT).show();
-/*
-                    String error = "nix";
-                    try {
-                        error = response.errorBody().string();
-                        error = error.replace("\"","");
-                        Toast.makeText(context,error,Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }*/
+                    JsonHandler.createJsonFromObject(jsonObject, "Login.json", context);
+
+                    userInfo.setWorkerId(jsonObject.get("worker_id").toString());
+                    userInfo.seteMail(jsonObject.get("e_mail").toString());
+                    userInfo.setFirstname(jsonObject.get("firstName").toString());
+                    userInfo.setSurname(jsonObject.get("surname").toString());
+                    userInfo.setRole(jsonObject.get("role").toString());
+                    userInfo.setBookingDevice(rights.get("booking_device").getAsInt());
+                    userInfo.setEditDevice(rights.get("edit_device").getAsInt());
+                    userInfo.setAddDevice(rights.get("add_device").getAsInt());
+                    userInfo.setDeleteUser(rights.get("delete_user").getAsInt());
+                    userInfo.setEditUser(rights.get("edit_user").getAsInt());
+                    userInfo.setDeleteBooking(rights.get("delete_booking").getAsInt());
+                    userInfo.setEditBooking(rights.get("edit_booking").getAsInt());
+
+                    Toast.makeText(context,"Willkommen " +userInfo.getFirstname() + " "+ userInfo.getSurname(),Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(context,"Rights? "+userInfo.getRole()+ userInfo.getBookingDevice()+userInfo.getEditBooking()+userInfo.getEditDevice()+userInfo.getAddDevice()+userInfo.getDeleteUser(),Toast.LENGTH_SHORT).show();
 
                 }
-                String s = response.body().toString();
-                Toast.makeText(context,s,Toast.LENGTH_SHORT).show();
+                if (access == false)
+                {
+                    Toast.makeText(context,"Falsche Benutzerdaten.",Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                onFailureMessage(context, t);
-
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(context,"Error" + t,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -173,8 +189,7 @@ public class Connection {
                         .show();
                 return;
             }
-            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(),
-                    "DeviceOldVersion.json",
+            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(), "DeviceOldVersion.json",
                     context);
         }
 

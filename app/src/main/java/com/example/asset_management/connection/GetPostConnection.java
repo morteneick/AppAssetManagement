@@ -4,10 +4,9 @@ import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,12 +19,8 @@ import retrofit2.http.Path;
 public interface GetPostConnection {
 
     @Headers("Accept: application/json")
-    @GET("/api/login")
-    Call<ArrayList<UserInfo>> getLogin();
-
-    @Headers("Accept: application/json")
     @POST("/api/login")
-    Call<ResponseBody> postLogin(@Body Login login);
+    Call<JsonObject> postLogin(@Body Login login);
 
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
@@ -55,10 +50,6 @@ public interface GetPostConnection {
     Call<ArrayList<Errors>> postDevice(@Body Device device);
 
     @Headers("Accept: application/json")
-    @POST("api/device/createDevice")
-    Call<ArrayList<Errors>> postUser(@Body UserInfo userInfo);
-
-    @Headers("Accept: application/json")
     @PUT("api/user/updateUser/{workerId}")
     Call<ArrayList<Errors>> putUpdateUser(@Path("workerId") int workerId, @Body UserInfo userInfo);
 
@@ -68,7 +59,7 @@ public interface GetPostConnection {
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/user/deleteUser/{workerId}", hasBody = true)
-    Call<ArrayList<Errors>> deleteUser(@Path("workerId")int workerId, @Body UserInfo userInfo);
+    Call<ArrayList<Errors>> deleteUser(@Path("inventoryNumber")int workerId, @Body UserInfo userInfo);
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/borrow/cancelReservation/{inventoryNumber}", hasBody = true)
@@ -77,21 +68,5 @@ public interface GetPostConnection {
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/device/deleteDevice/{inventoryNumber}", hasBody = true)
     Call<ArrayList<Errors>> deleteDevice(@Path("inventoryNumber")int inventoryNumber, @Body Device device);
-
-    @Headers("Accept: application/json")
-    @GET("/api/notification/tuv")
-    Call<ArrayList<Device>> getTuev();
-
-    @Headers("Accept: application/json")
-    @GET("/api/notification/uvv")
-    Call<ArrayList<Device>> getUvv();
-
-    @Headers("Accept: application/json")
-    @GET("/api/notification/maintenance")
-    Call<ArrayList<Device>> getMaintenance();
-
-    @Headers("Accept: application/json")
-    @GET("/api/notification/booking/{workerId}")
-    Call<ArrayList<Device>> getBooking(@Path("workerId")int workerId);
 
 }
