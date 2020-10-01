@@ -46,7 +46,6 @@ import static com.example.asset_management.deviceCard.ui.card.CardFragment.setVi
  * </p>
  * 11.05.2020
  * AUTHOR: Dominik Dziersan
- * TODO(DZIERSAN) add all device features the customer wants
  */
 
 public class AddDeviceActivity extends AppCompatActivity implements
@@ -190,7 +189,7 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 device.setBeaconMinor(beaconMinor);
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
-                device.setDeviceStatus(CardFragment.getPosition(status));
+                device.setDeviceStatus(CardFragment.getPosition(status)+1);
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.GERMAN);
                 Date date = null;
 
@@ -227,8 +226,6 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 JsonHandler.createJsonFromDevice(device, "NewDevice.json",
                         getApplicationContext());
 
-                SwitchEditable switchEditable = new SwitchEditable(false);
-                DeviceCardActivity activityCard = new DeviceCardActivity();
                 Connection connection = new Connection();
                 connection.postNewDevice(device, getApplicationContext());
 

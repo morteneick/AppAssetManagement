@@ -82,7 +82,8 @@ public class Connection {
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call,
+                                   retrofit2.Response<ResponseBody> response) {
 
                 if (!response.isSuccessful()){
                     String s = response.toString();
@@ -172,7 +173,8 @@ public class Connection {
                         .show();
                 return;
             }
-            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(), "DeviceOldVersion.json",
+            JsonHandler.createJsonFromDeviceList((ArrayList<Device>) response.body(),
+                    "DeviceOldVersion.json",
                     context);
         }
 
@@ -189,7 +191,8 @@ public class Connection {
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
-            public void onResponse(Call<ArrayList<Errors>> call, retrofit2.Response<ArrayList<Errors>> response) {
+            public void onResponse(Call<ArrayList<Errors>> call,
+                                   retrofit2.Response<ArrayList<Errors>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context,msgNoConnectionServer,Toast.LENGTH_SHORT).show();
                     return;
@@ -275,7 +278,8 @@ public class Connection {
 
     public void putChangeDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice(device.getInventoryNumberInt(), device);
+        Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice
+                (device.getInventoryNumberInt(), device);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override
@@ -319,7 +323,8 @@ public class Connection {
 
     public void deleteDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt());
+        Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt(),
+                device);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override

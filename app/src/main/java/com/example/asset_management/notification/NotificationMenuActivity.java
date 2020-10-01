@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
@@ -83,6 +84,8 @@ public class NotificationMenuActivity extends AppCompatActivity {
                         try {
                             filteredList = JsonHandler.getDeviceList("MaintenanceList.json",
                                     getApplicationContext());
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

@@ -347,8 +347,8 @@ public class CardFragment extends Fragment implements
                 SwitchEditable.createSwitch(switchEditable, getContext());
 
                 ((DeviceCardActivity)getActivity()).finish();
-//                Connection connection = new Connection();
-//                connection.putChangeDevice(device, getContext());
+                Connection connection = new Connection();
+                connection.putChangeDevice(device, getContext());
 
 
             }

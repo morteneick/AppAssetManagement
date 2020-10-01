@@ -116,11 +116,13 @@ public class ReservationActivity extends AppCompatActivity implements
             date = c.getTime();
             textStart.setText(format.format(date));
             reservation.setStart(c);
+            reservation.setLoanDay(date);
         } else {
             if(reservation.getStart().compareTo(c) <= 0){
                 date = c.getTime();
                 textEnd.setText(format.format(date));
-                reservation.setEnd(c);
+                reservation.setLoanEnd(date);
+                reservation.setStart(null);
                 list.add(reservation);
                 JsonHandler.createJsonFromCalendarList(list,fileName, this);
             } else {

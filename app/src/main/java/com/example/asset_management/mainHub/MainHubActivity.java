@@ -1,5 +1,10 @@
 package com.example.asset_management.mainHub;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.asset_management.R;
@@ -31,8 +36,13 @@ public class MainHubActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
-//        Connection connection = new Connection();
-//        connection.getDeviceList(this);
+        Connection connection = new Connection();
+        connection.getDeviceList(this);
+//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+//        boolean firstStart = prefs.getBoolean("firstStart", true);
+//        if (firstStart) {
+            showStartDialog();
+//        }
     }
 
     @Override
@@ -55,6 +65,25 @@ public class MainHubActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    private void showStartDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Willkommen")
+                .setMessage("Um sich mit allen Funktionalitäten der App vertraut zu machen werden " +
+                        "Sie zu der Bedienungsanleitung weitergeleitet. Diese können Sie später in " +
+                        "den Einstellungen immer wieder ansehen. ")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                        startActivity(browserIntent);
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstStart", false);
+        editor.apply();
+    }
 
 }

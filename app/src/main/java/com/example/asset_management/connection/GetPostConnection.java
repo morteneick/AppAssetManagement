@@ -76,7 +76,7 @@ public interface GetPostConnection {
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/device/deleteDevice/{inventoryNumber}", hasBody = true)
-    Call<ArrayList<Errors>> deleteDevice(@Path("inventoryNumber")int inventoryNumber);
+    Call<ArrayList<Errors>> deleteDevice(@Path("inventoryNumber")int inventoryNumber, @Body Device device);
 
     @Headers("Accept: application/json")
     @GET("/api/notification/tuv")
