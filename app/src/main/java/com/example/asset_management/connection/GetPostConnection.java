@@ -4,10 +4,9 @@ import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -20,12 +19,8 @@ import retrofit2.http.Path;
 public interface GetPostConnection {
 
     @Headers("Accept: application/json")
-    @GET("/api/login")
-    Call<ArrayList<UserInfo>> getLogin();
-
-    @Headers("Accept: application/json")
     @POST("/api/login")
-    Call<ResponseBody> postLogin(@Body Login login);
+    Call<JsonObject> postLogin(@Body Login login);
 
     @Headers("Accept: application/json")
     @GET("/api/device/getAllDevices")
