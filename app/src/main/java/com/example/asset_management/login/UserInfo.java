@@ -102,8 +102,6 @@ public class UserInfo implements Serializable {
     }
 
     public void seteMail(String eMail) {
-        eMail = eMail.substring(1);
-        eMail = eMail.substring(0,eMail.length() -1);
         this.eMail = eMail;
     }
 
@@ -112,8 +110,6 @@ public class UserInfo implements Serializable {
     }
 
     public void setSurname(String surname) {
-        surname = surname.substring(1);
-        surname = surname.substring(0,surname.length() -1);
         this.surname = surname;
     }
 
@@ -122,8 +118,6 @@ public class UserInfo implements Serializable {
     }
 
     public void setFirstname(String firstname) {
-        firstname = firstname.substring(1);
-        firstname = firstname.substring(0,firstname.length() -1);
         this.firstname = firstname;
     }
 
@@ -132,8 +126,6 @@ public class UserInfo implements Serializable {
     }
 
     public void setRole(String role) {
-        role = role.substring(1);
-        role = role.substring(0,role.length() -1);
         this.role = role;
     }
 

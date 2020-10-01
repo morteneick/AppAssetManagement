@@ -14,19 +14,18 @@ import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
+import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -43,38 +42,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Connection {
 
     private String baseURL = "http://10.0.2.2:3000/";
+
     private String msgNoConnectionServer = "Keine Verbindung zum Server.";
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-
-    public void getLoginData(final Context context){
-        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
-
-        call.enqueue(new Callback<ArrayList<UserInfo>>() {
-            @Override
-            public void onResponse(Call<ArrayList<UserInfo>> call,
-                                   retrofit2.Response<ArrayList<UserInfo>> response) {
-                
-                if (!response.isSuccessful()) {
-                    Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-               // Toast.makeText(context,ArrayList<UserInfo>,Toast.LENGTH_SHORT).show();
-
-                ArrayList<UserInfo> posts = response.body();
-
-                JsonHandler.createJsonFromLogin(posts, "Login.json", context);
-            }
-            @Override
-            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     public void postLogin(Login login, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
@@ -124,8 +98,8 @@ public class Connection {
                 Toast.makeText(context,"Error" + t,Toast.LENGTH_LONG).show();
             }
         });
-
     }
+
 
     public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
