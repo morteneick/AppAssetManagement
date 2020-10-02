@@ -47,18 +47,24 @@ public class MapFragment extends Fragment {
         mapView =root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                LatLng hs = new LatLng(device.getLongitude(),device.getLatitude());
-                googleMap.addMarker(new MarkerOptions().position(hs));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLng(hs));
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(hs).zoom(15).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            }
-        });
-
         final TextView textMapDate = root.findViewById(R.id.textMapDate);
+
+        if(device.getLongitude() == null
+        || device.getLatitude() == null){
+            textMapDate.setText(getString(R.string.noLocationText));
+        } else {
+            mapView.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    LatLng hs = new LatLng(device.getLongitude(),device.getLatitude());
+                    googleMap.addMarker(new MarkerOptions().position(hs));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(hs));
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(hs).zoom(15).build();
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                }
+            });
+        }
+
         Timestamp timestamp = device.getLastLocationUpdate();
 
         try {

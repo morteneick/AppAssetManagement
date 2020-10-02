@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Baustelle" />
+            android:text="@string/textConstruction" />
 
         <EditText
             android:id="@+id/editConstruction"
@@ -44,7 +44,7 @@
             android:id="@+id/btnReserve"
             android:layout_width="417dp"
             android:layout_height="83dp"
-            android:text="Reservieren" />
+            android:text="@string/textReserve" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +62,7 @@
             android:id="@+id/btnStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start" />
+            android:text="@string/textStart" />
 
         <TextView
             android:id="@+id/textReservationStart"
@@ -87,7 +87,7 @@
             android:id="@+id/btnEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ende" />
+            android:text="@string/textEnd" />
 
         <TextView
             android:id="@+id/textReservationEnd"

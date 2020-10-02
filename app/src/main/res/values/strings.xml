@@ -16,10 +16,10 @@
     <string name="title_activity_device_card">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Benachrichtigungen</string>
-    <string name="title_device_list_old_versions">Versionsverlauf</string>
-    <string name="title_deviceList">Geräteübersicht</string>
-    <string name="title_addDevice">Gerät hinzufügen</string>
+    <string name="title_notifications" translatable="false">Benachrichtigungen</string>
+    <string name="title_device_list_old_versions" translatable="false">Versionsverlauf</string>
+    <string name="title_deviceList" translatable="false">Geräteübersicht</string>
+    <string name="title_addDevice" translatable="false">Gerät hinzufügen</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -128,5 +128,60 @@
     <string name="baseURL">http://10.0.2.2:3000/</string>
 
     <string name="datePattern">yyyy-MM-dd</string>
+    <string name="noLocationText">Kein Standortdaten gefunden.</string>
+
+<!--    TextField/Button Values-->
+    <string name="textInventoryNumber">Inventarnummer</string>
+    <string name="textWokerId">Arbeiter Nummer</string>
+    <string name="textFirstname">Vorname</string>
+    <string name="textProject">Projekt</string>
+    <string name="textSurname">Nachname</string>
+    <string name="textEmail">E-Mail</string>
+    <string name="textRole">Rolle</string>
+    <string name="textRoleAddDevice">Recht zum Anlegen neuer Geräten</string>
+    <string name="textRightEditDevice">Recht zum Bearbeiten von Geräten</string>
+    <string name="textRightViewDevice">Recht zum Ansehen von Geräten</string>
+    <string name="textRightDeleteDevice">Recht zum Löschen von Geräten</string>
+    <string name="textRightAddUser">Recht zum Anlegen neuer Benutzer</string>
+    <string name="textRightDeleteUser">Recht zum Löschen von Benutzer</string>
+    <string name="textRightEditUser">Recht zum Bearbeiten von Benutzer</string>
+    <string name="textRightReserveDevice">Recht zum Reservieren von Geräten</string>
+    <string name="textRightEditReservation">Recht zum Bearbeiten von Reservierungen</string>
+    <string name="textRightDeleteReservation">Recht zum Löschen von Reservierungen</string>
+    <string name="btnSaveText">Speichern</string>
+    <string name="textStatus">Status*</string>
+    <string name="textCategory">Kategorie</string>
+    <string name="textSerialnumber">Seriennummer*</string>
+    <string name="textGuarantee">Garantie</string>
+    <string name="textPostcode">Postleitzahl</string>
+    <string name="textCity">Stadt</string>
+    <string name="textTuev">TÜV</string>
+    <string name="textUvv">UVV</string>
+    <string name="textLastRepair">letzte Reparatur</string>
+    <string name="textNotesLastRepair">Notiz der letzten Reparatur</string>
+    <string name="textBeaconMinor">BeaconMinor</string>
+    <string name="textBeaconMajor">BeaconMayjor</string>
+    <string name="textNotes">Notizen</string>
+    <string name="textConstraints">Mit * Markierte Felder sind Pflichtfelder</string>
+    <string name="textFilterBy">Filtern nach...</string>
+    <string name="textFilterByStatus">Filtern nach Status</string>
+    <string name="textFilterByTuevPeriod">TÜV Zeitraum auswählen</string>
+    <string name="textStart">start</string>
+    <string name="textConstruction">Baustelle</string>
+    <string name="textReserve">reservieren</string>
+    <string name="textEnd">Ende</string>
+    <string name="textFilter">Filtern</string>
+    <string name="textManufacturer">Hersteller</string>
+    <string name="textModel">Modell</string>
+    <string name="textName">name</string>
+    <string name="textStreet">Straße</string>
+    <string name="textCity">Stadt</string>
+    <string name="textDevice">Gerät</string>
+    <string name="textMap">Maps</string>
+    <string name="textEdit">Bearbeiten</string>
+    <string name="textShowHistoryDevice">Zeige Verlauf</string>
+    <string name="textDelete">Löschen</string>
+    <string name="textReloadList">Liste neu laden</string>
+    <string name="textAddUser">Benutzer hinzufügen</string>
 
 </resources>

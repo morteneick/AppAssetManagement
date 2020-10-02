@@ -6,12 +6,12 @@
     <item
         android:id="@+id/action_add"
         android:orderInCategory="100"
-        android:title="Benutzer hinzufügen"
+        android:title="@string/textAddUser"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_reload"
         android:orderInCategory="100"
-        android:title="Liste neu laden"
+        android:title="@string/textReloadList"
         app:showAsAction="never" />
 
 </menu>

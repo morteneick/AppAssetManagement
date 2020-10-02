@@ -28,7 +28,7 @@
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Filtern nach Status" />
+                android:text="@string/textFilterByStatus" />
 
             <Spinner
                 android:id="@+id/spinnerStatus"
@@ -47,7 +47,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TÜV Zeitraum auswählen" />
+                android:text="@string/textFilterByTuevPeriod" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +62,7 @@
                 android:id="@+id/btnStartDateTuev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start" />
+                android:text="@string/textStart" />
 
             <TextView
                 android:id="@+id/textTuevStart"
@@ -83,7 +83,7 @@
                 android:id="@+id/btnEndDateTuev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ende" />
+                android:text="@string/textEnd" />
 
             <TextView
                 android:id="@+id/textTuevEnd"
@@ -100,7 +100,7 @@
                 android:id="@+id/btnFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filtern" />
+                android:text="@string/textFilter" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

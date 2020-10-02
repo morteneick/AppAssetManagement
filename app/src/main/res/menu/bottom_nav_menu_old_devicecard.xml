@@ -4,11 +4,11 @@
     <item
         android:id="@+id/navigation_device"
         android:icon="@drawable/ic_grinder"
-        android:title="Gerät" />
+        android:title="@string/textDevice" />
 
     <item
         android:id="@+id/navigation_map"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Maps" />
+        android:title="@string/textMap" />
 
 </menu>

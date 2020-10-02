@@ -45,7 +45,7 @@
                         android:id="@+id/textInventoryNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Inventarnummer"
+                        android:text="@string/textInventoryNumber"
                         android:textSize="16sp" />
 
                     <EditText
@@ -73,7 +73,7 @@
                         android:id="@+id/textStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="@string/textStatus"
                         android:textSize="16sp" />
 
                     <Spinner
@@ -104,7 +104,7 @@
                         android:id="@+id/textProject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Projekt"
+                        android:text="@string/textProject"
                         android:textSize="16sp" />
 
                     <EditText
@@ -133,7 +133,7 @@
                         android:id="@+id/textManufacturer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hersteller"
+                        android:text="@string/textManufacturer"
                         android:textSize="16sp" />
 
                     <EditText
@@ -159,7 +159,7 @@
                         android:id="@+id/textModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Modell"
+                        android:text="@string/textModel"
                         android:textSize="16sp" />
 
                     <EditText
@@ -185,7 +185,7 @@
                         android:id="@+id/textCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Kategorie"
+                        android:text="@string/textCategory"
                         android:textSize="16sp" />
 
                     <EditText
@@ -212,7 +212,7 @@
                         android:id="@+id/textSerialnumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Seriennummer"
+                        android:text="@string/textSerialnumber"
                         android:textSize="16sp" />
 
                     <EditText
@@ -238,7 +238,7 @@
                         android:id="@+id/textGuarantee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Garantie" />
+                        android:text="@string/textGuarantee" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -284,7 +284,7 @@
                         android:id="@+id/textName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="@string/textName"
                         android:textSize="16sp" />
 
                     <EditText
@@ -309,7 +309,7 @@
                         android:id="@+id/textStreet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Straße"
+                        android:text="@string/textStreet"
                         android:textSize="16sp" />
 
                     <EditText
@@ -334,7 +334,7 @@
                         android:id="@+id/textPostcode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Postleitzahl"
+                        android:text="@string/textPostcode"
                         android:textSize="16sp" />
 
                     <EditText
@@ -359,7 +359,7 @@
                         android:id="@+id/textCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Stadt"
+                        android:text="@string/textCity"
                         android:textSize="16sp" />
 
                     <EditText
@@ -431,7 +431,7 @@
                         android:id="@+id/textUvv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="UVV" />
+                        android:text="@string/textUvv" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -476,7 +476,7 @@
                         android:id="@+id/textRepair"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="letzte Reparatur" />
+                        android:text="@string/textLastRepair" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -522,7 +522,7 @@
                         android:id="@+id/textRepairNotes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Notiz der letzten Reparatur" />
+                        android:text="@string/textNotesLastRepair" />
 
                     <EditText
                         android:id="@+id/editRepairNotes"
@@ -548,7 +548,7 @@
                         android:id="@+id/textBeaconMinor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="BeaconMinor" />
+                        android:text="@string/textBeaconMinor" />
 
                     <EditText
                         android:id="@+id/editBeaconMinor"
@@ -573,7 +573,7 @@
                         android:id="@+id/textBeaconMajor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="BeaconMayjor" />
+                        android:text="@string/textBeaconMajor" />
 
                     <EditText
                         android:id="@+id/editBeaconMajor"
@@ -599,7 +599,7 @@
                         android:id="@+id/textNotes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Notizen" />
+                        android:text="@string/textNotes" />
 
                     <EditText
                         android:id="@+id/editNotes"
@@ -622,7 +622,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:text="Speichern"
+        android:text="@string/btnSaveText"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
