@@ -95,6 +95,7 @@
     <string name="saveMessage">Informationen wurden gespeichert.</string>
     <string name="noConnectionServerMessage">Keine Verbindung zum Server.</string>
     <string name="noOldVersionsFound">Keine alten Versionen gefunden.</string>
+    <string name="fillConstraintsMessage">Bitte Füllen Sie Felder aus, die mit einem Sternchen markiert sind.</string>
 
     <!--    NotificationMenu-->
     <string name="notification0">Anstehende TÜV Prüfungen</string>
@@ -103,7 +104,7 @@
     <string name="notification3">Relevante Termine</string>
 
     <!--    SettingsMenu-->
-    <string name="settings0">Nutzer bearbeiten</string>
+    <string name="settings0">Nutzer anzeigen</string>
     <string name="settings1">Informationen zur App</string>
     <string name="settings2">LOGIN</string>
     <string name="settings3">FAQ</string>
@@ -173,7 +174,7 @@
     <string name="textFilter">Filtern</string>
     <string name="textManufacturer">Hersteller</string>
     <string name="textModel">Modell</string>
-    <string name="textName">name</string>
+    <string name="textName">Name</string>
     <string name="textStreet">Straße</string>
     <string name="textDevice">Gerät</string>
     <string name="textMap">Maps</string>

@@ -39,11 +39,8 @@ import java.util.Calendar;
 public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAdapter.OnNoteListener {
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
-
-
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
-
     private Boolean isFiltered;
     SwipeRefreshLayout swipeRefreshLayout;
 

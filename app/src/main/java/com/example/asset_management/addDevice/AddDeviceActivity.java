@@ -36,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.example.asset_management.deviceCard.ui.card.CardFragment.blockInput;
 import static com.example.asset_management.deviceCard.ui.card.CardFragment.setVisibility;
 
 
@@ -143,6 +144,10 @@ public class AddDeviceActivity extends AppCompatActivity implements
         setVisibility(editRepair, btnRepair);
         setVisibility(editGuarantee, btnGuarantee);
         viewSave.setVisibility(View.VISIBLE);
+        blockInput(editTuev);
+        blockInput(editUvv);
+        blockInput(editRepair);
+        blockInput(editGuarantee);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,19 +218,31 @@ public class AddDeviceActivity extends AppCompatActivity implements
                     e.printStackTrace();
                 }
                 device.setLastUvv(date);
+                date = null;
 
                 try {
                     date = format.parse(guarantee);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                device.setLastUvv(date);
-                String newDeviceNameJson = getString(R.string.newDeviceNameJSON);
-                JsonHandler.createJsonFromDevice(device, newDeviceNameJson,
-                        getApplicationContext());
+                device.setGuarantee(date);
 
-                Connection connection = new Connection();
-                connection.postNewDevice(device, getApplicationContext());
+                if(!status.equals("")
+                && !manufacturer.equals("")
+                && !model.equals("")
+                && !serialnumber.equals("")){
+                    String newDeviceNameJson = getString(R.string.newDeviceNameJSON);
+                    JsonHandler.createJsonFromDevice(device, newDeviceNameJson,
+                            getApplicationContext());
+
+                    Connection connection = new Connection();
+                    connection.postNewDevice(device, getApplicationContext());
+                    finish();
+                } else
+                {
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.fillConstraintsMessage), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -43,7 +44,7 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
     private UserAdapter adapter;
     private RequestQueue mQueue;
     private ArrayList<UserInfo> list = new ArrayList<>();
-
+    SwipeRefreshLayout swipeRefreshLayout;
     /**
      *  Executes code after open Activity.
      * @param savedInstanceState
@@ -88,6 +89,18 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
+            }
+        });
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Connection connection = new Connection();
+                connection.getAllUsers(getApplicationContext());
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.asset_management.login;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView Info;
     private ArrayList<UserInfo> userInfos = new ArrayList<>();
 
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,12 @@ public class LoginActivity extends AppCompatActivity {
                 String Password = PasswordET.getText().toString();
 
                 if (validateLogin(Username,Password)){
-                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,Password.toCharArray()));
+                    Login login = new Login(Username, BCrypt.withDefaults().hashToString(12,
+                            Password.toCharArray()));
 
                     //posting login data
                     Connection connection = new Connection();
-                    connection.postLogin(login, getApplicationContext());
+                    connection.postLogin(login, getApplicationContext(), LoginActivity.this);
 
                     // receiving answer
                     //connection.getLoginData(getApplicationContext());

@@ -1,6 +1,8 @@
 package com.example.asset_management.connection;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -13,8 +15,11 @@ import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.Login;
+import com.example.asset_management.login.LoginActivity;
 import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
+import com.example.asset_management.settings.SettingsActivity;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +83,7 @@ public class Connection {
 //        });
 //    }
 
-    public void postLogin(Login login, final Context context) {
+    public void postLogin(Login login, final Context context, final Activity activity) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<JsonObject> call = getPostConnection.postLogin(login);
 
@@ -93,7 +98,7 @@ public class Connection {
                 JsonObject rights = jsonObject.getAsJsonObject("rights");
                 UserInfo userInfo = new UserInfo();
                 boolean access = jsonObject.get("access").getAsBoolean();
-                if ( access == true){
+                if (access){
 
                     JsonHandler.createJsonFromObject(jsonObject, "Login.json", context);
 
@@ -110,12 +115,18 @@ public class Connection {
                     userInfo.setDeleteBooking(rights.get("delete_booking").getAsInt());
                     userInfo.setEditBooking(rights.get("edit_booking").getAsInt());
 
-                    Toast.makeText(context,"Willkommen " +userInfo.getFirstname() + " "+ userInfo.getSurname(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Willkommen " +userInfo.getFirstname() + " "
+                            + userInfo.getSurname(),Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(context,"Rights? "+userInfo.getRole()+ userInfo.getBookingDevice()+userInfo.getEditBooking()+userInfo.getEditDevice()+userInfo.getAddDevice()+userInfo.getDeleteUser(),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,"Rights? "+userInfo.getRole()+ userInfo.getBookingDevice()+userInfo.getEditBooking()+userInfo.getEditDevice()+userInfo.getAddDevice()+userInfo.getDeleteUser(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(activity, MainHubActivity.class);
+                    activity.finish();
+
+                    intent.putExtra(context.getString(R.string.user), userInfo);
+                    activity.startActivity(intent);
 
                 }
-                if (access == false)
+                if (!access)
                 {
                     Toast.makeText(context,"Falsche Benutzerdaten.",Toast.LENGTH_SHORT).show();
                 }
@@ -123,10 +134,9 @@ public class Connection {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(context,"Error" + t,Toast.LENGTH_LONG).show();
+                onFailureMessage(context, t);
             }
         });
-
     }
 
     public void getDeviceList(final Context context){
@@ -572,8 +582,7 @@ public class Connection {
 
     private static void onFailureMessage(Context context, Throwable t){
         if (t instanceof IOException) {
-            Toast.makeText(context, context.getString(R.string.noConnectionServerMessage)
-                    + "\uD83D\uDE33", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.noConnectionServerMessage) +"\uD83D\uDE33", Toast.LENGTH_SHORT).show();
             // logging probably not necessary
         }
         else {

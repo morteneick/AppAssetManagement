@@ -290,7 +290,7 @@
                         android:id="@+id/textName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/textSurname"
+                        android:text="@string/textName"
                         android:textSize="16sp" />
 
                     <EditText

@@ -59,7 +59,7 @@ public class UserCardActivity extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         View viewSave = findViewById(R.id.btnSave);
 
-        user = (UserInfo) intent.getSerializableExtra("User");
+        user = (UserInfo) intent.getSerializableExtra(getString(R.string.user));
 
         checkAddDevice.setChecked(user.intToBool(user.getAddDevice()));
         checkViewDevice.setChecked(user.intToBool(user.getViewDevice()));

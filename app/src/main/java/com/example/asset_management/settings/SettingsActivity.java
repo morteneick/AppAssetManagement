@@ -32,6 +32,9 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayList<String> list = new ArrayList<>();
         ListView listView = findViewById(R.id.listOptions);
 
+        Connection connection = new Connection();
+        connection.getAllUsers(this);
+
         list.add(getString(R.string.settings0));
         list.add(getString(R.string.settings1));
         list.add(getString(R.string.settings2));

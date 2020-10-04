@@ -11,6 +11,9 @@ import com.example.asset_management.R;
 
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.SwitchEditable;
+import com.example.asset_management.login.LoginActivity;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.settings.SettingsActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +33,7 @@ import android.widget.Toast;
  * 11.05.2020
  */
 public class MainHubActivity extends AppCompatActivity {
+    UserInfo user = new UserInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,19 @@ public class MainHubActivity extends AppCompatActivity {
         connection.getDeviceList(this);
         SwitchEditable switchEditable = new SwitchEditable(false);
         SwitchEditable.createSwitch(switchEditable, this);
+
+        try {
+            user = getUser();
+        } catch (Exception e){
+
+        }
+        if(user == null){
+            Intent loginIntent =new Intent(MainHubActivity.this, LoginActivity.class);
+            finish();
+            startActivity(loginIntent);
+        }
+
+
 //        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 //        boolean firstStart = prefs.getBoolean("firstStart", true);
 //        if (firstStart) {
@@ -87,6 +104,12 @@ public class MainHubActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
+    }
+
+    public UserInfo getUser(){
+        Intent intent = getIntent();
+        String userPutExta = getString(R.string.user);
+        return (UserInfo) intent.getSerializableExtra(userPutExta);
     }
 
 }
