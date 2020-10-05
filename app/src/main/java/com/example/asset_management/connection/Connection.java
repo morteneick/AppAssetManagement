@@ -107,16 +107,24 @@ public class Connection {
                     userInfo.setFirstname(jsonObject.get("firstName").toString());
                     userInfo.setSurname(jsonObject.get("surname").toString());
                     userInfo.setRole(jsonObject.get("role").toString());
-                    userInfo.setBookingDevice(rights.get("booking_device").getAsInt());
+
+                    userInfo.setDeleteDevice(rights.get("delete_device").getAsInt());
                     userInfo.setEditDevice(rights.get("edit_device").getAsInt());
                     userInfo.setAddDevice(rights.get("add_device").getAsInt());
+
+                    userInfo.setAddUser(rights.get("add_user").getAsInt());
                     userInfo.setDeleteUser(rights.get("delete_user").getAsInt());
                     userInfo.setEditUser(rights.get("edit_user").getAsInt());
+
+                    userInfo.setBookingDevice(rights.get("booking_device").getAsInt());
                     userInfo.setDeleteBooking(rights.get("delete_booking").getAsInt());
                     userInfo.setEditBooking(rights.get("edit_booking").getAsInt());
 
                     Toast.makeText(context,"Willkommen " +userInfo.getFirstname() + " "
                             + userInfo.getSurname(),Toast.LENGTH_LONG).show();
+                    ArrayList<UserInfo> userList = new ArrayList<>();
+                    userList.add(userInfo);
+                    JsonHandler.createJsonFromUserInfoList(userList, "Login1.json", context);
 
 //                    Toast.makeText(context,"Rights? "+userInfo.getRole()+ userInfo.getBookingDevice()+userInfo.getEditBooking()+userInfo.getEditDevice()+userInfo.getAddDevice()+userInfo.getDeleteUser(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(activity, MainHubActivity.class);
@@ -582,12 +590,22 @@ public class Connection {
 
     private static void onFailureMessage(Context context, Throwable t){
         if (t instanceof IOException) {
-            Toast.makeText(context, context.getString(R.string.noConnectionServerMessage) +"\uD83D\uDE33", Toast.LENGTH_SHORT).show();
-            // logging probably not necessary
+            Toast.makeText(context, context.getString(R.string.noConnectionServerMessage) +"\uD83D\uDE33",
+                    Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(context, "Conversion Error \uD83D\uDE33", Toast.LENGTH_SHORT).show();
-            // todo log to some central bug tracking service
+            Toast.makeText(context, context.getString(R.string.conversionErrorMessage),
+                    Toast.LENGTH_SHORT)
+                    .show();
+            Calendar calendar = Calendar.getInstance();
+            Errors errors = new Errors();
+            errors.setValue(calendar.getTime().toString());
+            errors.setBody(t.toString());
+            errors.setMsg(context.getString(R.string.conversionErrorMessage));
+
+            String connectionLogJsonName = context.getString(R.string.logsNameJSON);
+            JsonHandler.createJsonFromErrorsList(errors, connectionLogJsonName,
+                    context);
         }
     }
 }

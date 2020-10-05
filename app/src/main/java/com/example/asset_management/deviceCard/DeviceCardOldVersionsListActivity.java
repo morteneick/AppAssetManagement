@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,7 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_device_card_list_old_versions);
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
+
         ArrayList<String> list = new ArrayList<>();
         ListView listView = findViewById(R.id.listOldDevice);
         String deviceOldVersionNameJson = getString(R.string.deviceOldVersionNameJSON);
@@ -64,5 +67,22 @@ public class DeviceCardOldVersionsListActivity extends AppCompatActivity {
         listView.setAdapter(itemsAdapter);
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
     }
 }

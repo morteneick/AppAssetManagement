@@ -46,6 +46,7 @@ public class MainHubActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
+
         Connection connection = new Connection();
         connection.getDeviceList(this);
         SwitchEditable switchEditable = new SwitchEditable(false);
@@ -66,7 +67,7 @@ public class MainHubActivity extends AppCompatActivity {
 //        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 //        boolean firstStart = prefs.getBoolean("firstStart", true);
 //        if (firstStart) {
-            showStartDialog();
+//            showStartDialog();
 //        }
     }
 
@@ -85,9 +86,7 @@ public class MainHubActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
     private void showStartDialog() {

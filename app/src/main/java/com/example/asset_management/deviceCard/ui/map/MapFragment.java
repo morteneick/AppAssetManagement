@@ -41,9 +41,12 @@ public class MapFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         mapViewModel =
                 ViewModelProviders.of(this).get(MapViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_device_card_map, container, false);
+
         DeviceCardActivity activity = (DeviceCardActivity) getActivity();
         final Device device = activity.getDevice();
+
         mapView =root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
@@ -59,7 +62,8 @@ public class MapFragment extends Fragment {
                     LatLng hs = new LatLng(device.getLongitude(),device.getLatitude());
                     googleMap.addMarker(new MarkerOptions().position(hs));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(hs));
-                    CameraPosition cameraPosition = new CameraPosition.Builder().target(hs).zoom(15).build();
+                    CameraPosition cameraPosition = new CameraPosition.Builder().target(hs)
+                            .zoom(15).build();
                     googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 }
             });

@@ -6,10 +6,8 @@
     android:orientation="horizontal">
 
     <include
-        android:id="@+id/toolbardevicecardoldversion"
-        layout="@layout/toolbar_devicecardoldversion"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="564dp" />
+        android:id ="@+id/toolbarMain"
+        layout ="@layout/toolbar_main" />
 
     <ListView
         android:id="@+id/listOldDevice"

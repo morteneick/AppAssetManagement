@@ -63,7 +63,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
         String deviceListName = getString(R.string.deviceListNameJSON);
-        String isFilteredList = getString(R.string.filteredList);
+        String putExtraList = getString(R.string.filteredList);
 
         File file = this.getFileStreamPath(deviceListName);
         if(file == null || !file.exists()){
@@ -71,7 +71,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         }
 
         try {
-            list = (ArrayList<Device>) intent.getSerializableExtra(isFilteredList);
+            list = (ArrayList<Device>) intent.getSerializableExtra(putExtraList);
             isFiltered = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,6 +113,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 filter(s.toString());
             }
         });
+
         swipeRefreshLayout = findViewById(R.id.refreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

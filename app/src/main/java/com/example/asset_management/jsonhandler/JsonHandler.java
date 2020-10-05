@@ -162,11 +162,11 @@ public class JsonHandler {
         }
     }
 
-    public static String createJsonFromErrorsList(ArrayList<Errors> errors, String path, Context context){
+    public static String createJsonFromErrorsList(Errors errors, String path, Context context){
         String json = convertIntoString(errors);
 
         try {
-            FileOutputStream fOut = context.openFileOutput(path, 0);
+            FileOutputStream fOut = context.openFileOutput(path, Context.MODE_APPEND);
             OutputStreamWriter osw = new OutputStreamWriter(fOut);
             osw.append(json);
             osw.flush();
