@@ -4,6 +4,11 @@
     tools:context="com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity">
 
     <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="@string/textAddUser"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_reload"
         android:orderInCategory="100"
         android:title="@string/textReloadList"

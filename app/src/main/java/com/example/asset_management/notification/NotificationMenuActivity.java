@@ -14,6 +14,7 @@ import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
 import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 public class NotificationMenuActivity extends AppCompatActivity {
     Connection connection = new Connection();
-
+    UserInfo userInfo = new UserInfo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +38,7 @@ public class NotificationMenuActivity extends AppCompatActivity {
         connection.getUvv(this);
         connection.getMaintenance(this);
 
-        //TODO User
-        UserInfo userInfo = new UserInfo();
-        userInfo.setWorkerId(2);
+        userInfo = MainHubActivity.getUser();
         connection.getBooking(getApplicationContext(), userInfo);
 
         ArrayList<String> list = new ArrayList<>();

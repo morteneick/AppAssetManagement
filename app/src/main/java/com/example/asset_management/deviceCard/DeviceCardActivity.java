@@ -9,9 +9,9 @@ import android.view.MenuItem;
 
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.ui.card.CardFragment;
-import com.google.gson.Gson;
 
-import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -25,7 +25,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.asset_management.R;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * DeviceCardActivity
@@ -101,7 +100,20 @@ public class DeviceCardActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_devicecard, menu);
+        UserInfo user = MainHubActivity.getUser();
+        if(user.intToBool(user.getDeleteDevice())
+        && user.intToBool(user.getEditDevice())){
+            getMenuInflater().inflate(R.menu.menu_devicecard_all, menu);
+            return true;
+        }
+        if(user.intToBool(user.getDeleteDevice())){
+            getMenuInflater().inflate(R.menu.menu_devicecard_delete, menu);
+            return true;
+        }
+        if(user.intToBool(user.getEditDevice())){
+            getMenuInflater().inflate(R.menu.menu_devicecard_edit, menu);
+            return true;
+        }
         return true;
     }
 

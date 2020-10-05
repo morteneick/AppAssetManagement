@@ -147,6 +147,33 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layoutPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/editPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:textColor="#000000"
+                        android:textColorHint="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/layoutRole"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

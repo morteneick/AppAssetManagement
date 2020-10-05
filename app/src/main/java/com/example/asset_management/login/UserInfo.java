@@ -1,5 +1,10 @@
 package com.example.asset_management.login;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.example.asset_management.R;
+
 import java.io.Serializable;
 
 public class UserInfo implements Serializable {
@@ -20,11 +25,12 @@ public class UserInfo implements Serializable {
     int editUser;
     int deleteBooking;
     int editBooking;
+    int picking;
 
     public UserInfo(boolean access, int workerId, String password, String eMail, String surname, String firstname,
                     String role, int bookingDevice, int editDevice, int addDevice, int viewDevice,
                     int deleteDevice, int addUser, int deleteUser, int editUser, int deleteBooking,
-                    int editBooking) {
+                    int editBooking, int picking) {
         this.access = access;
         this.workerId = workerId;
         this.password = password;
@@ -42,6 +48,7 @@ public class UserInfo implements Serializable {
         this.editUser = editUser;
         this.deleteBooking = deleteBooking;
         this.editBooking = editBooking;
+        this.picking = picking;
     }
 
     public UserInfo(){
@@ -209,5 +216,9 @@ public class UserInfo implements Serializable {
         this.editBooking = editBooking;
     }
 
+    public void noAccessMessage(Context context){
+        Toast.makeText(context, context.getString(R.string.noAccessMessage)
+                , Toast.LENGTH_SHORT).show();
+    }
 
 }

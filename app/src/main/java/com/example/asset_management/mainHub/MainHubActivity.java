@@ -33,12 +33,16 @@ import android.widget.Toast;
  * 11.05.2020
  */
 public class MainHubActivity extends AppCompatActivity {
-    UserInfo user = new UserInfo();
+    static UserInfo user = new UserInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        String userPutExta = getString(R.string.user);
+        user =  (UserInfo) intent.getSerializableExtra(userPutExta);
 
         Toolbar toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
@@ -106,10 +110,8 @@ public class MainHubActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public UserInfo getUser(){
-        Intent intent = getIntent();
-        String userPutExta = getString(R.string.user);
-        return (UserInfo) intent.getSerializableExtra(userPutExta);
+    public static UserInfo getUser(){
+        return user;
     }
 
 }

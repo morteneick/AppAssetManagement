@@ -53,7 +53,7 @@ class MainHubActivityTest {
         val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
 
         onView(withId(R.id.btnAdd)).perform(click())
-        onView(withId(R.id.addDevice)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.addDeviceActivity)).check(ViewAssertions.matches(isDisplayed()))
     }
     @Test
     fun testNavigationAddDeviceBack() {
@@ -61,7 +61,7 @@ class MainHubActivityTest {
         val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
 
         onView(withId(R.id.btnAdd)).perform(click())
-        onView(withId(R.id.addDevice)).check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.addDeviceActivity)).check(ViewAssertions.matches(isDisplayed()))
         pressBack()
         onView(withId(R.id.mainhub)).check(ViewAssertions.matches(isDisplayed()))
     }

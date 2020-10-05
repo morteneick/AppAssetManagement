@@ -13,7 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.login.LoginActivity;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
+import com.example.asset_management.mainHub.MainHubFragment;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;

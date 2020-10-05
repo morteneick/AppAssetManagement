@@ -23,6 +23,8 @@ import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
@@ -90,41 +92,52 @@ public class ReservationFragment extends Fragment {
                 android.R.layout.simple_list_item_1, arrayList);
 
         listView.setAdapter(itemsAdapter);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle(getString(R.string.deleteReservationTitle))
-                        .setMessage(getString(R.string.deleteReservationText))
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Connection connection = new Connection();
-                                connection.deleteReservation(device, listReservation.get(position),
-                                        getContext());
-                                ArrayList<Reservation> list = new ArrayList<Reservation>();
-                                ((DeviceCardActivity)getActivity()).refreshUI();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-                return false;
-            }
-        });
+
+        UserInfo user = MainHubActivity.getUser();
+        if(user.intToBool(user.getDeleteBooking())){
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(getString(R.string.deleteReservationTitle))
+                            .setMessage(getString(R.string.deleteReservationText))
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Connection connection = new Connection();
+                                    connection.deleteReservation(device, listReservation.get(position),
+                                            getContext());
+                                    ArrayList<Reservation> list = new ArrayList<Reservation>();
+                                    ((DeviceCardActivity)getActivity()).refreshUI();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    return false;
+                }
+            });
+        } else {
+            user.noAccessMessage(getContext());
+        }
 
         Button btnStartReserve = root.findViewById(R.id.btnReserveActivity);
-        btnStartReserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReservationActivity.class);
-                startActivity(intent);
-                DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-                Device device = activity.getDevice();
-                ArrayList<Device> list = new ArrayList<>();
-                list.add(device);
-                JsonHandler.createJsonFromDeviceList(list, reservationDeviceName, getContext());
-            }
-        });
+        if(user.intToBool(user.getBookingDevice())){
+            btnStartReserve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), ReservationActivity.class);
+                    startActivity(intent);
+                    DeviceCardActivity activity = (DeviceCardActivity) getActivity();
+                    Device device = activity.getDevice();
+                    ArrayList<Device> list = new ArrayList<>();
+                    list.add(device);
+                    JsonHandler.createJsonFromDeviceList(list, reservationDeviceName, getContext());
+                }
+            });
+        } else {
+            user.noAccessMessage(getContext());
+        }
+
 
         return root;
     }

@@ -25,7 +25,7 @@ public class AddUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_card);
+        setContentView(R.layout.activity_add_user);
         Toolbar toolbar = findViewById(R.id.toolbardevicecard);
         setSupportActionBar(toolbar);
 
@@ -34,6 +34,7 @@ public class AddUserActivity extends AppCompatActivity {
         final EditText editSurname = findViewById(R.id.editSurname);
         final EditText editRole = findViewById(R.id.editRole);
         final EditText editEmail = findViewById(R.id.editEmail);
+        final EditText editPassword = findViewById(R.id.editPassword);
         final CheckBox checkAddDevice = findViewById(R.id.checkBoxAddDevice);
         final CheckBox checkEditDevice = findViewById(R.id.checkBoxEditDevice);
         final CheckBox checkDeleteDevice = findViewById(R.id.checkBoxDeleteDevice);
@@ -62,6 +63,7 @@ public class AddUserActivity extends AppCompatActivity {
                 user.setSurname(editSurname.getText().toString());
                 user.seteMail(editEmail.getText().toString());
                 user.setRole(editRole.getText().toString());
+                user.setPassword(editPassword.getText().toString());
                 user.setAddDevice(user.boolToInt(checkAddDevice.isChecked()));
                 user.setEditDevice(user.boolToInt(checkEditDevice.isChecked()));
                 user.setDeleteDevice(user.boolToInt(checkDeleteDevice.isChecked()));
@@ -72,6 +74,7 @@ public class AddUserActivity extends AppCompatActivity {
                 user.setBookingDevice(user.boolToInt(checkAddReservation.isChecked()));
                 user.setEditBooking(user.boolToInt(checkEditReservation.isChecked()));
                 user.setDeleteBooking(user.boolToInt(checkDeleteReservation.isChecked()));
+
 
                 Connection connection = new Connection();
                 connection.postNewUser(user, getApplicationContext());

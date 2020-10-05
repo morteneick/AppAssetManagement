@@ -28,6 +28,7 @@ import com.example.asset_management.settings.SettingsActivity;
  * AUTHOR: Dominik Dziersan
  */
 public class MainHubFragment extends Fragment {
+    UserInfo user = new UserInfo();
 
     @Override
     public View onCreateView(
@@ -40,12 +41,18 @@ public class MainHubFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        user = MainHubActivity.getUser();
+
 
         view.findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(MainHubFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_addDeviceActivity);
+                if(user.intToBool(user.getAddDevice())){
+                    NavHostFragment.findNavController(MainHubFragment.this)
+                            .navigate(R.id.action_FirstFragment_to_addDeviceActivity);
+                } else {
+                    user.noAccessMessage(getContext());
+                }
             }
         });
 

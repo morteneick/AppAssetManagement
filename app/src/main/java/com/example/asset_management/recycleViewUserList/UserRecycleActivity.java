@@ -2,7 +2,6 @@ package com.example.asset_management.recycleViewUserList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -20,14 +19,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
-import com.example.asset_management.recycleViewDeviceList.FilterDeviceListActivity;
+import com.example.asset_management.mainHub.MainHubActivity;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -184,8 +181,14 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_recycleview_userlist, menu);
-        return true;
+        UserInfo user = MainHubActivity.getUser();
+        if(user.intToBool(user.getAddUser())){
+            getMenuInflater().inflate(R.menu.menu_recycleview_userlist_all, menu);
+            return true;
+        } else {
+            getMenuInflater().inflate(R.menu.menu_recycleview_userlist, menu);
+            return true;
+        }
     }
 
     @Override

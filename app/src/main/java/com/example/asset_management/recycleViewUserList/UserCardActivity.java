@@ -21,7 +21,7 @@ import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.deviceCard.ui.card.CardFragment;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
-import com.google.gson.Gson;
+import com.example.asset_management.mainHub.MainHubActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -159,7 +159,20 @@ public class UserCardActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_usercard, menu);
+        UserInfo user = MainHubActivity.getUser();
+        if(user.intToBool(user.getDeleteUser())
+                && user.intToBool(user.getEditUser())){
+            getMenuInflater().inflate(R.menu.menu_usercard_all, menu);
+            return true;
+        }
+        if(user.intToBool(user.getDeleteDevice())){
+            getMenuInflater().inflate(R.menu.menu_usercard_delete, menu);
+            return true;
+        }
+        if(user.intToBool(user.getEditDevice())){
+            getMenuInflater().inflate(R.menu.menu_usercard_edit, menu);
+            return true;
+        }
         return true;
     }
 
