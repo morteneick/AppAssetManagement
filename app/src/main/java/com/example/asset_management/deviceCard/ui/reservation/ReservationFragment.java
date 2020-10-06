@@ -77,7 +77,8 @@ public class ReservationFragment extends Fragment {
         for(Reservation r : list){
             if(r.getInventoryNumber().toString().equals(device.getInventoryNumber()) )
             try {
-                arrayList.add(format.format(r.getLoanDay()) + " - " + format.format(r.getLoanEnd()));
+                arrayList.add(r.getBuildingSite() + " " + format.format(r.getLoanDay()) + " - "
+                        + format.format(r.getLoanEnd()));
             } catch (Exception ignored){
 
             }

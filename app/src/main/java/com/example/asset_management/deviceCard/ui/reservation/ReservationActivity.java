@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.asset_management.R;
 import com.example.asset_management.jsonhandler.JsonHandler;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
@@ -39,6 +41,7 @@ public class ReservationActivity extends AppCompatActivity implements
 
     ArrayList<Reservation> list = new ArrayList<>();
     Reservation reservation = new Reservation();
+    UserInfo user = new UserInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +111,9 @@ public class ReservationActivity extends AppCompatActivity implements
             e.printStackTrace();
         }
 //TODO add name surname
+        user = MainHubActivity.getUser();
+        reservation.setSurname(user.getSurname());
+        reservation.setName(user.getFirstname());
         reservation.setInventoryNumber(inventoryNumber);
         SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
         Date date = new Date();
