@@ -45,7 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  *     Version 1.0
  * </p>
  * 30.08.2020
- * AUTHOR: Dominik Dziersan
+ * AUTHOR: Dominik Dziersan & Morten Eickmann
  */
 public class Connection {
 
@@ -56,32 +56,6 @@ public class Connection {
             .baseUrl(baseURL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-
-//    public void getLoginData(final Context context){
-//        GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-//        Call<ArrayList<UserInfo>> call = getPostConnection.getLogin();
-//
-//        call.enqueue(new Callback<ArrayList<UserInfo>>() {
-//            @Override
-//            public void onResponse(Call<ArrayList<UserInfo>> call,
-//                                   retrofit2.Response<ArrayList<UserInfo>> response) {
-//
-//                if (!response.isSuccessful()) {
-//                    Toast.makeText(context,"RESPONSE UNSUCCESSFUL",Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//               // Toast.makeText(context,ArrayList<UserInfo>,Toast.LENGTH_SHORT).show();
-//
-//                ArrayList<UserInfo> posts = response.body();
-//
-//                JsonHandler.createJsonFromLogin(posts, "Login.json", context);
-//            }
-//            @Override
-//            public void onFailure(Call<ArrayList<UserInfo>> call, Throwable t) {
-//                onFailureMessage(context, t);
-//            }
-//        });
-//    }
 
     public void postLogin(Login login, final Context context, final Activity activity) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
