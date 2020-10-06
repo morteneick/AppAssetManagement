@@ -39,14 +39,27 @@ class MainHubActivityTest {
 
     @Test
     fun testIsFragmentInView() {
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
-
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
         onView(withId(R.id.fragmentMainhub)).check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
     fun testButtonInView() {
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
 
         onView(withId(R.id.btnAdd)).check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.btnHistory)).check(ViewAssertions.matches(isDisplayed()))
@@ -59,25 +72,30 @@ class MainHubActivityTest {
     @Test
     fun testNavigationAddDevice() {
 
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
 
         onView(withId(R.id.btnAdd)).perform(click())
         onView(withId(R.id.addDeviceActivity)).check(ViewAssertions.matches(isDisplayed()))
     }
-    @Test
-    fun testNavigationAddDeviceBack() {
 
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
-
-        onView(withId(R.id.btnAdd)).perform(click())
-        onView(withId(R.id.addDeviceActivity)).check(ViewAssertions.matches(isDisplayed()))
-        pressBack()
-        onView(withId(R.id.mainhub)).check(ViewAssertions.matches(isDisplayed()))
-    }
     @Test
     fun testNavigationShowDevice() {
 
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
 
         onView(withId(R.id.btnInventory)).perform(click())
         onView(withId(R.id.deviceList)).check(ViewAssertions.matches(isDisplayed()))
@@ -86,8 +104,14 @@ class MainHubActivityTest {
     @Test
     fun testNavigationShowSettings() {
 
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
-
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
         onView(withId(R.id.btnSettings)).perform(click())
         onView(withId(R.id.activity_settings)).check(ViewAssertions.matches(isDisplayed()))
 
@@ -96,8 +120,14 @@ class MainHubActivityTest {
     @Test
     fun testNavigationShowDeviceBack() {
 
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
-
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
         onView(withId(R.id.btnInventory)).perform(click())
         onView(withId(R.id.deviceList)).check(ViewAssertions.matches(isDisplayed()))
         pressBack()

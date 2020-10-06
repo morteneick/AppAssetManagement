@@ -76,8 +76,6 @@ public class CardFragment extends Fragment implements
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         editStatus.setAdapter(adapter);
 
-
-//        editStatus.setOnItemSelectedListener(this);
         final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
         final EditText editModel = root.findViewById(R.id.editModel);
         final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
@@ -177,7 +175,6 @@ public class CardFragment extends Fragment implements
             editRepairNotes.setText(device.getRepairNote());
             editBeaconMinor.setText(device.getBeaconMinor());
             editBeaconMajor.setText(device.getBeaconMajor());
-//            editProject.setText(device.getProjectId());
 
             try {
                 date = device.getLastTuev();
@@ -377,12 +374,22 @@ public class CardFragment extends Fragment implements
         editText.setCursorVisible(true);
     }
 
+    /**
+     * Sets the visibility of an button
+     * @param editText
+     * @param view
+     */
     public static void setVisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         view.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Sets the visibility of an button
+     * @param editText
+     * @param view
+     */
     public static void setInvisibility(EditText editText, View view){
         editText.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));

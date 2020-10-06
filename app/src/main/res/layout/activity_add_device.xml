@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/addDeviceActivity"
     tools:context="com.example.asset_management.addDevice.AddDeviceActivity">
 
     <include

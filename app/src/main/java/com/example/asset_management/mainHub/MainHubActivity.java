@@ -61,14 +61,16 @@ public class MainHubActivity extends AppCompatActivity {
             Intent loginIntent =new Intent(MainHubActivity.this, LoginActivity.class);
             finish();
             startActivity(loginIntent);
+        } else {
+            SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+            boolean firstStart = prefs.getBoolean("firstStart", true);
+            if (firstStart) {
+                showStartDialog();
+            }
         }
 
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean firstStart = prefs.getBoolean("firstStart", true);
-        if (firstStart) {
-            showStartDialog();
-        }
+
     }
 
     @Override

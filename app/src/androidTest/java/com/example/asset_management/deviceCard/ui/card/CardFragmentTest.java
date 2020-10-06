@@ -65,4 +65,12 @@ public class CardFragmentTest {
         device.setStatus("");
         Assert.assertEquals(device.getPosition(getApplicationContext()),0);
     }
+
+    @Test
+    public void onDateSet() {
+        Device device = new Device();
+        device.setStatus("");
+        Assert.assertEquals(device.getPosition(getApplicationContext()),0);
+    }
+
 }

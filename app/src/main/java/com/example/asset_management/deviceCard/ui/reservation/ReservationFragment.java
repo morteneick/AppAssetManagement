@@ -106,7 +106,8 @@ public class ReservationFragment extends Fragment {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Connection connection = new Connection();
-                                    connection.deleteReservation(device, listReservation.get(position),
+                                    Reservation deleteReservation = listReservation.get(position);
+                                    connection.deleteReservation(device, deleteReservation,
                                             getContext());
                                     ArrayList<Reservation> list = new ArrayList<Reservation>();
                                     ((DeviceCardActivity)getActivity()).refreshUI();

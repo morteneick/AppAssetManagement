@@ -109,7 +109,7 @@ class DeviceCardActivityTest {
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        onView(withText("Zeige Verlauf")).perform(click());
+        onView(withText("Versionsverlauf")).perform(click());
         assertFalse(activityScenario.equals(DeviceCardOldVersionsListActivity::class.java))
     }
 
