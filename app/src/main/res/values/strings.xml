@@ -66,13 +66,14 @@
     <string name="deviceOldVersionNameJSON">DeviceOldVersion.json</string>
     <string name="logsNameJSON">ConnectionLogs.json</string>
 
+
 <!--    putExtraNames-->
     <string name="deviceListName">DEVICE_LIST</string>
     <string name="deviceName">DEVICE</string>
-    <string name="isOldVersion">isOldVersion</string>
-    <string name="isFilteredList">isPutExtraList</string>
-    <string name="filteredList">putExtraList</string>
-    <string name="user">user</string>
+    <string name="isOldVersion">IS_OLD_VERSION</string>
+    <string name="isFilteredList">IS_PUT_EXTRA_LIST</string>
+    <string name="filteredList">PUT_EXTRA_LIST</string>
+    <string name="user">USER</string>
 
 <!--    MessageTexts-->
     <string name="welcomeTitle">Willkommen</string>

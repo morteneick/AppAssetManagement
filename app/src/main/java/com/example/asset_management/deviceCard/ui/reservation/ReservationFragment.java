@@ -51,7 +51,8 @@ public class ReservationFragment extends Fragment {
                 ViewModelProviders.of(this).get(ReservationViewModel.class);
         View root = inflater.inflate(R.layout.fragment_device_card_reservation, container,
                 false);
-        final String reservationDeviceName = getString(R.string.reservationDeviceNameJSON);
+
+        final String reservationDeviceName = getString(R.string.reservationListNameJSON);
         reservationViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

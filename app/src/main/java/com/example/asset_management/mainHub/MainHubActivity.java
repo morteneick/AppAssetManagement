@@ -64,11 +64,11 @@ public class MainHubActivity extends AppCompatActivity {
         }
 
 
-//        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-//        boolean firstStart = prefs.getBoolean("firstStart", true);
-//        if (firstStart) {
-//            showStartDialog();
-//        }
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean firstStart = prefs.getBoolean("firstStart", true);
+        if (firstStart) {
+            showStartDialog();
+        }
     }
 
     @Override
