@@ -20,6 +20,7 @@
     <string name="title_device_list_old_versions" translatable="false">Versionsverlauf</string>
     <string name="title_deviceList" translatable="false">Geräteübersicht</string>
     <string name="title_addDevice" translatable="false">Gerät hinzufügen</string>
+    <string name="title_device_history" translatable="false">Geräteverlauf</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
@@ -65,6 +66,7 @@
     <string name="lastUpdateNameJSON">LastUpdate.json</string>
     <string name="deviceOldVersionNameJSON">DeviceOldVersion.json</string>
     <string name="logsNameJSON">ConnectionLogs.json</string>
+    <string name="loginNameJSON">Login.json</string>
 
 
 <!--    putExtraNames-->
@@ -188,5 +190,6 @@
     <string name="textReloadList">Liste neu laden</string>
     <string name="textAddUser">Benutzer hinzufügen</string>
     <string name="password">Passwort</string>
+    <string name="needHelpText">Brauchen Sie Hilfe?</string>
 
 </resources>

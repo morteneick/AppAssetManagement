@@ -4,19 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 /**
@@ -46,7 +51,8 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         EditText editSearch = findViewById(R.id.editSearch);
         this.deviceRecycleView = findViewById(R.id.devices);
 
-//        Toolbar toolbar_devicecard = (Toolbar) findViewById(R.id.toolbar_devicecard);
+        Toolbar toolbar = findViewById(R.id.toolbarMain);
+        setSupportActionBar(toolbar);
 
         try {
             positionList = JsonHandler.getIntegerList(jsonNamePosition, this);
@@ -119,10 +125,6 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
 
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
-
-        String show = list.size() + getString(R.string.numbersDeviceFound);
-        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
-
     }
 
     /**
@@ -144,5 +146,16 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         startActivity(getIntent());
         overridePendingTransition(0, 0);
         super.onRestart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        return super.onOptionsItemSelected(item);
     }
 }

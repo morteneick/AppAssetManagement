@@ -57,6 +57,12 @@ public class Connection {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    /**
+     *
+     * @param login login object
+     * @param context activity context
+     * @param activity activity to start the next activity and create an putExtra
+     */
     public void postLogin(Login login, final Context context, final Activity activity) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<JsonObject> call = getPostConnection.postLogin(login);
@@ -73,8 +79,6 @@ public class Connection {
                 UserInfo userInfo = new UserInfo();
                 boolean access = jsonObject.get("access").getAsBoolean();
                 if (access){
-
-                    JsonHandler.createJsonFromObject(jsonObject, "Login.json", context);
 
                     userInfo.setWorkerId(jsonObject.get("worker_id").toString());
                     userInfo.seteMail(jsonObject.get("e_mail").toString());
@@ -94,13 +98,14 @@ public class Connection {
                     userInfo.setDeleteBooking(rights.get("delete_booking").getAsInt());
                     userInfo.setEditBooking(rights.get("edit_booking").getAsInt());
 
-                    Toast.makeText(context,"Willkommen " +userInfo.getFirstname() + " "
+                    Toast.makeText(context,context.getString(R.string.welcomeTitle) + " "
+                            + userInfo.getFirstname() + " "
                             + userInfo.getSurname(),Toast.LENGTH_LONG).show();
                     ArrayList<UserInfo> userList = new ArrayList<>();
                     userList.add(userInfo);
-                    JsonHandler.createJsonFromUserInfoList(userList, "Login1.json", context);
+                    String loginNameJson = context.getString(R.string.loginNameJSON);
+                    JsonHandler.createJsonFromUserInfoList(userList, loginNameJson, context);
 
-//                    Toast.makeText(context,"Rights? "+userInfo.getRole()+ userInfo.getBookingDevice()+userInfo.getEditBooking()+userInfo.getEditDevice()+userInfo.getAddDevice()+userInfo.getDeleteUser(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(activity, MainHubActivity.class);
                     activity.finish();
 
@@ -121,6 +126,10 @@ public class Connection {
         });
     }
 
+    /**
+     * get method for receiving all devices and saves them into a json file
+     * @param context activity context
+     */
     public void getDeviceList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getDevices();
@@ -149,6 +158,10 @@ public class Connection {
         });
     }
 
+    /**
+     * get method to receive all reservations for all devices and saves them into an json file
+     * @param context activity context
+     */
     public void getReservationList(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Reservation>> call = getPostConnection.getReservation();
@@ -173,6 +186,11 @@ public class Connection {
         });
     }
 
+    /**
+     * get method to receive all old versions for one specific device
+     * @param inventoryNumber inventory number from the device
+     * @param context activity context
+     */
     public void getDeviceOldVersion(int inventoryNumber, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
     Call<ArrayList<Device>> call = getPostConnection.getDeviceOldVersion(inventoryNumber);
@@ -199,6 +217,11 @@ public class Connection {
     });
     }
 
+    /**
+     * post method for creating a new reservation
+     * @param reservation new reservation
+     * @param context activity context
+     */
     public void postNewReservation(Reservation reservation, final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postNewReservation(reservation);
@@ -222,6 +245,10 @@ public class Connection {
         });
     }
 
+    /**
+     * get method to get all users and saves them into an json
+     * @param context
+     */
     public void getAllUsers(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<UserInfo>> call = getPostConnection.getAllUsers();
@@ -247,6 +274,11 @@ public class Connection {
         });
     }
 
+    /**
+     * post method for a new device
+     * @param device new created device
+     * @param context activity context
+     */
     public void postNewDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postDevice(device);
@@ -269,6 +301,11 @@ public class Connection {
         });
     }
 
+    /**
+     * post method for a new user
+     * @param userInfo new created user
+     * @param context activity context
+     */
     public void postNewUser(UserInfo userInfo, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.postUser(userInfo);
@@ -291,6 +328,11 @@ public class Connection {
         });
     }
 
+    /**
+     * put method to edit a device
+     * @param device edited device
+     * @param context activity context
+     */
     public void putChangeDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.putChangedDevice
@@ -314,6 +356,11 @@ public class Connection {
         });
     }
 
+    /**
+     * Put method to send an edited user
+     * @param user edited user
+     * @param context activity context
+     */
     public void putUpdateUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.putUpdateUser(user.getWorkerId(), user);
@@ -336,6 +383,11 @@ public class Connection {
         });
     }
 
+    /**
+     * Delete method to delete a specific device
+     * @param device device to delete
+     * @param context activity context
+     */
     public void deleteDevice(Device device, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteDevice(device.getInventoryNumberInt(),
@@ -359,6 +411,11 @@ public class Connection {
         });
     }
 
+    /**
+     * Delete method to delete a specific user
+     * @param user user to delete
+     * @param context Activity context
+     */
     public void deleteUser(UserInfo user, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteUser(user.getWorkerId(), user);
@@ -381,6 +438,12 @@ public class Connection {
         });
     }
 
+    /**
+     * Delete method for an reservation
+     * @param device which device the reservation is made
+     * @param reservation the exact reservation to delete
+     * @param context Activity Context
+     */
     public void deleteReservation(Device device, Reservation reservation, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(
@@ -404,46 +467,57 @@ public class Connection {
         });
     }
 
-//    public static void getDeviceList(String url, final Context context) {
-//        RequestQueue mQueue = Volley.newRequestQueue(context);
-//        final ArrayList<Device> list = new ArrayList<>();
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            JSONArray jsonArray = response.getJSONArray("device");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//
-//                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
-//                                Device device = new Device();
-//
-//                                device.setInventoryNumber(jsonDevice.getString
-//                                        ("inventoryNumber"));
-//                                device.setManufacturer(jsonDevice.getString("manufacturer"));
-//                                device.setModel(jsonDevice.getString("model"));
-//                                device.setStatus(jsonDevice.getString("status"));
-//                                device.setCategory(jsonDevice.getString
-//                                        ("deviceCategorie"));
-//                                list.add(device);
-//                            }
-//                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json",
-//                                    context);
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                error.printStackTrace();
-//            }
-//        });
-//        mQueue = Volley.newRequestQueue(context);
-//        mQueue.add(request);
-//    }
+    /**
+     * deprecated get Method for the Device List
+     * @param url
+     * @param context
+     */
+    public static void getDeviceList(String url, final Context context) {
+        RequestQueue mQueue = Volley.newRequestQueue(context);
+        final ArrayList<Device> list = new ArrayList<>();
 
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("device");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+
+                                JSONObject jsonDevice = jsonArray.getJSONObject(i);
+                                Device device = new Device();
+
+                                device.setInventoryNumber(jsonDevice.getString
+                                        ("inventoryNumber"));
+                                device.setManufacturer(jsonDevice.getString("manufacturer"));
+                                device.setModel(jsonDevice.getString("model"));
+                                device.setStatus(jsonDevice.getString("status"));
+                                device.setCategory(jsonDevice.getString
+                                        ("deviceCategorie"));
+                                list.add(device);
+                            }
+                            JsonHandler.createJsonFromDeviceList(list, "DeviceList.json",
+                                    context);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        mQueue = Volley.newRequestQueue(context);
+        mQueue.add(request);
+    }
+
+    /**
+     * tests if there is a connection to an specific url
+     * @param url specific url to test
+     * @param timeout time for the server to respond
+     * @return true if respond false if not
+     */
     public static boolean isConnectedToServer(String url, int timeout) {
         try{
             URL myUrl = new URL(url);
@@ -457,6 +531,11 @@ public class Connection {
         }
     }
 
+    /**
+     * Shows all errormessages from the server
+     * @param errors error object from the server
+     * @param context Activity Context for displaying the toast
+     */
     public void showErrors(ArrayList<Errors> errors, Context context){
         String message = "";
         for(Errors e: errors){
@@ -465,6 +544,10 @@ public class Connection {
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Get all devices which tuev date is less than 14 days from now on.
+     * @param context Activity Context
+     */
     public void getTuev(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getTuev();
@@ -489,7 +572,10 @@ public class Connection {
             }
         });
     }
-
+    /**
+     * Get all devices which uvv date is less than 14 days from now on.
+     * @param context Activity Context
+     */
     public void getUvv(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getUvv();
@@ -514,6 +600,10 @@ public class Connection {
         });
     }
 
+    /**
+     * Get all devices which maintenance date is less than 14 days from now on.
+     * @param context Activity Context
+     */
     public void getMaintenance(final Context context){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getMaintenance();
@@ -538,6 +628,11 @@ public class Connection {
         });
     }
 
+    /**
+     * Get all reservations from one specific user.
+     * @param context Activity Context
+     * @param userInfo UserInfo from the logged in user
+     */
     public void getBooking(final Context context, UserInfo userInfo){
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
         Call<ArrayList<Device>> call = getPostConnection.getBooking(userInfo.getWorkerId());
@@ -562,6 +657,12 @@ public class Connection {
         });
     }
 
+    /**
+     * Tests if wether the server didnt respond or the conversion from the object didnt worked.
+     * If it didnt worked, a log file will be created with date and t.
+     * @param context Activity Context
+     * @param t Throwable from the Enqueue
+     */
     private static void onFailureMessage(Context context, Throwable t){
         if (t instanceof IOException) {
             Toast.makeText(context, context.getString(R.string.noConnectionServerMessage) +"\uD83D\uDE33",

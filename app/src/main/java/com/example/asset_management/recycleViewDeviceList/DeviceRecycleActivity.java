@@ -91,7 +91,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        lastUpdate.setText(getString(R.string.lastUpdateMessage) + calendar.getTime().toString());
+        lastUpdate.setText(getString(R.string.lastUpdateMessage) + " " + calendar.getTime().toString());
         }
 
         setupRecyclerView();
@@ -208,8 +208,6 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
 
-//        String show = list.size() + " Geräte wurden gefunden";
-//        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 
     /**

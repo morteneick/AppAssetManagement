@@ -5,6 +5,7 @@
     android:id="@+id/activity_device_card_old_versions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
 >
 
     <include

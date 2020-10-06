@@ -1,8 +1,12 @@
 package com.example.asset_management.deviceCard
 
+import android.os.SystemClock
+import android.view.View
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -11,6 +15,8 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import com.example.asset_management.R
+import com.example.asset_management.login.LoginActivity
+import com.example.asset_management.mainHub.MainHubActivity
 import com.example.asset_management.recycleViewDeviceList.DeviceAdapter
 import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity
 import junit.framework.Assert.assertFalse
@@ -29,7 +35,14 @@ class DeviceCardActivityTest {
     fun testIsActivityInView() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -41,7 +54,14 @@ class DeviceCardActivityTest {
     @Test
     fun testToolbar() {
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -54,7 +74,14 @@ class DeviceCardActivityTest {
     fun testToolbarSettings() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -69,7 +96,14 @@ class DeviceCardActivityTest {
     fun testToolbarVersions() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -83,7 +117,14 @@ class DeviceCardActivityTest {
     fun testToolbarDelete() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -98,7 +139,14 @@ class DeviceCardActivityTest {
     fun testMapInView() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -112,7 +160,14 @@ class DeviceCardActivityTest {
     fun testReservationInView() {
 
         val activityScenario =
-                ActivityScenario.launch(DeviceRecycleActivity::class.java)
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(withText("Einloggen")).perform(click());
+        SystemClock.sleep(1500);
+        onView(withId(R.id.btnInventory)).perform(click())
 
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
@@ -121,7 +176,4 @@ class DeviceCardActivityTest {
         onView(withId(R.id.fragment_reservation)).check(ViewAssertions.matches(isDisplayed()))
 
     }
-
-
-
 }

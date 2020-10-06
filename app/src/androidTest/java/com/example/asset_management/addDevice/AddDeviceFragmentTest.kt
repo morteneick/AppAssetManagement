@@ -21,14 +21,14 @@ class AddDeviceFragmentTest{
 
         onView(withId(R.id.editInventoryNumber)).perform(clearText(),
                 typeText("1"));
-        onView(withId(R.id.editSerialNumber)).perform(clearText(),
-                typeText("2"));
+//        onView(withId(R.id.editSerialNumber)).perform(clearText(),
+//                typeText("2"));
         onView(withId(R.id.editManufacturer)).perform(clearText(),
                 typeText("3"));
         onView(withId(R.id.editModel)).perform(clearText(),
                 typeText("4"));
-        onView(withId(R.id.editCategorie)).perform(clearText(),
-                typeText("5"));
+//        onView(withId(R.id.editCategorie)).perform(clearText(),
+//                typeText("5"));
         onView(withId(R.id.editStatus)).perform(clearText(),
                 typeText("6"));
     }
@@ -38,17 +38,17 @@ class AddDeviceFragmentTest{
 
         onView(withId(R.id.editInventoryNumber)).perform(clearText(),
                 typeText("1"));
-        onView(withId(R.id.editSerialNumber)).perform(clearText(),
-                typeText("2"));
+//        onView(withId(R.id.editSerialNumber)).perform(clearText(),
+//                typeText("2"));
         onView(withId(R.id.editManufacturer)).perform(clearText(),
                 typeText("3"));
         onView(withId(R.id.editModel)).perform(clearText(),
                 typeText("4"));
-        onView(withId(R.id.editCategorie)).perform(clearText(),
-                typeText("5"));
+//        onView(withId(R.id.editCategorie)).perform(clearText(),
+//                typeText("5"));
         onView(withId(R.id.editStatus)).perform(clearText(),
                 typeText("6"), closeSoftKeyboard());
-        onView(withId(R.id.button4)).perform(click())
+//        onView(withId(R.id.button4)).perform(click())
     }
 
 //    @Test

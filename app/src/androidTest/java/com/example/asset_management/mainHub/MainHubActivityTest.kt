@@ -3,14 +3,17 @@ package com.example.asset_management.mainHub
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions
 
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.asset_management.R
+import com.example.asset_management.login.LoginActivity
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.regex.Pattern.matches
@@ -23,8 +26,14 @@ class MainHubActivityTest {
 
     @Test
     fun testIsActivityInView() {
-        val activityScenario = ActivityScenario.launch(MainHubActivity::class.java)
-
+        val activityScenario =
+                ActivityScenario.launch(LoginActivity::class.java)
+        onView(withId(R.id.editEmailLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("d.dziersan@dallmann-bau.de"));
+        onView(withId(R.id.editPasswordLogin)).perform(ViewActions.clearText(),
+                ViewActions.typeText("easy"));
+        onView(ViewMatchers.withText("Einloggen")).perform(click());
+        Thread.sleep(1500);
         onView(withId(R.id.mainhub)).check(ViewAssertions.matches(isDisplayed()))
     }
 

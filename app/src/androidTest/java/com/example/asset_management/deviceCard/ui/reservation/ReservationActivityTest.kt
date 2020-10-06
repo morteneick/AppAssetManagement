@@ -82,6 +82,7 @@ class ReservationActivityTest {
         val activityScenario = ActivityScenario
                 .launch(ReservationActivity::class.java)
 
+
         Espresso.onView(ViewMatchers.withId(R.id.btnStartDate)).perform(ViewActions.click())
         onView(withClassName(Matchers.equalTo(DatePicker::class.java.name))).perform(PickerActions
                 .setDate(2020, 8, 20))
@@ -93,5 +94,7 @@ class ReservationActivityTest {
         onView(withId(R.id.textReservationStart)).check(matches(withText("")));
         onView(withId(R.id.textReservationEnd)).check(matches(withText("")));
     }
+
+
 
 }
