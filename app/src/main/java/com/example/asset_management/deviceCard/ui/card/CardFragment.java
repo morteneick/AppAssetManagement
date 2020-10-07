@@ -1,7 +1,6 @@
 package com.example.asset_management.deviceCard.ui.card;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -230,7 +229,7 @@ public class CardFragment extends Fragment implements
                     setVisibility(editUvv, btnUvv);
                     setVisibility(editRepair, btnRepair);
                     setVisibility(editGuarantee, btnGuarantee);
-                    unblockInput(editInventoryNumber);
+                    blockInput(editInventoryNumber);
                     viewSave.setVisibility(View.VISIBLE);
                     editStatus.setEnabled(true);
                     unblockInput(editManufacturer);

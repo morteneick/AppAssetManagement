@@ -1,4 +1,5 @@
 package com.example.asset_management.login;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
@@ -60,7 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         Info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dallmann-bau.de"));
+                String url = getString(R.string.urlHelp);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(url));
                 startActivity(browserIntent);
             }
         });
@@ -68,19 +74,20 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validateLogin(String Username, String Passwd) {
         //catching empty data
-        if (Passwd.trim().length() == 0 && Username.trim().length() == 0 || Username == null && Passwd == null) {
-            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen und Passwort eingeben.", Toast.LENGTH_SHORT)
-                    .show();
+        if (Passwd.trim().length() == 0 && Username.trim().length() == 0
+                || Username == null && Passwd == null) {
+            Toast.makeText(getApplicationContext(), getString(R.string.enterUsernamePassword),
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         if (Username == null || Username.trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Bitte Benutzernamen eingeben.", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getApplicationContext(), getString(R.string.enterUsername),
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         if (Passwd == null || Passwd.trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "Bitte Passwort eingeben.", Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(getApplicationContext(), getString(R.string.enterPassword),
+                    Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

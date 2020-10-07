@@ -1,9 +1,7 @@
 package com.example.asset_management.deviceCard
 
 import android.os.SystemClock
-import android.view.View
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.action.ViewActions
@@ -13,16 +11,11 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import androidx.test.rule.ActivityTestRule
 import com.example.asset_management.R
 import com.example.asset_management.login.LoginActivity
-import com.example.asset_management.mainHub.MainHubActivity
 import com.example.asset_management.recycleViewDeviceList.DeviceAdapter
-import com.example.asset_management.recycleViewDeviceList.DeviceRecycleActivity
 import junit.framework.Assert.assertFalse
-import junit.framework.Assert.assertTrue
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -47,7 +40,6 @@ class DeviceCardActivityTest {
         onView(withId(R.id.devices)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, click()))
         onView(withId(R.id.activity_devicecard)).check(ViewAssertions.matches(isDisplayed()))
-
     }
 
 

@@ -13,11 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
-import com.example.asset_management.login.LoginActivity;
-import com.example.asset_management.login.UserInfo;
-import com.example.asset_management.mainHub.MainHubActivity;
-import com.example.asset_management.mainHub.MainHubFragment;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
@@ -41,7 +36,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         list.add(getString(R.string.settings0));
         list.add(getString(R.string.settings1));
-        list.add(getString(R.string.settings2));
         list.add(getString(R.string.settings3));
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this,
@@ -63,11 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
                     case 1:
                         break;
                     case 2:
-                        Intent login = new Intent(SettingsActivity.this,
-                                LoginActivity.class);
-                        startActivity(login);
-                        break;
-                    case 3:
                         //http://localhost:3000/FAQ
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse(getString(R.string.url)));

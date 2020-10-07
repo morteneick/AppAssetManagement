@@ -83,6 +83,9 @@
     <string name="deleteDeviceTitle">Gerät löschen</string>
     <string name="deleteReservationTitle">Reservierung löschen</string>
     <string name="deleteUserTitle">Benutzer löschen</string>
+    <string name="enterUsername">Bitte Benutzernamen eingeben.</string>
+    <string name="enterPassword">Bitte Passwort eingeben.</string>
+    <string name="enterUsernamePassword">Bitte Benutzernamen und Passwort eingeben.</string>
     <string name="deleteReservationText">Sind Sie sich sicher, dass Sie die Reservierung löschen möchten?</string>
     <string name="deleteUserText">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?</string>
     <string name="deleteDeviceText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?</string>
@@ -93,7 +96,7 @@
     <string name="alertDialogAcceptButton">ok</string>
     <string name="lastUpdateMessage">Letzte Aktualisierung: </string>
     <string name="noReservationFoundText">Keine Reservierungen gefunden.</string>
-    <string name="failedToReserve">Das Enddatum darf nicht vor dem Startdaum liegen!</string>
+    <string name="failedToReserve">Das Projekt kann nur eine Zahl sein! Das Enddatum darf nicht vor dem Startdaum liegen!</string>
     <string name="numbersDeviceFound"> Geräte wurden gefunden.</string>
     <string name="numbersUserFound"> Benutzer wurden gefunden.</string>
     <string name="saveMessage">Informationen wurden gespeichert.</string>
@@ -132,6 +135,7 @@
 
 <!--    URL-->
     <string name="url">http://www.dallmann-bau.de</string>
+    <string name="urlHelp">http://www.dallmann-bau.de</string>
     <string name="baseURL">http://10.0.2.2:3000/</string>
 
     <string name="datePattern">yyyy-MM-dd</string>

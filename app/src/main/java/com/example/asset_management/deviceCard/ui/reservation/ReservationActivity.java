@@ -1,12 +1,8 @@
 package com.example.asset_management.deviceCard.ui.reservation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,7 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.mainHub.MainHubActivity;
@@ -73,7 +73,27 @@ public class ReservationActivity extends AppCompatActivity implements
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                finish();
+                EditText editProjectId = findViewById(R.id.editProjectId);
+                String projectId = editProjectId.getText().toString();
+                int projectIdInt = 0;
+                try{
+                    projectIdInt = Integer.parseInt(projectId);
+                    reservation.setProjectId(projectIdInt);
+                } catch (Exception e){
+
+                }
+
+                if(projectIdInt == 0){
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                } else {
+                    Connection connection = new Connection();
+                    connection.postNewReservation(reservation, getApplicationContext());
+                    finish();
+                }
+
             }
         });
 
@@ -110,7 +130,7 @@ public class ReservationActivity extends AppCompatActivity implements
         } catch (IOException e) {
             e.printStackTrace();
         }
-//TODO add name surname
+
         user = MainHubActivity.getUser();
         reservation.setSurname(user.getSurname());
         reservation.setName(user.getFirstname());
@@ -123,7 +143,8 @@ public class ReservationActivity extends AppCompatActivity implements
             reservation.setStart(c);
             reservation.setLoanDay(date);
         } else {
-            if(reservation.getStart().compareTo(c) <= 0){
+            if(reservation.getStart().compareTo(c) <= 0
+            ){
                 date = c.getTime();
                 textEnd.setText(format.format(date));
                 reservation.setLoanEnd(date);
@@ -141,6 +162,4 @@ public class ReservationActivity extends AppCompatActivity implements
             }
         }
     }
-
-
 }
