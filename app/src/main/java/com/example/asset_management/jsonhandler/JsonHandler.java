@@ -394,17 +394,6 @@ public class JsonHandler {
         return calendar;
     };
 
-//    public static Calendar getReservation(String filename, Context context)
-//            throws IOException {
-//
-//        String jsonString = getDeviceListString(context, filename);
-//
-//        Gson gson = new Gson();
-//        Calendar calendar = gson.fromJson(jsonString, Calendar.class);
-//
-//        return calendar;
-//    };
-
     /**
      * Clears a json file
      * @param path file path of the json

@@ -3,7 +3,6 @@ package com.example.asset_management.deviceCard.ui.reservation;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,8 +29,8 @@ public class DatePickerFragment extends DialogFragment {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         String tag = getTag();
-        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)getActivity(),
-                year,month,day);
+        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener)
+                getActivity(), year,month,day);
     }
 
 

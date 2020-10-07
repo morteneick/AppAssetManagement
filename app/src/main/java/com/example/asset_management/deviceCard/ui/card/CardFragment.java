@@ -108,7 +108,8 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "tuev";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        CardFragment.this,  calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -118,7 +119,8 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "guarantee";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        CardFragment.this,  calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -129,7 +131,8 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "uvv";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        CardFragment.this,  calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -140,7 +143,8 @@ public class CardFragment extends Fragment implements
             @Override
             public void onClick(View v) {
                 clickedCalendar = "repair";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),CardFragment.this,  calendar
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        CardFragment.this,  calendar
                         .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                         calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -268,8 +272,9 @@ public class CardFragment extends Fragment implements
                 String status;
                 if(editStatus.getSelectedItem().toString().equals("")){
                     status = getString(R.string.deviceStatus0);
+                } else {
+                    status = editStatus.getSelectedItem().toString();
                 }
-                status = editStatus.getSelectedItem().toString();
                 String category = editCategory.getText().toString();
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();
@@ -305,6 +310,11 @@ public class CardFragment extends Fragment implements
                         Locale.GERMAN);
                 Date date = null;
 
+                try{
+                    device.setProjectId(Integer.parseInt(project));
+                } catch (Exception ignored) {
+
+                }
                 try {
                     date = format.parse(repair);
                 } catch (ParseException e) {
@@ -335,7 +345,8 @@ public class CardFragment extends Fragment implements
                 }
                 device.setLastUvv(date);
 
-                Toast.makeText(getContext(),device.getLastTuev().toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),device.getLastTuev().toString(),Toast.LENGTH_SHORT)
+                        .show();
 
                 JsonHandler.createJsonFromDevice(device, jsonChangedDevice, getContext());
 

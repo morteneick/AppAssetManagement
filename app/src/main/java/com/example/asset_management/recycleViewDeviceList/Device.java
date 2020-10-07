@@ -2,20 +2,14 @@ package com.example.asset_management.recycleViewDeviceList;
 
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
-import android.view.View;
-import android.widget.EditText;
 
 import com.example.asset_management.R;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
-
-import static java.lang.String.valueOf;
 
 /**
  * Device
@@ -69,10 +63,11 @@ public class Device implements Serializable {
     }
 
     public Device(String inventoryNumber, String model, String manufacturer, String serialNumber,
-                  Date guarantee, String note, int deviceStatus, String description, String category,
-                  Double longitude, Double latitude, Timestamp lastLocationUpdate, Date lastTuev,
-                  Date lastUvv, int projectId, String name, String street, String postcode,
-                  String city, String status, Date lastRepair, Timestamp timestamp) {
+                  Date guarantee, String note, int deviceStatus, String description,
+                  String category, Double longitude, Double latitude, Timestamp lastLocationUpdate,
+                  Date lastTuev, Date lastUvv, int projectId, String name, String street,
+                  String postcode, String city, String status, Date lastRepair,
+                  Timestamp timestamp) {
         this.inventoryNumber = inventoryNumber;
         this.model = model;
         this.manufacturer = manufacturer;
@@ -97,10 +92,6 @@ public class Device implements Serializable {
         this.timestamp = timestamp;
     }
 
-    /**
-     * Takes the input from the AddDeviceActivity fields, creates an Device object.
-     * @throws IOException
-     */
 
     public Timestamp getTimestamp() {
         return timestamp;
@@ -323,6 +314,11 @@ public class Device implements Serializable {
         this.lastChange = lastChange;
     }
 
+    /**
+     * Gives the ID of the statustext for the spinner
+     * @param context activity context
+     * @return int ID
+     */
     public int getPosition (Context context){
 
         if (status == null){

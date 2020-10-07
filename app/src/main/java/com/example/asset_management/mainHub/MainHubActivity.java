@@ -6,23 +6,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.example.asset_management.R;
-
-import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.SwitchEditable;
-import com.example.asset_management.login.LoginActivity;
-import com.example.asset_management.login.UserInfo;
-import com.example.asset_management.settings.SettingsActivity;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+import com.example.asset_management.R;
+import com.example.asset_management.connection.Connection;
+import com.example.asset_management.deviceCard.SwitchEditable;
+import com.example.asset_management.login.LoginActivity;
+import com.example.asset_management.login.UserInfo;
 
 
 /**
@@ -58,7 +52,8 @@ public class MainHubActivity extends AppCompatActivity {
 
         }
         if(user == null){
-            Intent loginIntent =new Intent(MainHubActivity.this, LoginActivity.class);
+            Intent loginIntent =new Intent(MainHubActivity.this,
+                    LoginActivity.class);
             finish();
             startActivity(loginIntent);
         } else {

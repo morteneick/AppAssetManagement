@@ -42,7 +42,8 @@ public class MapFragment extends Fragment {
         mapViewModel =
                 ViewModelProviders.of(this).get(MapViewModel.class);
 
-        View root = inflater.inflate(R.layout.fragment_device_card_map, container, false);
+        View root = inflater.inflate(R.layout.fragment_device_card_map, container,
+                false);
 
         DeviceCardActivity activity = (DeviceCardActivity) getActivity();
         final Device device = activity.getDevice();

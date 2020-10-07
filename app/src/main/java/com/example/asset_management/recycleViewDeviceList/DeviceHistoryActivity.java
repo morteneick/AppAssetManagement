@@ -140,6 +140,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
             } catch (Exception ignored){
 
             }
+
             try {
                 if(i > 0){
                     filteredList.add(item);

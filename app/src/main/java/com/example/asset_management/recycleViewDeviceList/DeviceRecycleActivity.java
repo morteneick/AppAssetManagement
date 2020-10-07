@@ -214,7 +214,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         Intent intent = new Intent(DeviceRecycleActivity.this,
                 DeviceCardActivity.class);
         if(isFiltered){
-            ArrayList<Device> deviceList = JsonHandler.getDeviceList(deviceListNameJson, this);
+            ArrayList<Device> deviceList = JsonHandler.getDeviceList(deviceListNameJson,
+                    this);
             for(Device d : deviceList){
                 if(list.get(position).getInventoryNumber().equals(d.getInventoryNumber())){
                     intent.putExtra(deviceName, d);

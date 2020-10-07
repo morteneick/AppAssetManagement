@@ -1,13 +1,10 @@
 package com.example.asset_management.addDevice;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,20 +14,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.deviceCard.SwitchEditable;
-import com.example.asset_management.deviceCard.ui.card.CardFragment;
 import com.example.asset_management.deviceCard.ui.reservation.DatePickerFragment;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,6 +143,7 @@ public class AddDeviceActivity extends AppCompatActivity implements
         blockInput(editRepair);
         blockInput(editGuarantee);
 
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,8 +155,9 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 String status;
                 if (editStatus.getSelectedItem().toString().equals("")) {
                     status = "Verfügbar";
+                } else {
+                    status = editStatus.getSelectedItem().toString();
                 }
-                status = editStatus.getSelectedItem().toString();
                 String category = editCategory.getText().toString();
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();
@@ -175,6 +171,7 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 String repairNote = editRepairNotes.getText().toString();
                 String beaconMinor = editBeaconMinor.getText().toString();
                 String beaconMajor = editBeaconMajor.getText().toString();
+                String postcode = editPostcode.getText().toString();
 
                 Device device = new Device();
 
@@ -191,11 +188,16 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 device.setBeaconMinor(beaconMinor);
                 device.setBeaconMajor(beaconMajor);
                 device.setRepairNote(repairNote);
+                device.setPostcode(postcode);
                 device.setDeviceStatus(device.getPosition(getApplicationContext())+1);
                 SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern),
                         Locale.GERMAN);
                 Date date = null;
+                try{
+                    device.setProjectId(Integer.parseInt(project));
+                } catch (Exception ignored) {
 
+                }
                 try {
                     date = format.parse(repair);
                 } catch (ParseException e) {
@@ -241,7 +243,8 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 } else
                 {
                     Toast.makeText(getApplicationContext(),
-                            getString(R.string.fillConstraintsMessage), Toast.LENGTH_SHORT).show();
+                            getString(R.string.fillConstraintsMessage),
+                            Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -263,7 +266,6 @@ public class AddDeviceActivity extends AppCompatActivity implements
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         date = c.getTime();
 
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         String calendarPicker0 = getString(R.string.calendarPicker0);
         String calendarPicker1 = getString(R.string.calendarPicker1);
         String calendarPicker2 = getString(R.string.calendarPicker2);
