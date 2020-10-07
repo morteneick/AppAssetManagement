@@ -21,7 +21,6 @@ import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -107,6 +106,13 @@ public class ReservationActivity extends AppCompatActivity implements
         });
     }
 
+    /**
+     * Sets the date to the textviews
+     * @param view
+     * @param year
+     * @param month
+     * @param dayOfMonth
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -115,7 +121,6 @@ public class ReservationActivity extends AppCompatActivity implements
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         TextView textStart = findViewById(R.id.textReservationStart);
         TextView textEnd = findViewById(R.id.textReservationEnd);
         EditText editConstruction = findViewById(R.id.editConstruction);
@@ -137,6 +142,8 @@ public class ReservationActivity extends AppCompatActivity implements
         reservation.setInventoryNumber(inventoryNumber);
         SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
         Date date = new Date();
+
+        //If DatePicker of START is clicked
         if(isStart){
             date = c.getTime();
             textStart.setText(format.format(date));

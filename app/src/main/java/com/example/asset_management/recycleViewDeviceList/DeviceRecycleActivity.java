@@ -9,6 +9,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.asset_management.R;
@@ -16,12 +22,6 @@ import com.example.asset_management.connection.Connection;
 import com.example.asset_management.deviceCard.DeviceCardActivity;
 import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,7 +133,6 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
      * textfield
      * @param text Text from the Textfield
      */
-
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
 
@@ -157,14 +156,6 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
             try {
                 if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
-
-            }
-
-            try {
-                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
                     i++;
                 }
             } catch (Exception ignored){

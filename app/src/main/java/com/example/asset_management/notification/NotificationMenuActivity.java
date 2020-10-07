@@ -1,14 +1,14 @@
 package com.example.asset_management.notification;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
@@ -60,6 +60,7 @@ public class NotificationMenuActivity extends AppCompatActivity {
                 ArrayList<Device> filteredList = new ArrayList<>();
                 Intent intent = new Intent(NotificationMenuActivity.this,
                         DeviceRecycleActivity.class);
+
                 switch(position){
                     case 0:
                         connection.getTuev(getApplicationContext());

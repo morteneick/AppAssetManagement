@@ -15,11 +15,9 @@ import com.example.asset_management.R;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.Login;
-import com.example.asset_management.login.LoginActivity;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewDeviceList.Device;
-import com.example.asset_management.settings.SettingsActivity;
 import com.google.gson.JsonObject;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +31,6 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -679,7 +676,7 @@ public class Connection {
             errors.setMsg(context.getString(R.string.conversionErrorMessage));
 
             String connectionLogJsonName = context.getString(R.string.logsNameJSON);
-            JsonHandler.createJsonFromErrorsList(errors, connectionLogJsonName,
+            JsonHandler.createJsonFromErrors(errors, connectionLogJsonName,
                     context);
         }
     }

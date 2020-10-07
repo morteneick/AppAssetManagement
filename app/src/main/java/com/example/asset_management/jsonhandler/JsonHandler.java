@@ -4,10 +4,8 @@ import android.content.Context;
 
 import com.example.asset_management.connection.Errors;
 import com.example.asset_management.deviceCard.ui.reservation.Reservation;
-import com.example.asset_management.login.Login;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.recycleViewDeviceList.Device;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -49,15 +47,7 @@ public class JsonHandler {
         return json;
     }
 
-    /**
-     * Creates an file in the path from an device object in a path
-     * @param object
-     * @param path
-     * @param context
-     * @return
-     */
-
-    public static String createJsonFromLogin(ArrayList<UserInfo> list, String path, Context context){
+    public static Boolean createJsonFromLogin(ArrayList<UserInfo> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -66,13 +56,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromObject(Object object, String path, Context context){
+    /**
+     * Creates Json from Object
+     * @param object
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromObject(Object object, String path, Context context){
         String json = convertIntoString(object);
 
         try {
@@ -81,13 +78,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
+    /**
+     * Creates Json from ArrayList<Device>
+     * @param list ArrayList with Devices
+     * @param path String with path for the json
+     * @param context
+     * @return
+     */
+    public static Boolean createJsonFromDeviceList(ArrayList<Device> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -96,13 +100,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromDevice(Device device, String path, Context context){
+    /**
+     * Creates json from single device object
+     * @param device device object
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromDevice(Device device, String path, Context context){
         String json = convertIntoString(device);
 
         try {
@@ -111,13 +122,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromInteger(ArrayList<Integer> list, String path, Context context){
+    /**
+     * Creates json from ArrayList Integer
+     * @param list Arraylist with Integers
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromInteger(ArrayList<Integer> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -126,13 +144,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromCalendarList(ArrayList<Reservation> list, String path, Context context){
+    /**
+     * creates json from ArrayList<Calendar>
+     * @param list ArrayList with Calendar objects
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromCalendarList(ArrayList<Reservation> list, String path, Context context){
         String json = convertIntoString(list);
 
         try {
@@ -141,13 +166,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromCalendar(Calendar calendar, String path, Context context){
+    /**
+     * Creates json from single Calendar object
+     * @param calendar
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromCalendar(Calendar calendar, String path, Context context){
         String json = convertIntoString(calendar);
 
         try {
@@ -156,13 +188,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromErrorsList(Errors errors, String path, Context context){
+    /**
+     * creates json from single error object
+     * @param errors
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromErrors(Errors errors, String path, Context context){
         String json = convertIntoString(errors);
 
         try {
@@ -171,13 +210,20 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-    public static String createJsonFromUserInfoList(ArrayList<UserInfo> userInfos, String path, Context context){
+    /**
+     * creates json from ArrayList<UserInfo>
+     * @param userInfos
+     * @param path String with path for the json
+     * @param context activity context
+     * @return
+     */
+    public static Boolean createJsonFromUserInfoList(ArrayList<UserInfo> userInfos, String path, Context context){
         String json = convertIntoString(userInfos);
 
         try {
@@ -186,13 +232,19 @@ public class JsonHandler {
             osw.append(json);
             osw.flush();
             osw.close();
-            return "Success";
+            return true;
         } catch (Exception E){
-            return "Failed";
+            return false;
         }
     }
 
-
+    /**
+     * gets a json file as a string
+     * @param context activity context
+     * @param fileName file path of the json
+     * @return string with json object as String
+     * @throws IOException
+     */
     public static String getListString(Context context, String fileName)
             throws IOException {
 
@@ -212,6 +264,13 @@ public class JsonHandler {
         return response;
     };
 
+    /**
+     * gets ArrayList<Device> from a specific json
+     * @param filename file path of the json
+     * @param context activity context
+     * @return ArrayList<Device>
+     * @throws IOException
+     */
     public static ArrayList<Device> getDeviceList(String filename, Context context)
             throws IOException {
 
@@ -224,6 +283,13 @@ public class JsonHandler {
         return list;
     };
 
+    /**
+     * Gets ArrayList<UserInfo> from specific json file
+     * @param filename file path of the json
+     * @param context activity context
+     * @return ArrayList with UserInfo objects
+     * @throws IOException
+     */
     public static ArrayList<UserInfo> getUserList(String filename, Context context)
             throws IOException {
 
@@ -236,6 +302,13 @@ public class JsonHandler {
         return list;
     };
 
+    /**
+     * Gets Device from json file
+     * @param filename file path of the json
+     * @param context activity context
+     * @return device object
+     * @throws IOException
+     */
     public static Device getDevice(String filename, Context context)
             throws IOException {
 
@@ -247,6 +320,13 @@ public class JsonHandler {
         return device;
     };
 
+    /**
+     * gets a UserInfo object from json file
+     * @param filename file path of the json
+     * @param context activity context
+     * @return single UserInfo object
+     * @throws IOException
+     */
     public static UserInfo getUser(String filename, Context context)
             throws IOException {
 
@@ -258,6 +338,13 @@ public class JsonHandler {
         return user;
     };
 
+    /**
+     * gets ArrayList with Integer objects from json file
+     * @param filename file path of the json
+     * @param context activity context
+     * @return ArrayList with integer objects
+     * @throws IOException
+     */
     public static ArrayList<Integer> getIntegerList(String filename, Context context)
             throws IOException {
 
@@ -270,6 +357,13 @@ public class JsonHandler {
         return list;
     };
 
+    /**
+     * gets ArrayList with Reservations objects from json
+     * @param filename file path of the json
+     * @param context activity context
+     * @return ArrayList<Reservation>
+     * @throws IOException
+     */
     public static ArrayList<Reservation> getReservationList(String filename, Context context)
             throws IOException {
 
@@ -282,6 +376,13 @@ public class JsonHandler {
         return list;
     };
 
+    /**
+     * Gets calendar object from json file
+     * @param filename file path of the json
+     * @param context activity context
+     * @return single calendar object
+     * @throws IOException
+     */
     public static Calendar getCalendar(String filename, Context context)
             throws IOException {
 
@@ -304,6 +405,11 @@ public class JsonHandler {
 //        return calendar;
 //    };
 
+    /**
+     * Clears a json file
+     * @param path file path of the json
+     * @throws FileNotFoundException
+     */
     public static void clearJson(String path) throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(path);
         pw.close();

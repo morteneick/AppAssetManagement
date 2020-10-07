@@ -7,21 +7,18 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.asset_management.R;
-import com.example.asset_management.connection.Connection;
-import com.example.asset_management.deviceCard.DeviceCardActivity;
-import com.example.asset_management.jsonhandler.JsonHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.asset_management.R;
+import com.example.asset_management.deviceCard.DeviceCardActivity;
+import com.example.asset_management.jsonhandler.JsonHandler;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
 /**
@@ -89,31 +86,71 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
         });
     }
 
-    //TODO Add improtant filters
+    /**
+     * Filters the ArrayList<Device> if the device has the text in: InventoryNumber, Status, Category
+     * Manufacturer and Model
+     * @param text
+     */
+    /**
+     * Checks each object in the list for each variable to see if it matches the input from the
+     * textfield
+     * @param text Text from the Textfield
+     */
     private void filter(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
+
         for (Device item : list) {
-            if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            int i = 0;
+            try{
+                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+
+            try{
+                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+
+            try {
+                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+
+            try {
+                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+
+            try {
+                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
+                    i++;
+                }
+            } catch (Exception ignored){
+
             }
-            if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            try {
+                if(i > 0){
+                    filteredList.add(item);
+                }
+            } catch (Exception ignored){
+
             }
         }
         adapter.filterList(filteredList);
     }
+
 
     /**
      * initialize RecyclerView with DeviceAdapter

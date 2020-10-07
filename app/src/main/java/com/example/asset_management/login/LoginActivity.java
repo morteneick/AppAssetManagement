@@ -72,6 +72,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Validate if both strings are filled in correctly. Sends Toast if false
+     * @param Username
+     * @param Passwd
+     * @return true if both Strings
+     */
     private boolean validateLogin(String Username, String Passwd) {
         //catching empty data
         if (Passwd.trim().length() == 0 && Username.trim().length() == 0
