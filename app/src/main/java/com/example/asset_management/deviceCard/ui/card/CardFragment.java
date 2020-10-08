@@ -88,6 +88,7 @@ public class CardFragment extends Fragment implements
         final EditText editRepairNotes = root.findViewById(R.id.editRepairNotes);
         final EditText editBeaconMinor = root.findViewById(R.id.editBeaconMinor);
         final EditText editBeaconMajor = root.findViewById(R.id.editBeaconMajor);
+
         editGuarantee = root.findViewById(R.id.editGuarantee);
         editTuev = root.findViewById(R.id.editTuev);
         editUvv = root.findViewById(R.id.editUvv);
@@ -115,6 +116,7 @@ public class CardFragment extends Fragment implements
                 datePickerDialog.show();
             }
         });
+
         btnGuarantee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,13 +161,12 @@ public class CardFragment extends Fragment implements
             final Device device = activity.getDevice();
 
             editInventoryNumber.setText(device.getInventoryNumber());
-//            editStatus.setText(device.getStatus());
-                editStatus.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        editStatus.setSelection(device.getPosition(getContext()));
-                    }
-                });
+            editStatus.post(new Runnable() {
+                @Override
+                public void run() {
+                    editStatus.setSelection(device.getPosition(getContext()));
+                }
+            });
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());
@@ -197,12 +198,12 @@ public class CardFragment extends Fragment implements
             } catch (Exception e){
                 editRepair.setText("");
             }
-                try {
-                    date = device.getGuarantee();
-                    editRepair.setText(format.format(date));
-                } catch (Exception e){
-                    editRepair.setText("");
-                }
+            try {
+                date = device.getGuarantee();
+                editGuarantee.setText(format.format(date));
+            } catch (Exception e){
+                editGuarantee.setText("");
+            }
                 if (!SwitchEditable.isClicked(getContext())){
                     setInvisibility(editTuev, btnTuev);
                     setInvisibility(editUvv, btnUvv);
@@ -227,6 +228,7 @@ public class CardFragment extends Fragment implements
                     blockInput(editRepairNotes);
                     blockInput(editBeaconMajor);
                     blockInput(editBeaconMinor);
+                    blockInput(editGuarantee);
 
                 } else {
                     setVisibility(editTuev, btnTuev);

@@ -26,11 +26,14 @@ public class Device implements Serializable {
     private String serialNumber;
     private Date guarantee;
     private String note;
-    private int deviceStatus;
+    private int deviceCategory;
+    @SerializedName("categoryDescription")
+    private String category;
 
+    private int deviceStatus;
     @SerializedName("statusDescription")
     private String description;
-    private String category;
+
     private Double longitude;
     private Double latitude;
     private Timestamp lastLocationUpdate;
@@ -63,11 +66,12 @@ public class Device implements Serializable {
     }
 
     public Device(String inventoryNumber, String model, String manufacturer, String serialNumber,
-                  Date guarantee, String note, int deviceStatus, String description,
-                  String category, Double longitude, Double latitude, Timestamp lastLocationUpdate,
-                  Date lastTuev, Date lastUvv, int projectId, String name, String street,
-                  String postcode, String city, String status, Date lastRepair,
-                  Timestamp timestamp) {
+                  Date guarantee, String note, int deviceStatus, int deviceCategory,
+                  String description, String category, Double longitude, Double latitude,
+                  Timestamp lastLocationUpdate, Date lastTuev, Date lastUvv, int projectId,
+                  String name, String street, String postcode, String city, String status,
+                  Date lastRepair, Date lastChange, String repairNote, String beaconMajor,
+                  String beaconMinor, Timestamp timestamp) {
         this.inventoryNumber = inventoryNumber;
         this.model = model;
         this.manufacturer = manufacturer;
@@ -75,6 +79,7 @@ public class Device implements Serializable {
         this.guarantee = guarantee;
         this.note = note;
         this.deviceStatus = deviceStatus;
+        this.deviceCategory = deviceCategory;
         this.description = description;
         this.category = category;
         this.longitude = longitude;
@@ -89,9 +94,20 @@ public class Device implements Serializable {
         this.city = city;
         this.status = status;
         this.lastRepair = lastRepair;
+        this.lastChange = lastChange;
+        this.repairNote = repairNote;
+        this.beaconMajor = beaconMajor;
+        this.beaconMinor = beaconMinor;
         this.timestamp = timestamp;
     }
 
+    public int getDeviceCategory() {
+        return deviceCategory;
+    }
+
+    public void setDeviceCategory(int deviceCategory) {
+        this.deviceCategory = deviceCategory;
+    }
 
     public Timestamp getTimestamp() {
         return timestamp;
@@ -357,6 +373,54 @@ public class Device implements Serializable {
             return 0;
         }
     }
+
+    public int getPositionCategory (Context context){
+
+        if (status == null){
+            return 0;
+        }
+
+        String status0 = context.getString(R.string.deviceCategory0);
+        String status1 = context.getString(R.string.deviceCategory1);
+        String status2 = context.getString(R.string.deviceCategory2);
+        String status3 = context.getString(R.string.deviceCategory3);
+        String status4 = context.getString(R.string.deviceCategory4);
+        String status5 = context.getString(R.string.deviceCategory5);
+        String status6 = context.getString(R.string.deviceCategory6);
+        String status7 = context.getString(R.string.deviceCategory7);
+//        String status6 = context.getString(R.string.deviceCategory8);
+        if(status.equals(status0)){
+            return 0;
+        }
+        if(status.equals(status1)){
+            return 1;
+        }
+        if(status.equals(status2)){
+            return 2;
+        }
+        if(status.equals(status3)){
+            return 3;
+        }
+        if(status.equals(status4)){
+            return 4;
+        }
+        if(status.equals(status5)){
+            return 5;
+        }
+        if(status.equals(status6)){
+            return 6;
+        }
+        if(status.equals(status7)){
+            return 7;
+        }
+//        if(status.equals(status8)){
+//            return 8;
+//        }
+        else {
+            return 0;
+        }
+    }
+
     @Override
     public String toString() {
         return "Device{" +

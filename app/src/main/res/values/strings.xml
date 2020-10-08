@@ -48,6 +48,19 @@
         <item></item>
     </string-array>
 
+    <string-array name="category">
+        <item>Rüttelplatten</item>
+        <item>Stampfer</item>
+        <item>Motorflex</item>
+        <item>Rohrgreifer</item>
+        <item>Kettensägen</item>
+        <item>Motorhammer</item>
+        <item>Leiter</item>
+        <item>Exoten</item>
+        <item>Leiter</item>
+        <item></item>
+    </string-array>
+
 <!--    JSON File names-->
     <string name="deviceListNameJSON">DeviceList.json</string>
     <string name="deviceNameJSON">Device.json</string>
@@ -86,24 +99,31 @@
     <string name="enterUsername">Bitte Benutzernamen eingeben.</string>
     <string name="enterPassword">Bitte Passwort eingeben.</string>
     <string name="enterUsernamePassword">Bitte Benutzernamen und Passwort eingeben.</string>
-    <string name="deleteReservationText">Sind Sie sich sicher, dass Sie die Reservierung löschen möchten?</string>
-    <string name="deleteUserText">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?</string>
-    <string name="deleteDeviceText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?</string>
-    <string name="discardText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?</string>
+    <string name="deleteReservationText">Sind Sie sich sicher, dass Sie die Reservierung löschen
+        möchten?</string>
+    <string name="deleteUserText">Sind Sie sich sicher, dass Sie den Benutzer löschen möchten?
+    </string>
+    <string name="deleteDeviceText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?
+    </string>
+    <string name="discardText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?
+    </string>
     <string name="welcomeText">Um sich mit allen Funktionalitäten der App vertraut zu machen werden
                         Sie zu der Bedienungsanleitung weitergeleitet. Diese können Sie später in
                         den Einstellungen immer wieder ansehen. </string>
     <string name="alertDialogAcceptButton">ok</string>
     <string name="lastUpdateMessage">Letzte Aktualisierung: </string>
     <string name="noReservationFoundText">Keine Reservierungen gefunden.</string>
-    <string name="failedToReserve">Das Projekt kann nur eine Zahl sein! Das Enddatum darf nicht vor dem Startdaum liegen!</string>
+    <string name="failedToReserve">Das Projekt kann nur eine Zahl sein! Das Enddatum darf nicht
+        vor dem Startdaum liegen!</string>
     <string name="numbersDeviceFound"> Geräte wurden gefunden.</string>
     <string name="numbersUserFound"> Benutzer wurden gefunden.</string>
     <string name="saveMessage">Informationen wurden gespeichert.</string>
     <string name="noConnectionServerMessage">Keine Verbindung zum Server.</string>
     <string name="noOldVersionsFound">Keine alten Versionen gefunden.</string>
-    <string name="fillConstraintsMessage">Bitte Füllen Sie Felder aus, die mit einem Sternchen markiert sind.</string>
-    <string name="noAccessMessage">Sie haben keine Berechtigungen diese Funktion auszuführen.</string>
+    <string name="fillConstraintsMessage">Bitte Füllen Sie Felder aus, die mit einem Sternchen
+        markiert sind.</string>
+    <string name="noAccessMessage">Sie haben keine Berechtigungen diese Funktion auszuführen.
+    </string>
     <string name="conversionErrorMessage">Conversion Error</string>
 
     <!--    NotificationMenu-->
@@ -126,6 +146,17 @@
     <string name="deviceStatus4">Defekt</string>
     <string name="deviceStatus5">Verschollen/Verschwunden</string>
     <string name="deviceStatus6">Gestohlen</string>
+
+    <!--    Device Category for Spinner-->
+    <string name="deviceCategory0">Rüttelplatten</string>
+    <string name="deviceCategory1">Stampfer</string>
+    <string name="deviceCategory2">Motorflex</string>
+    <string name="deviceCategory3">Rohrgreifer</string>
+    <string name="deviceCategory4">Kettensägen</string>
+    <string name="deviceCategory5">Motorhammer</string>
+    <string name="deviceCategory6">Leiter</string>
+    <string name="deviceCategory7">Exoten</string>
+
 
 <!--    Calenderpicker-->
     <string name="calendarPicker0">tuev</string>
