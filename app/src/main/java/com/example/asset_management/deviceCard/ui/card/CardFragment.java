@@ -69,16 +69,24 @@ public class CardFragment extends Fragment implements
                 false);
 
         final EditText editInventoryNumber = root.findViewById(R.id.editInventoryNumber);
+        final Spinner editCategory = root.findViewById(R.id.editCategory);
         final Spinner editStatus = root.findViewById(R.id.editStatus);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+
+        ArrayAdapter<CharSequence> adapterStatus = ArrayAdapter.createFromResource(getContext(),
                 R.array.status, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        editStatus.setAdapter(adapter);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(getContext(),
+                R.array.category, android.R.layout.simple_spinner_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        editStatus.setAdapter(adapterStatus);
+        editCategory.setAdapter(adapterCategory);
 
         final EditText editManufacturer = root.findViewById(R.id.editManufacturer);
         final EditText editModel = root.findViewById(R.id.editModel);
         final EditText editSerialnumber = root.findViewById(R.id.editSerialnumber);
-        final EditText editCategory = root.findViewById(R.id.editCategory);
+//        final EditText editCategory = root.findViewById(R.id.editCategory);
         final EditText editName = root.findViewById(R.id.editName);
         final EditText editCity = root.findViewById(R.id.editCity);
         final EditText editPostcode = root.findViewById(R.id.editPostcode);
@@ -105,72 +113,32 @@ public class CardFragment extends Fragment implements
         final Button btnGuarantee = root.findViewById(R.id.btnGuarantee);
         final View viewGuarantee = root.findViewById(R.id.btnGuarantee);
 
-        btnTuev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickedCalendar = "tuev";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        CardFragment.this,  calendar
-                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-        });
-
-        btnGuarantee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickedCalendar = "guarantee";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        CardFragment.this,  calendar
-                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-        });
-
-        btnUvv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickedCalendar = "uvv";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        CardFragment.this,  calendar
-                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-        });
-
-        btnRepair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickedCalendar = "repair";
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                        CardFragment.this,  calendar
-                        .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-        });
 
         cardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
             DeviceCardActivity activity = (DeviceCardActivity) getActivity();
-
             final Device device = activity.getDevice();
 
-            editInventoryNumber.setText(device.getInventoryNumber());
             editStatus.post(new Runnable() {
                 @Override
                 public void run() {
                     editStatus.setSelection(device.getPosition(getContext()));
                 }
             });
+
+            editCategory.post(new Runnable() {
+                @Override
+                public void run() {
+                    editCategory.setSelection(device.getPosition(getContext()));
+                }
+            });
+
+            editInventoryNumber.setText(device.getInventoryNumber());
             editManufacturer.setText(device.getManufacturer());
             editModel.setText(device.getModel());
             editSerialnumber.setText(device.getSerialnumber());
-            editCategory.setText(device.getCategory());
+//            editCategory.setText(device.getCategory());
             editPostcode.setText(device.getPostcode());
             editCity.setText(device.getCity());
             editStreet.setText(device.getStreet());
@@ -204,57 +172,109 @@ public class CardFragment extends Fragment implements
             } catch (Exception e){
                 editGuarantee.setText("");
             }
-                if (!SwitchEditable.isClicked(getContext())){
-                    setInvisibility(editTuev, btnTuev);
-                    setInvisibility(editUvv, btnUvv);
-                    setInvisibility(editRepair, btnRepair);
-                    setInvisibility(editGuarantee, btnGuarantee);
-                    viewSave.setVisibility(View.INVISIBLE);
-                    blockInput(editInventoryNumber);
-                    editStatus.setEnabled(false);
-                    blockInput(editManufacturer);
-                    blockInput(editModel);
-                    blockInput(editSerialnumber);
-                    blockInput(editCategory);
-                    blockInput(editName);
-                    blockInput(editCity);
-                    blockInput(editStreet);
-                    blockInput(editPostcode);
-                    blockInput(editTuev);
-                    blockInput(editUvv);
-                    blockInput(editRepair);
-                    blockInput(editProject);
-                    blockInput(editNotes);
-                    blockInput(editRepairNotes);
-                    blockInput(editBeaconMajor);
-                    blockInput(editBeaconMinor);
-                    blockInput(editGuarantee);
 
-                } else {
-                    setVisibility(editTuev, btnTuev);
-                    setVisibility(editUvv, btnUvv);
-                    setVisibility(editRepair, btnRepair);
-                    setVisibility(editGuarantee, btnGuarantee);
-                    blockInput(editInventoryNumber);
-                    viewSave.setVisibility(View.VISIBLE);
-                    editStatus.setEnabled(true);
-                    unblockInput(editManufacturer);
-                    unblockInput(editModel);
-                    unblockInput(editSerialnumber);
-                    unblockInput(editCategory);
-                    unblockInput(editPostcode);
-                    unblockInput(editStreet);
-                    unblockInput(editCity);
-                    unblockInput(editName);
-                    blockInput(editTuev);
-                    blockInput(editUvv);
-                    blockInput(editRepair);
-                    unblockInput(editNotes);
-                    unblockInput(editProject);
-                    unblockInput(editRepairNotes);
-                    unblockInput(editBeaconMinor);
-                    unblockInput(editBeaconMinor);
+            if (!SwitchEditable.isClicked(getContext())){
+                setInvisibility(editTuev, btnTuev);
+                setInvisibility(editUvv, btnUvv);
+                setInvisibility(editRepair, btnRepair);
+                setInvisibility(editGuarantee, btnGuarantee);
+                viewSave.setVisibility(View.INVISIBLE);
+                blockInput(editInventoryNumber);
+                editStatus.setEnabled(false);
+                editCategory.setEnabled(false);
+                blockInput(editManufacturer);
+                blockInput(editModel);
+                blockInput(editSerialnumber);
+//                    blockInput(editCategory);
+                blockInput(editName);
+                blockInput(editCity);
+                blockInput(editStreet);
+                blockInput(editPostcode);
+                blockInput(editTuev);
+                blockInput(editUvv);
+                blockInput(editRepair);
+                blockInput(editProject);
+                blockInput(editNotes);
+                blockInput(editRepairNotes);
+                blockInput(editBeaconMajor);
+                blockInput(editBeaconMinor);
+                blockInput(editGuarantee);
+
+            } else {
+                setVisibility(editTuev, btnTuev);
+                setVisibility(editUvv, btnUvv);
+                setVisibility(editRepair, btnRepair);
+                setVisibility(editGuarantee, btnGuarantee);
+                blockInput(editInventoryNumber);
+                viewSave.setVisibility(View.VISIBLE);
+                editStatus.setEnabled(true);
+                editCategory.setEnabled(true);
+                unblockInput(editManufacturer);
+                unblockInput(editModel);
+                unblockInput(editSerialnumber);
+//                    unblockInput(editCategory);
+                unblockInput(editPostcode);
+                unblockInput(editStreet);
+                unblockInput(editCity);
+                unblockInput(editName);
+                blockInput(editTuev);
+                blockInput(editUvv);
+                blockInput(editRepair);
+                unblockInput(editNotes);
+                unblockInput(editProject);
+                unblockInput(editRepairNotes);
+                unblockInput(editBeaconMinor);
+                unblockInput(editBeaconMinor);
+            }
+
+            btnTuev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedCalendar = "tuev";
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                            CardFragment.this,  calendar
+                            .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
                 }
+            });
+
+            btnGuarantee.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedCalendar = "guarantee";
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                            CardFragment.this,  calendar
+                            .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                }
+            });
+
+            btnUvv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedCalendar = "uvv";
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                            CardFragment.this,  calendar
+                            .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                }
+            });
+
+            btnRepair.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedCalendar = "repair";
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                            CardFragment.this,  calendar
+                            .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH));
+                    datePickerDialog.show();
+                }
+            });
+
             }
         });
 
@@ -277,7 +297,14 @@ public class CardFragment extends Fragment implements
                 } else {
                     status = editStatus.getSelectedItem().toString();
                 }
-                String category = editCategory.getText().toString();
+
+                String category;
+                if(editCategory.getSelectedItem().toString().equals("")){
+                    status = getString(R.string.deviceCategory8);
+                } else {
+                    category = editStatus.getSelectedItem().toString();
+                }
+
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();
                 String city = editCity.getText().toString();
@@ -298,7 +325,7 @@ public class CardFragment extends Fragment implements
                 device.setSerialnumber(serialnumber);
                 device.setModel(model);
                 device.setStatus(status);
-                device.setCategory(category);
+                device.setDeviceCategory(device.getPositionCategory(getContext())+1);
                 device.setManufacturer(manufacturer);
                 device.setNote(notes);
                 device.setCity(city);

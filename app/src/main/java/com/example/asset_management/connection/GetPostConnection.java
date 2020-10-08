@@ -62,8 +62,8 @@ public interface GetPostConnection {
     Call<ArrayList<Errors>> deleteUser(@Path("workerId")int workerId, @Body UserInfo userInfo);
 
     @Headers("Accept: application/json")
-    @HTTP(method="DELETE", path="api/borrow/cancelReservation/{inventoryNumber}", hasBody = true)
-    Call<ArrayList<Errors>> deleteReservation(@Path("inventoryNumber")int inventoryNumber, @Body Reservation reservation);
+    @HTTP(method="DELETE", path="api/borrow/cancelReservation", hasBody = true)
+    Call<ArrayList<Errors>> deleteReservation(@Body Reservation reservation);
 
     @Headers("Accept: application/json")
     @HTTP(method="DELETE", path="api/device/deleteDevice/{inventoryNumber}", hasBody = true)

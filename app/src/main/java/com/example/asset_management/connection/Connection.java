@@ -443,8 +443,7 @@ public class Connection {
      */
     public void deleteReservation(Device device, Reservation reservation, final Context context) {
         GetPostConnection getPostConnection = retrofit.create(GetPostConnection.class);
-        Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(
-                device.getInventoryNumberInt(), reservation);
+        Call<ArrayList<Errors>> call = getPostConnection.deleteReservation(reservation);
 
         call.enqueue(new Callback<ArrayList<Errors>>() {
             @Override

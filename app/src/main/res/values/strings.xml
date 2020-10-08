@@ -58,6 +58,7 @@
         <item>Leiter</item>
         <item>Exoten</item>
         <item>Leiter</item>
+        <item>NICHT GESETZT!</item>
         <item></item>
     </string-array>
 
@@ -156,7 +157,7 @@
     <string name="deviceCategory5">Motorhammer</string>
     <string name="deviceCategory6">Leiter</string>
     <string name="deviceCategory7">Exoten</string>
-
+    <string name="deviceCategory8">NICHT GESETZT!</string>
 
 <!--    Calenderpicker-->
     <string name="calendarPicker0">tuev</string>
