@@ -196,6 +196,7 @@
     <string name="textRightDeleteReservation">Recht zum Löschen von Reservierungen</string>
     <string name="btnSaveText">Speichern</string>
     <string name="textStatus">Status*</string>
+    <string name="textCategoryAdd">Kategorie*</string>
     <string name="textCategory">Kategorie</string>
     <string name="textSerialnumber">Seriennummer*</string>
     <string name="textGuarantee">Garantie</string>

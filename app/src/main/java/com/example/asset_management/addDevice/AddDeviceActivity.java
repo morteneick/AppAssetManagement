@@ -78,15 +78,7 @@ public class AddDeviceActivity extends AppCompatActivity implements
         final EditText editManufacturer = findViewById(R.id.editManufacturer);
         final EditText editModel = findViewById(R.id.editModel);
         final EditText editSerialnumber = findViewById(R.id.editSerialnumber);
-        final EditText editName = findViewById(R.id.editName);
-        final EditText editCity = findViewById(R.id.editCity);
-        final EditText editPostcode = findViewById(R.id.editPostcode);
-        final EditText editStreet = findViewById(R.id.editStreet);
         final EditText editNotes = findViewById(R.id.editNotes);
-        final EditText editProject = findViewById(R.id.editProject);
-        final EditText editRepairNotes = findViewById(R.id.editRepairNotes);
-        final EditText editBeaconMinor = findViewById(R.id.editBeaconMinor);
-        final EditText editBeaconMajor = findViewById(R.id.editBeaconMajor);
         editGuarantee = findViewById(R.id.editGuarantee);
         editTuev = findViewById(R.id.editTuev);
         editUvv = findViewById(R.id.editUvv);
@@ -154,7 +146,6 @@ public class AddDeviceActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
-                String inventoryNumber = editInventoryNumber.getText().toString();
                 String serialnumber = editSerialnumber.getText().toString();
                 String manufacturer = editManufacturer.getText().toString();
                 String model = editModel.getText().toString();
@@ -172,23 +163,16 @@ public class AddDeviceActivity extends AppCompatActivity implements
                     category = editStatus.getSelectedItem().toString();
                 }
 
-                String name = editName.getText().toString();
-                String street = editStreet.getText().toString();
-                String city = editCity.getText().toString();
                 String notes = editNotes.getText().toString();
                 String tuev = editTuev.getText().toString();
                 String uvv = editUvv.getText().toString();
                 String guarantee = editGuarantee.getText().toString();
-                String project = editProject.getText().toString();
+
                 String repair = editRepair.getText().toString();
-                String repairNote = editRepairNotes.getText().toString();
-                String beaconMinor = editBeaconMinor.getText().toString();
-                String beaconMajor = editBeaconMajor.getText().toString();
-                String postcode = editPostcode.getText().toString();
+
 
                 Device device = new Device();
 
-                device.setInventoryNumber(inventoryNumber);
                 device.setSerialnumber(serialnumber);
                 device.setModel(model);
                 device.setStatus(status);
@@ -196,22 +180,13 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 device.setDeviceCategory(device.getPositionCategory(getApplicationContext())+1);
                 device.setManufacturer(manufacturer);
                 device.setNote(notes);
-                device.setCity(city);
-                device.setStreet(street);
-                device.setName(name);
-                device.setBeaconMinor(beaconMinor);
-                device.setBeaconMajor(beaconMajor);
-                device.setRepairNote(repairNote);
-                device.setPostcode(postcode);
+
+
                 device.setDeviceStatus(device.getPosition(getApplicationContext())+1);
                 SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern),
                         Locale.GERMAN);
                 Date date = null;
-                try{
-                    device.setProjectId(Integer.parseInt(project));
-                } catch (Exception ignored) {
 
-                }
                 try {
                     date = format.parse(repair);
                 } catch (ParseException e) {

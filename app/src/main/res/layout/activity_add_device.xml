@@ -40,33 +40,6 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/layoutInventoryNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textInventoryNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textInventoryNumber"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editInventoryNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000"
-                        android:textColorHint="@color/colorPrimaryDark" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/layoutStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,35 +71,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layoutProject"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textProject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textProject"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editProject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
                     android:id="@+id/layoutManufacturerAdd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -140,7 +84,7 @@
                         android:id="@+id/textManufacturer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/textManufacturer"
+                        android:text="@string/textManufacturerAdd"
                         android:textSize="16sp" />
 
                     <EditText
@@ -154,7 +98,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layoutModelAdd"
+                    android:id="@+id/layoutModel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -166,7 +110,7 @@
                         android:id="@+id/textModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/textModel"
+                        android:text="@string/textModelAdd"
                         android:textSize="16sp" />
 
                     <EditText
@@ -192,7 +136,7 @@
                         android:id="@+id/textCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/textCategory"
+                        android:text="@string/textCategoryAdd"
                         android:textSize="16sp" />
 
                     <Spinner
@@ -278,107 +222,6 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textName"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutStreet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textStreet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textStreet"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editStreet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutPostcode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textPostcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textPostcode"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editPostcode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textCity"
-                        android:textSize="16sp" />
-
-                    <EditText
-                        android:id="@+id/editCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -517,83 +360,6 @@
 
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutRepairNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textRepairNotes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textNotesLastRepair" />
-
-                    <EditText
-                        android:id="@+id/editRepairNotes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutBeaconMinor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textBeaconMinor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textBeaconMinor" />
-
-                    <EditText
-                        android:id="@+id/editBeaconMinor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layoutBeaconMajor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textBeaconMajor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/textBeaconMajor" />
-
-                    <EditText
-                        android:id="@+id/editBeaconMajor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
                 </LinearLayout>
 
                 <LinearLayout
