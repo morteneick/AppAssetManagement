@@ -56,7 +56,12 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
             copyList = JsonHandler.getDeviceList(jsonName, this);
             for(Integer i : positionList){
                 try{
-                    list.add(copyList.get(i));
+                    for(Device device : copyList){
+                        if(i == device.getInventoryNumberInt()){
+                            list.add(device);
+                        }
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -127,7 +127,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/layoutManufacturer"
+                    android:id="@+id/layoutManufacturerAdd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
@@ -154,7 +154,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layoutModel"
+                    android:id="@+id/layoutModelAdd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"

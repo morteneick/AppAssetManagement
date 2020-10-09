@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +28,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * DeviceRecycleActivity
@@ -41,6 +45,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     private DeviceAdapter adapter;
     private RequestQueue mQueue;
     private ArrayList<Device> list = new ArrayList<>();
+    private ArrayList<Device> listSearch = new ArrayList<>();
     private Boolean isFiltered;
     SwipeRefreshLayout swipeRefreshLayout;
 
@@ -105,12 +110,12 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                filter(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                filter(s.toString());
+
             }
         });
 
@@ -137,56 +142,71 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         ArrayList<Device> filteredList = new ArrayList<>();
 
         for (Device item : list) {
-            int i = 0;
-            try{
-                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
+            while(true) {
+                try {
+                    if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored) {
+
                 }
-            } catch (Exception ignored){
 
-            }
+                try {
+                    if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored) {
 
-            try{
-                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
                 }
-            } catch (Exception ignored){
 
-            }
+                try {
+                    if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored) {
 
-            try {
-                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
                 }
-            } catch (Exception ignored){
 
-            }
+                try {
+                    if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored) {
 
-            try {
-                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
                 }
-            } catch (Exception ignored){
 
-            }
+                try {
+                    if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored) {
 
-            try {
-                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
                 }
-            } catch (Exception ignored){
-
-            }
-            try {
-                if(i > 0){
-                    filteredList.add(item);
-                }
-            } catch (Exception ignored){
-
+                break;
             }
         }
+        listSearch = filteredList;
         adapter.filterList(filteredList);
     }
+
+    //    private void filter(String text){
+//        ArrayList<Device> filteredList = new ArrayList<>();
+//        filteredList = filteredList.stream()
+//        .filter(device -> device.getInventoryNumber().toLowerCase().equals(text.toLowerCase())
+//                || device.getStatus().toLowerCase().contains(text.toLowerCase())
+//                || device.getCategory().toLowerCase().contains(text.toLowerCase())
+//                || device.getManufacturer().toLowerCase().contains(text.toLowerCase())
+//                || device.getModel().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
+//
+//
+//        listSearch = filteredList;
+//        adapter.filterList(filteredList);
+//    }
 
     /**
      * initialize RecyclerView with DeviceAdapter
@@ -198,6 +218,9 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
 
         adapter = new DeviceAdapter(list,this);
         this.deviceRecycleView.setAdapter(adapter);
+
+        String show = list.size() + " " +  getString(R.string.numbersDeviceFound);
+        Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
 
     }
 
@@ -224,9 +247,17 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
             }
 
         } else {
-            intent.putExtra(deviceName, list.get(position));
-            JsonHandler.createJsonFromDevice(list.get(position), deviceNameJson, this);
-            setHistoryDeviceList(position);
+            if(listSearch.size() > 0){
+                intent.putExtra(deviceName, listSearch.get(position));
+                JsonHandler.createJsonFromDevice(listSearch.get(position), deviceNameJson,
+                        this);
+                setHistoryDeviceList(Integer.parseInt(listSearch.get(position).getInventoryNumber()));
+            } else {
+                intent.putExtra(deviceName, list.get(position));
+                JsonHandler.createJsonFromDevice(list.get(position), deviceNameJson, this);
+                setHistoryDeviceList(Integer.parseInt(list.get(position).getInventoryNumber()));
+            }
+
         }
 
         intent.putExtra(isOldVersion, false);

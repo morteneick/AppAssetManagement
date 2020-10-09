@@ -111,17 +111,40 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
     private void filter(String text) {
         ArrayList<UserInfo> filteredList = new ArrayList<>();
         for (UserInfo item : list) {
-            if (item.getFirstname().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getSurname().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getRole().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
-            }
-            if (item.getWorkerIdString().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            while(true){
+                try{
+                    if (item.getFirstname().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored){
+
+                }
+                try{
+                    if (item.getSurname().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored){
+
+                }
+                try{
+                    if (item.getRole().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored){
+
+                }
+                try{
+                    if (item.getWorkerIdString().toLowerCase().contains(text.toLowerCase())) {
+                        filteredList.add(item);
+                        break;
+                    }
+                } catch (Exception ignored){
+
+                }
+                break;
             }
         }
         adapter.filterList(filteredList);
@@ -138,7 +161,7 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         adapter = new UserAdapter(list,this);
         this.userRecycleView.setAdapter(adapter);
 
-        String show = list.size() + getString(R.string.numbersUserFound);
+        String show = list.size() + " " +  getString(R.string.numbersUserFound);
         Toast.makeText(getApplicationContext(),show,Toast.LENGTH_SHORT).show();
     }
 

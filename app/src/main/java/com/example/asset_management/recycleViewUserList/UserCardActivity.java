@@ -102,16 +102,16 @@ public class UserCardActivity extends AppCompatActivity {
             CardFragment.unblockInput(editRole);
             CardFragment.unblockInput(editEmail);
             viewSave.setVisibility(View.VISIBLE);
-            checkAddDevice.setClickable(true);
-            checkEditDevice.setClickable(true);
-            checkDeleteDevice.setClickable(true);
-            checkViewDevice.setClickable(true);
-            checkAddUser.setClickable(true);
-            checkEditUser.setClickable(true);
-            checkDeleteUser.setClickable(true);
-            checkEditReservation.setClickable(true);
-            checkDeleteReservation.setClickable(true);
-            checkAddReservation.setClickable(true);
+            checkAddDevice.setClickable(false);
+            checkEditDevice.setClickable(false);
+            checkDeleteDevice.setClickable(false);
+            checkViewDevice.setClickable(false);
+            checkAddUser.setClickable(false);
+            checkEditUser.setClickable(false);
+            checkDeleteUser.setClickable(false);
+            checkEditReservation.setClickable(false);
+            checkDeleteReservation.setClickable(false);
+            checkAddReservation.setClickable(false);
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +152,6 @@ public class UserCardActivity extends AppCompatActivity {
                 SwitchEditable.createSwitch(switchEditable, getApplicationContext());
                 finish();
                 overridePendingTransition(0, 0);
-                Toast.makeText(getApplicationContext(),
-                        getString(R.string.saveMessage),Toast.LENGTH_SHORT).show();
             }
         });
     }

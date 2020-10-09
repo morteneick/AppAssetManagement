@@ -7,18 +7,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.asset_management.R;
 import com.example.asset_management.connection.Connection;
+import com.example.asset_management.login.UserInfo;
+import com.example.asset_management.mainHub.MainHubActivity;
 import com.example.asset_management.recycleViewUserList.UserRecycleActivity;
 
 import java.util.ArrayList;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    UserInfo user = new UserInfo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +48,21 @@ public class SettingsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                user = MainHubActivity.getUser();
                 switch(position){
                     case 0:
-                        Connection connection = new Connection();
-                        connection.getAllUsers(getApplicationContext());
-                        Intent intent = new Intent(SettingsActivity.this,
-                                UserRecycleActivity.class);
-                        startActivity(intent);
+                        if(user.intToBool(user.getAddUser())
+                        ||user.intToBool(user.getDeleteUser())){
+                            Connection connection = new Connection();
+                            connection.getAllUsers(getApplicationContext());
+                            Intent intent = new Intent(SettingsActivity.this,
+                                    UserRecycleActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(),
+                                    getString(R.string.noAccessMessage),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 1:
                         break;

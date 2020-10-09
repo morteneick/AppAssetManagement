@@ -69,6 +69,27 @@ public class MainHubActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+
+
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.discardTitleCloseApp))
+                    .setMessage(getString(R.string.discardTextCloseApp))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SwitchEditable switchEditable = new SwitchEditable(false);
+                            SwitchEditable.createSwitch(switchEditable, getApplicationContext());
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);

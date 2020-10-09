@@ -7,14 +7,12 @@
     android:id="@+id/fragment_reservation">
 
     <ScrollView
-        android:layout_width="312dp"
-        android:layout_height="439dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="60dp"
+        android:layout_width="309dp"
+        android:layout_height="477dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="140dp"
         android:layout_marginBottom="31dp"
         app:layout_constraintBottom_toTopOf="@+id/btnReserveActivity"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

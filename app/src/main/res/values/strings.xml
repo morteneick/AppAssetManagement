@@ -94,6 +94,7 @@
 <!--    MessageTexts-->
     <string name="welcomeTitle">Willkommen</string>
     <string name="discardTitle">Änderungen verwerfen</string>
+    <string name="discardTitleCloseApp">App beenden</string>
     <string name="deleteDeviceTitle">Gerät löschen</string>
     <string name="deleteReservationTitle">Reservierung löschen</string>
     <string name="deleteUserTitle">Benutzer löschen</string>
@@ -107,6 +108,8 @@
     <string name="deleteDeviceText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?
     </string>
     <string name="discardText">Sind Sie sich sicher, dass Sie die Änderungen verwerfen möchten?
+    </string>
+    <string name="discardTextCloseApp">Sind Sie sich sicher, dass Sie die App schließen möchten?
     </string>
     <string name="welcomeText">Um sich mit allen Funktionalitäten der App vertraut zu machen werden
                         Sie zu der Bedienungsanleitung weitergeleitet. Diese können Sie später in
@@ -215,7 +218,9 @@
     <string name="textEnd">Ende</string>
     <string name="textFilter">Filtern</string>
     <string name="textManufacturer">Hersteller</string>
+    <string name="textManufacturerAdd">Hersteller*</string>
     <string name="textModel">Modell</string>
+    <string name="textModelAdd">Modell*</string>
     <string name="textName">Name</string>
     <string name="textStreet">Straße</string>
     <string name="textDevice">Gerät</string>
