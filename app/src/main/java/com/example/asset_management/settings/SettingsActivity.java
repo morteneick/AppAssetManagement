@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
                     case 2:
                         //http://localhost:3000/FAQ
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(getString(R.string.url)));
+                                Uri.parse(getString(R.string.urlHelp)));
                         startActivity(browserIntent);
                         break;
                     default:

@@ -129,6 +129,7 @@
     <string name="noAccessMessage">Sie haben keine Berechtigungen diese Funktion auszuführen.
     </string>
     <string name="conversionErrorMessage">Conversion Error</string>
+    <string name="failureText">Fehler</string>
 
     <!--    NotificationMenu-->
     <string name="notification0">Anstehende TÜV Prüfungen</string>
@@ -170,7 +171,7 @@
 
 <!--    URL-->
     <string name="url">http://www.dallmann-bau.de</string>
-    <string name="urlHelp">http://www.dallmann-bau.de</string>
+    <string name="urlHelp">http://10.0.2.2:3000/App-FAQ</string>
     <string name="baseURL">http://10.0.2.2:3000/</string>
 
     <string name="datePattern">yyyy-MM-dd</string>

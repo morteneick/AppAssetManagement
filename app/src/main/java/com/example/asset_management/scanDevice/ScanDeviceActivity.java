@@ -43,7 +43,7 @@ import java.util.ArrayList;
  * ScanDeviceActivity
  * Version 1.1
  * 31.07.2020
- * AUTHOR: Morten Eickmann & Dominik Dziersan
+ * AUTHOR: Morten Eickmann
  */
 
 public class ScanDeviceActivity extends AppCompatActivity {
@@ -132,7 +132,8 @@ public class ScanDeviceActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(),"Fehler",
+                                Toast.makeText(getApplicationContext(),
+                                        getString(R.string.failureText),
                                         Toast.LENGTH_SHORT).show();
                             }
 
