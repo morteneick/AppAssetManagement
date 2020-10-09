@@ -138,8 +138,8 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
      * @param text Text from the Textfield
      */
         private void filter(String text){
-        ArrayList<Device> filteredList = new ArrayList<>();
-        filteredList = list.stream()
+
+        listSearch = list.stream()
         .filter(device -> device.getInventoryNumber().toLowerCase().contains(text.toLowerCase())
                 || device.getStatus().toLowerCase().contains(text.toLowerCase())
                 || device.getCategory().toLowerCase().contains(text.toLowerCase())
@@ -147,9 +147,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
                 || device.getModel().toLowerCase().contains(text.toLowerCase())).
                         collect(Collectors.toCollection(ArrayList::new));
 
-
-        listSearch = filteredList;
-        adapter.filterList(filteredList);
+        adapter.filterList(listSearch);
     }
 
     /**

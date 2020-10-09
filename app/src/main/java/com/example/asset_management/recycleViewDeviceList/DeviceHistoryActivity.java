@@ -20,6 +20,7 @@ import com.example.asset_management.jsonhandler.JsonHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  * RecycleActivity
@@ -33,6 +34,7 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     private RecyclerView deviceRecycleView;
     private DeviceAdapter adapter;
     private ArrayList<Device> list = new ArrayList<>();
+    private ArrayList<Device> listSearch = new ArrayList<>();
     private ArrayList<Device> copyList = new ArrayList<>();
     private ArrayList<Integer> positionList = new ArrayList<>();
     private String jsonName = "DeviceList.json";
@@ -101,60 +103,17 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
      * textfield
      * @param text Text from the Textfield
      */
-    private void filter(String text) {
-        ArrayList<Device> filteredList = new ArrayList<>();
+    private void filter(String text){
 
-        for (Device item : list) {
-            int i = 0;
-            try{
-                if (item.getInventoryNumber().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
+        listSearch = list.stream()
+                .filter(device -> device.getInventoryNumber().toLowerCase().contains(text.toLowerCase())
+                        || device.getStatus().toLowerCase().contains(text.toLowerCase())
+                        || device.getCategory().toLowerCase().contains(text.toLowerCase())
+                        || device.getManufacturer().toLowerCase().contains(text.toLowerCase())
+                        || device.getModel().toLowerCase().contains(text.toLowerCase())).
+                        collect(Collectors.toCollection(ArrayList::new));
 
-            }
-
-            try{
-                if (item.getStatus().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
-
-            }
-
-            try {
-                if (item.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
-
-            }
-
-            try {
-                if (item.getManufacturer().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
-
-            }
-
-            try {
-                if (item.getModel().toLowerCase().contains(text.toLowerCase())) {
-                    i++;
-                }
-            } catch (Exception ignored){
-
-            }
-
-            try {
-                if(i > 0){
-                    filteredList.add(item);
-                }
-            } catch (Exception ignored){
-
-            }
-        }
-        adapter.filterList(filteredList);
+        adapter.filterList(listSearch);
     }
 
 
@@ -177,6 +136,12 @@ public class DeviceHistoryActivity extends AppCompatActivity implements DeviceAd
     @Override
     public void onNoteClick(int position) throws IOException {
         Intent intent = new Intent(DeviceHistoryActivity.this, DeviceCardActivity.class);
+
+        if(listSearch.size() > 0){
+            intent.putExtra(getString(R.string.deviceName), listSearch.get(position));
+        } else {
+            intent.putExtra(getString(R.string.deviceName), list.get(position));
+        }
         intent.putExtra(getString(R.string.deviceName), list.get(position));
         intent.putExtra(getString(R.string.isOldVersion), false);
         startActivity(intent);

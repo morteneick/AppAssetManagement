@@ -23,10 +23,12 @@ import com.example.asset_management.deviceCard.SwitchEditable;
 import com.example.asset_management.jsonhandler.JsonHandler;
 import com.example.asset_management.login.UserInfo;
 import com.example.asset_management.mainHub.MainHubActivity;
+import com.example.asset_management.recycleViewDeviceList.Device;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.stream.Collectors;
 
 /**
  * RecycleActivity
@@ -41,6 +43,7 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
     private UserAdapter adapter;
     private RequestQueue mQueue;
     private ArrayList<UserInfo> list = new ArrayList<>();
+    private ArrayList<UserInfo> listSearch = new ArrayList<>();
     SwipeRefreshLayout swipeRefreshLayout;
     /**
      *  Executes code after open Activity.
@@ -102,13 +105,29 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
         });
     }
 
+
     /**
      * Checks each object in the list for each variable to see if it matches the input from the
      * textfield
      * @param text Text from the Textfield
      */
-//TODO Add improtant filters
-    private void filter(String text) {
+    private void filter(String text){
+
+        listSearch = list.stream()
+                .filter(userInfo -> userInfo.getWorkerIdString().toLowerCase().contains(text.toLowerCase())
+                        || userInfo.getFirstname().toLowerCase().contains(text.toLowerCase())
+                        || userInfo.getSurname().toLowerCase().contains(text.toLowerCase())
+                        || userInfo.getRole().toLowerCase().contains(text.toLowerCase())).
+                        collect(Collectors.toCollection(ArrayList::new));
+
+        adapter.filterList(listSearch);
+    }
+
+    /**
+     * deprecated filter
+     * @param text
+     */
+    private void filterOld(String text) {
         ArrayList<UserInfo> filteredList = new ArrayList<>();
         for (UserInfo item : list) {
             while(true){
@@ -171,9 +190,15 @@ public class UserRecycleActivity extends AppCompatActivity implements UserAdapte
      */
     @Override
     public void onNoteClick(int position){
-
         Intent intent = new Intent(UserRecycleActivity.this, UserCardActivity.class);
-        UserInfo user = list.get(position);
+        UserInfo user;
+
+        if(listSearch.size() > 0){
+            user = listSearch.get(position);
+        } else {
+            user = list.get(position);
+        }
+
         intent.putExtra(getString(R.string.user), user);
         startActivity(intent);
 
