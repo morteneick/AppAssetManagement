@@ -134,11 +134,29 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
     }
 
     /**
-     * Checks each object in the list for each variable to see if it matches the input from the
-     * textfield
+     * Lambda stream to filter each object in the list after each input
      * @param text Text from the Textfield
      */
-    private void filter(String text) {
+        private void filter(String text){
+        ArrayList<Device> filteredList = new ArrayList<>();
+        filteredList = list.stream()
+        .filter(device -> device.getInventoryNumber().toLowerCase().contains(text.toLowerCase())
+                || device.getStatus().toLowerCase().contains(text.toLowerCase())
+                || device.getCategory().toLowerCase().contains(text.toLowerCase())
+                || device.getManufacturer().toLowerCase().contains(text.toLowerCase())
+                || device.getModel().toLowerCase().contains(text.toLowerCase())).
+                        collect(Collectors.toCollection(ArrayList::new));
+
+
+        listSearch = filteredList;
+        adapter.filterList(filteredList);
+    }
+
+    /**
+     * deprecated filter
+     * @param text from the Textfield
+     */
+        private void filterOld(String text) {
         ArrayList<Device> filteredList = new ArrayList<>();
 
         for (Device item : list) {
@@ -194,19 +212,6 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         adapter.filterList(filteredList);
     }
 
-    //    private void filter(String text){
-//        ArrayList<Device> filteredList = new ArrayList<>();
-//        filteredList = filteredList.stream()
-//        .filter(device -> device.getInventoryNumber().toLowerCase().equals(text.toLowerCase())
-//                || device.getStatus().toLowerCase().contains(text.toLowerCase())
-//                || device.getCategory().toLowerCase().contains(text.toLowerCase())
-//                || device.getManufacturer().toLowerCase().contains(text.toLowerCase())
-//                || device.getModel().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toCollection(ArrayList::new));
-//
-//
-//        listSearch = filteredList;
-//        adapter.filterList(filteredList);
-//    }
 
     /**
      * initialize RecyclerView with DeviceAdapter
