@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="25dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +140,7 @@
                         android:id="@+id/textManufacturer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hersteller*"
+                        android:text="@string/textManufacturer"
                         android:textSize="16sp" />
 
                     <EditText
@@ -166,7 +166,7 @@
                         android:id="@+id/textModel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Modell*"
+                        android:text="@string/textModel"
                         android:textSize="16sp" />
 
                     <EditText
@@ -195,14 +195,17 @@
                         android:text="@string/textCategory"
                         android:textSize="16sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/editCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:gravity="start|top"
-                        android:inputType="textMultiLine|textNoSuggestions"
-                        android:textColor="#000000" />
+                        android:inputType="textMultiLine"
+                        android:popupElevation="18dp"
+                        android:textColor="#000000"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textSize="30sp" />
                 </LinearLayout>
 
 
@@ -316,7 +319,7 @@
                         android:id="@+id/textStreet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Straße"
+                        android:text="@string/textStreet"
                         android:textSize="16sp" />
 
                     <EditText
@@ -648,7 +651,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:text="@string/btnSaveText"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"

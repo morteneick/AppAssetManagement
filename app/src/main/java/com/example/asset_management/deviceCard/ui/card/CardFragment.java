@@ -300,7 +300,7 @@ public class CardFragment extends Fragment implements
 
                 String category;
                 if(editCategory.getSelectedItem().toString().equals("")){
-                    status = getString(R.string.deviceCategory8);
+                    category = getString(R.string.deviceCategory8);
                 } else {
                     category = editStatus.getSelectedItem().toString();
                 }

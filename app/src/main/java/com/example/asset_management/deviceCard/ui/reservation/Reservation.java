@@ -20,14 +20,16 @@ public class Reservation {
     int projectId;
     String buildingSite;
     String inventoryNumber;
+    int workerId;
 
     Calendar start;
     Calendar end;
 
-    public Reservation(String inventoryNumber, Calendar start, Calendar end) {
+    public Reservation(String inventoryNumber, Calendar start, Calendar end, int workerId) {
         this.inventoryNumber = inventoryNumber;
         this.start = start;
         this.end = end;
+        this.workerId = workerId;
     }
 
     public Reservation(Date loanDay, Date loanEnd, String name, String surname, int projectId,
@@ -41,6 +43,14 @@ public class Reservation {
         this.inventoryNumber = inventoryNumber;
         this.start = start;
         this.end = end;
+    }
+
+    public int getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
     }
 
     public Reservation(){

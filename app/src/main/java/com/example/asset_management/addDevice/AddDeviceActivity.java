@@ -63,15 +63,21 @@ public class AddDeviceActivity extends AppCompatActivity implements
 
         final EditText editInventoryNumber = findViewById(R.id.editInventoryNumber);
         final Spinner editStatus = findViewById(R.id.editStatus);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        final Spinner editCategory = findViewById(R.id.editCategory);
+        ArrayAdapter<CharSequence> adapterStatus = ArrayAdapter.createFromResource(this,
                 R.array.status, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        editStatus.setAdapter(adapter);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        editStatus.setAdapter(adapterStatus);
+
+        ArrayAdapter<CharSequence> adapterCategory = ArrayAdapter.createFromResource(this,
+                R.array.category, android.R.layout.simple_spinner_item);
+        adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        editCategory.setAdapter(adapterCategory);
+
 
         final EditText editManufacturer = findViewById(R.id.editManufacturer);
         final EditText editModel = findViewById(R.id.editModel);
         final EditText editSerialnumber = findViewById(R.id.editSerialnumber);
-        final EditText editCategory = findViewById(R.id.editCategory);
         final EditText editName = findViewById(R.id.editName);
         final EditText editCity = findViewById(R.id.editCity);
         final EditText editPostcode = findViewById(R.id.editPostcode);
@@ -158,7 +164,14 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 } else {
                     status = editStatus.getSelectedItem().toString();
                 }
-                String category = editCategory.getText().toString();
+
+                String category;
+                if(editCategory.getSelectedItem().toString().equals("")){
+                    category = getString(R.string.deviceCategory8);
+                } else {
+                    category = editStatus.getSelectedItem().toString();
+                }
+
                 String name = editName.getText().toString();
                 String street = editStreet.getText().toString();
                 String city = editCity.getText().toString();
@@ -180,6 +193,7 @@ public class AddDeviceActivity extends AppCompatActivity implements
                 device.setModel(model);
                 device.setStatus(status);
                 device.setCategory(category);
+                device.setDeviceCategory(device.getPositionCategory(getApplicationContext())+1);
                 device.setManufacturer(manufacturer);
                 device.setNote(notes);
                 device.setCity(city);

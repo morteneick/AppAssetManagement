@@ -82,6 +82,7 @@ public class ReservationActivity extends AppCompatActivity implements
 
                 }
 
+
                 if(projectIdInt == 0){
                     finish();
                     overridePendingTransition(0, 0);
@@ -137,8 +138,7 @@ public class ReservationActivity extends AppCompatActivity implements
         }
 
         user = MainHubActivity.getUser();
-        reservation.setSurname(user.getSurname());
-        reservation.setName(user.getFirstname());
+        reservation.setWorkerId(user.getWorkerId());
         reservation.setInventoryNumber(inventoryNumber);
         SimpleDateFormat format = new SimpleDateFormat(getString(R.string.datePattern));
         Date date = new Date();
