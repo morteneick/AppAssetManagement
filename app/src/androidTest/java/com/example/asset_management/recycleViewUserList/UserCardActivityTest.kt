@@ -60,6 +60,7 @@ class UserCardActivityTest{
 
         onData(anything()).inAdapterView(withId(R.id.listOptions)).atPosition(0)
                 .perform(click());
+
         Espresso.onView(ViewMatchers.withId(R.id.users)).perform(RecyclerViewActions
                 .actionOnItemAtPosition<DeviceAdapter.ViewHolder>(0, ViewActions.click()))
 

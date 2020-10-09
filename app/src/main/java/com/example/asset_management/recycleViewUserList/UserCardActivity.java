@@ -119,7 +119,7 @@ public class UserCardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 UserInfo user = new UserInfo();
                 try{
-                    user.setWorkerId(editWorkerId.toString());
+                    user.setWorkerId(editWorkerId.getText().toString());
                 } catch (Exception e) {
                     user.setWorkerId(user.getWorkerId());
                 }

@@ -36,8 +36,6 @@ class CardFragmentTestAndroid {
                 ViewActions.typeText("easy"));
         Espresso.onView(ViewMatchers.withText("Einloggen")).perform(ViewActions.click());
         Thread.sleep(1500);
-        Espresso.onView(ViewMatchers.withId(R.id.mainhub)).check(ViewAssertions
-                .matches(ViewMatchers.isDisplayed()))
 
         Espresso.onView(ViewMatchers.withId(R.id.btnInventory)).perform(ViewActions.click())
 
