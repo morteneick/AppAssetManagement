@@ -133,7 +133,7 @@ public class DeviceRecycleActivity extends AppCompatActivity implements DeviceAd
         });
     }
 
-    /**
+    /***
      * Lambda stream to filter each object in the list after each input
      * @param text Text from the Textfield
      */

@@ -37,7 +37,7 @@ import static com.example.asset_management.deviceCard.ui.card.CardFragment.setVi
 /**
  * AddDeviceActivity
  * <p>
- *     Version 1.0
+ *     Version 1.5
  * </p>
  * 11.05.2020
  * AUTHOR: Dominik Dziersan

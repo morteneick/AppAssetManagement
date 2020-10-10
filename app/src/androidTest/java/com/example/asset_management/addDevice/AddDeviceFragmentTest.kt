@@ -34,16 +34,6 @@ class AddDeviceFragmentTest{
                 typeText("4"));
         onView(withId(R.id.editCategory)).perform(scrollTo(), clearText(),
                 typeText("5"));
-        onView(withId(R.id.editName)).perform(scrollTo(), clearText(),
-                typeText("6"));
-        onView(withId(R.id.editStreet)).perform(scrollTo(), clearText(),
-                typeText("7"));
-        onView(withId(R.id.editPostcode)).perform(scrollTo(), clearText(),
-                typeText("8"))
-        onView(withId(R.id.editCity)).perform(scrollTo(), clearText(),
-                typeText("9"));
-        onView(withId(R.id.editRepairNotes)).perform(scrollTo(), clearText(),
-                typeText("10"));
         onView(withId(R.id.editNotes)).perform(scrollTo(), clearText(),
                 typeText("11"));
 
@@ -51,7 +41,6 @@ class AddDeviceFragmentTest{
         onView(withText("Verfügbar")).perform(click())
 
     }
-
 
     @Test
     fun testInsertIntoEditTextAndSave() {
@@ -67,16 +56,6 @@ class AddDeviceFragmentTest{
                 typeText("4"));
         onView(withId(R.id.editCategory)).perform(scrollTo(), clearText(),
                 typeText("5"));
-        onView(withId(R.id.editName)).perform(scrollTo(), clearText(),
-                typeText("6"));
-        onView(withId(R.id.editStreet)).perform(scrollTo(), clearText(),
-                typeText("7"));
-        onView(withId(R.id.editPostcode)).perform(scrollTo(), clearText(),
-                typeText("8"))
-        onView(withId(R.id.editCity)).perform(scrollTo(), clearText(),
-                typeText("9"));
-        onView(withId(R.id.editRepairNotes)).perform(scrollTo(), clearText(),
-                typeText("10"));
         onView(withId(R.id.editNotes)).perform(scrollTo(), clearText(),
                 typeText("11"));
 
